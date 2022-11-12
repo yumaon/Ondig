@@ -15,6 +15,9 @@
 - 自分の音楽活動の情報を発信する時。
 - 自分の知らない音楽アーティストを見つけたい時。
 
+## 実装機能リスト
+https://docs.google.com/spreadsheets/d/14_oH0J4JTG9exNqohmmHTVQzUNxpaWPRG-0qOI8bdng/edit?usp=sharing
+
 ## 設計書
 <...>
 
