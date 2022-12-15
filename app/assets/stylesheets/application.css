@@ -13,3 +13,12 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #4b3b64 0%, #02000C 100%);
+}
+
+.navbar-brand  {
+  font-family: 'Comfortaa';
+}
