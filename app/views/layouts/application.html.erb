@@ -5,12 +5,46 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <header>
+      <nav class="navbar navbar-expand-lg bg-dark">
+        <div class="container">
+          <a class="navbar-brand mb-0 h1" href="/">Ondig</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav mr-auto">
+            <% if artist_user_signed_in? %>
+            <li class="nav-item">
+              <%= link_to "Log out", destroy_artist_user_session_path, method: :delete, class: 'nav-link' %>
+            </li>
+            <% elsif public_user_signed_in? %>
+            <li class="nav-item">
+              <%= link_to "Log out", destroy_public_user_session_path, method: :delete, class: 'nav-link' %>
+            </li>
+            <% else %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle btn btn-outline-success" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Log in
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <%= link_to "一般会員 Log in", new_public_user_session_path, class: 'dropdown-item' %>
+                <%= link_to "アーティスト会員 Log in", new_artist_user_session_path, class: 'dropdown-item' %>
+              </div>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+      </nav>
+    </header>
     <%= yield %>
   </body>
 </html>
