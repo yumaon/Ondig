@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 2022_12_11_131111) do
     t.string "last_name", null: false
     t.string "first_name", null: false
     t.string "last_name_kana", null: false
-    t.string "last_first_kana", null: false
+    t.string "first_name_kana", null: false
     t.string "nickname", null: false
     t.text "introduction"
     t.boolean "is_deleted", default: false, null: false
