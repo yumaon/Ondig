@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="text-white"><%= @artist_user.artist_name %> さんの情報編集</h2>
+    </div>
+  </div>
+  <div class="row">
+  <%= form_with model: @artist_user, url: artist_artist_users_information_path do |f| %>
+
+    <div class="field">
+      <%= f.label :profile_image, class: "text-white" %><br>
+      <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*"  %>
+    </div>
+
+    <div class="field">
+      <%= f.label :artist_name, class: "text-white" %><br>
+      <%= f.text_field :artist_name, autofocus: true %>
+    </div>
+
+    <div class="field">
+      <%= f.label :rep_name, class: "text-white" %><br>
+      <%= f.text_field :rep_name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :rep_name_kana, class: "text-white" %><br>
+      <%= f.text_field :rep_name_kana %>
+    </div>
+
+    <div class="field">
+      <%= f.label :activity_location, class: "text-white" %><br>
+      <%= f.select :activity_location, ArtistUser.activity_locations_i18n.invert, {prompt: '選択してください'}, class: 'form-control' %>
+    </div>
+
+    <div class="field">
+      <%= f.label :email, class: "text-white" %><br />
+      <%= f.email_field :email, autocomplete: "email" %>
+    </div>
+
+    <div class="field">
+      <%= f.submit "変更を保存" %>
+    </div>
+  <% end %>
+  </div>
+</div>

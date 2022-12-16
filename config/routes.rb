@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
 
+  # アーティスト会員用
+  namespace :artist do
+    get 'artist_users/my_page' => 'artist_users#show'
+    get 'artist_users/information/edit' => 'artist_users#edit'
+    patch 'artist_users/information' => 'artist_users#update'
+    get 'artist_users/unsubscribe'
+  end
+
   # 一般会員用
   scope module: :public do
     root to: 'homes#top'
