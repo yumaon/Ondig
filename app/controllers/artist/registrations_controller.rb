@@ -42,7 +42,7 @@ class Artist::RegistrationsController < Devise::RegistrationsController
   protected
   # sign up時に入力されたデータの保存を許可するための記述
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:artist_name, :rep_name, :rep_name_kana, :activity_location])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:artist_name, :rep_name, :rep_name_kana, :activity_location, :genre_id])
   end
 
   # If you have extra params to permit, append them to the sanitizer.

@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     get 'artist_users/information/edit' => 'artist_users#edit'
     patch 'artist_users/information' => 'artist_users#update'
     get 'artist_users/unsubscribe'
+
+    resources :genres, only:[:index, :create]
   end
 
   # 一般会員用

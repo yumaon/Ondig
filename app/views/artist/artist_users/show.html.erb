@@ -8,7 +8,8 @@
         <%= @artist_user.artist_name %>
       </div>
       <div class="row">
-        <p>ジャンル</p>
+        <p class="text-white"><%= @artist_user.genre.name %></p>
+        <%= link_to "ジャンルを変更する", artist_genres_path %>
       </div>
       <div class="row">
         <%= link_to "登録情報編集", artist_artist_users_information_edit_path %>

@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h3>ジャンル登録</h3>
+    </div>
+  </div>
+  <%= form_with model: @genre, url: artist_genres_path, method: :post do |f| %>
+  <div class="row">
+    <div class="col-md-12 col-form-label">
+      <%= f.label :name, "ジャンル名" %>
+      <%= f.text_field :name, class: "ml-5" %>
+      <%= f.submit '新規登録', class: "ml-5 btn btn-success btn-sm px-3" %>
+    </div>
+    </div>
+  </div>
+  <% end %>
+
+   <%= form_with model: @artist_user, url: artist_artist_users_information_path do |f| %>
+     <div class="form-group row">
+       <div class="col-md-3 col-form-label">
+         <%= f.label :genre_id, "ジャンル" %>
+       </div>
+       <div class="col-md-9 col-form-label">
+         <%= f.collection_select :genre_id, Genre.all, :id, :name, include_blank: '--選択してください--' %>
+       </div>
+     </div>
+     <%= f.submit "ジャンル登録" %>
+  <% end %>
+<!--  <div class="row">-->
+<!--    % @genres.each do |genre| %>-->
+<!--    <div class="col-md-12 text-center text-white">-->
+<!--      %=  genre.name %>-->
+<!--    </div>-->
+<!--   % end %>-->
+<!--  </div>-->
+<!--</div>-->
