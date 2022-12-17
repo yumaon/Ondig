@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <% @artist_users.each do |artist| %>
+    <div class="col-md-3 m-3 mini-profile-box">
+      <div class="row">
+        <div class="col-md-12 mini-profile-box-header">
+        </div>
+        <div class="col-md-12 text-center">
+          <div class=""><%= image_tag artist.profile_image, class: "mini-profile-box-image rounded-circle"; %></div>
+        </div>
+        <div class="col-md-12 text-center">
+          <span class="text-white"><%= artist.artist_name %></span>
+        </div>
+        <div class="col-md-12 text-center">
+          <span class="text-white">Genre: <%= artist.genre.name %></span>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  # namespace :artist do
+  #   get 'artists/index'
+  #   get 'artists/show'
+  #   get 'artists/edit'
+  # end
   # アーティスト会員用
   namespace :artist do
     get 'artist_users/my_page' => 'artist_users#show'
@@ -8,6 +13,14 @@ Rails.application.routes.draw do
     get 'artist_users/unsubscribe'
 
     resources :genres, only:[:index, :create]
+  end
+  scope module: :artist do
+    resources :artists, only:[:index,] do
+      member do
+        get 'profile', action: :show
+        get 'profile/edit', action: :edit
+      end
+    end
   end
 
   # 一般会員用

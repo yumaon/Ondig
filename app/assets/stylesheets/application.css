@@ -22,3 +22,27 @@ body {
 .navbar-brand  {
   font-family: 'Comfortaa';
 }
+
+.mini-profile-box {
+  width: 280px;
+  height: 400px;
+  background: rgba(217, 217, 217, 0.2);
+  border-radius: 10px;
+}
+
+.mini-profile-box-header {
+  width: 280px;
+  height: 115px;
+  background: #cec1c1;
+  border-radius: 10px;
+  position: relative;
+}
+
+.mini-profile-box-image {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  bottom: 35px;
+  box-shadow: 10px 10px 15px -10px;
+}
