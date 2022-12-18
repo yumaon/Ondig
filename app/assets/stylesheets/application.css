@@ -19,8 +19,17 @@ body {
   background: linear-gradient(180deg, #4b3b64 0%, #02000C 100%);
 }
 
+.navbar {
+  z-index: 2;
+}
+
 .navbar-brand  {
   font-family: 'Comfortaa';
+}
+
+.main-visual {
+  position: relative;
+  bottom: 56px;
 }
 
 /*.profile-box {*/
