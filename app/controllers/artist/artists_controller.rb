@@ -4,6 +4,7 @@ class Artist::ArtistsController < ApplicationController
   end
 
   def show
+    @artist_user = ArtistUser.find(params[:id])
   end
 
   def edit

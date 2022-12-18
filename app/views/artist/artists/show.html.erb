@@ -1,2 +1,26 @@
-<h1>Artist::Artists#show</h1>
-<p>Find me in app/views/artist/artists/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 profile-box">
+      <div class="row">
+        <div class="col-md-12 profile-box-header">
+        </div>
+        <div class="col-md-12 text-center">
+          <div class=""><%= image_tag @artist_user.profile_image, class: "profile-box-image rounded-circle"; %></div>
+        </div>
+        <div class="col-md-12 artist-detail-box">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <h1 class="text-white"><%= @artist_user.artist_name %></h1>
+            </div>
+            <div class="col-md-12 text-center">
+              <span class="text-white">Genre: <%= @artist_user.genre.name %></span>
+            </div>
+            <div class="col-md-12 text-center mt-3">
+              <%= link_to "+ Follow", '/', class: "btn btn-follow btn-success btn-lg" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
