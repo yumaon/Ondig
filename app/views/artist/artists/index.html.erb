@@ -6,7 +6,7 @@
         <div class="col-md-12 mini-profile-box-header">
         </div>
         <div class="col-md-12 text-center">
-          <div class=""><%= image_tag artist.profile_image, class: "mini-profile-box-image rounded-circle"; %></div>
+          <div class=""><%= image_tag artist.get_profile_image, class: "mini-profile-box-image rounded-circle"; %></div>
         </div>
         <div class="col-md-12 text-center">
           <%= link_to profile_artist_path(artist.id) , class: "text-white" do %>

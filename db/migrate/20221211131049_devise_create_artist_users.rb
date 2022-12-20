@@ -38,6 +38,7 @@ class DeviseCreateArtistUsers < ActiveRecord::Migration[6.1]
       t.string :artist_name, null: false
       t.text :introduction
       t.integer :activity_location, null: false
+      t.string :youtube_url
       t.boolean :is_deleted, null: false, default: false
 
 

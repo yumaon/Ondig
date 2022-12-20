@@ -1,2 +1,20 @@
-<h1>Artist::Artists#edit</h1>
-<p>Find me in app/views/artist/artists/edit.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Profileの設定</h3>
+    </div>
+  </div>
+  <%= form_with model: @artist_user, url: profile_update_artist_path do |f| %>
+  <div class="row">
+    <div class="col-md-12 col-form-label">
+      <%= f.label :header_image, "ヘッダー画像" %>
+      <%= f.file_field :header_image, class: "ml-5" %>
+    </div>
+    <div class="col-md-12 col-form-label">
+      <%= f.label :youtube_url, "YoutubeのURL" %>
+      <%= f.text_field :youtube_url %>
+    </div>
+    <%= f.submit '設定を完了する', class: "ml-5 btn btn-success btn-follow btn-lg px-3" %>
+  </div>
+  <% end %>
+</div>

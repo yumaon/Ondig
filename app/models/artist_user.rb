@@ -7,13 +7,22 @@ class ArtistUser < ApplicationRecord
   belongs_to :genre
 
   has_one_attached :profile_image
+  has_one_attached :header_image
 
-  def get_profile_image(width, height)
+  def get_profile_image
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/profile_no_image.png')
       profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
-    profile_image.variant(resize_to_limit: [width, height]).processed
+    profile_image
+  end
+
+  def get_header_image
+    unless header_image.attached?
+      file_path = Rails.root.join('app/assets/images/profile_no_header_image.jpg')
+      header_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+    end
+    header_image
   end
 
   enum activity_location: {

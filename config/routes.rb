@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       member do
         get 'profile', action: :show
         get 'profile/edit', action: :edit
+        patch 'profile', action: :update, as: 'profile_update'
       end
     end
   end
