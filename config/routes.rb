@@ -8,11 +8,15 @@ Rails.application.routes.draw do
       patch 'information' => 'artist_users#update'
       get 'unsubscribe' => 'artist_users#unsubscribe'
     end
+
+    resources :genres, only:[:index, :create]
+
     resources :artist_users, except:[:new, :show, :index, :edit, :update, :create, :destroy] do
       resources :live_schedules, only:[:new, :create, :index, :edit, :update, :destroy]
+      resources :items, only:[:new, :create, :index, :edit, :update, :destroy]
     end
-    resources :genres, only:[:index, :create]
   end
+
   scope module: :artist do
     resources :artists, only:[:index,] do
       member do
