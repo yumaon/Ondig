@@ -5,6 +5,7 @@ class ArtistUser < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   belongs_to :genre
+  has_many :live_schedules, dependent: :destroy
 
   has_one_attached :profile_image
   has_one_attached :header_image

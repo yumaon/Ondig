@@ -1,0 +1,2 @@
+module Artist::LiveSchedulesHelper
+end

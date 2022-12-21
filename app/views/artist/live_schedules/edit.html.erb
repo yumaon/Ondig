@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 text-white">
+      <h3>Live Schedule 編集</h3>
+    </div>
+  </div>
+  <%= form_with model: @live_schedule, url: artist_artist_user_live_schedule_path(current_artist_user.id) do |f| %>
+  <div class="row text-white">
+    <div class="col-md-12 col-form-label">
+      <%= f.label :name, "イベント名" %>
+      <%= f.text_field :name, class: "ml-5" %>
+    </div>
+    <div class="col-md-12 col-form-label">
+      <%= f.label :location, "開催場所" %>
+      <%= f.text_field :location %>
+    </div>
+    <div class="col-md-12 col-form-label">
+      <%= f.label :schedule_date, "開催日時" %>
+      <%= f.datetime_field :schedule_date %>
+    </div>
+    <div class="col-md-12 col-form-label">
+      <%= f.label :price, "チケット価格" %>
+      <%= f.text_field :price %>
+    </div>
+
+    <%= f.submit '編集内容を保存', class: "ml-5 btn btn-success btn-follow btn-lg px-3" %>
+  </div>
+  <% end %>
+</div>

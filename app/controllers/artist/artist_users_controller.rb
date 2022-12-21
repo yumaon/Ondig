@@ -10,7 +10,7 @@ class Artist::ArtistUsersController < ApplicationController
   def update
     @artist_user = current_artist_user
     @artist_user.update(artist_user_params)
-    redirect_to artist_artist_users_my_page_path
+    redirect_to artist_my_page_path
   end
 
   def unsubscribe

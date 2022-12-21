@@ -1,17 +1,16 @@
 Rails.application.routes.draw do
 
-  # namespace :artist do
-  #   get 'artists/index'
-  #   get 'artists/show'
-  #   get 'artists/edit'
-  # end
   # アーティスト会員用
   namespace :artist do
-    get 'artist_users/my_page' => 'artist_users#show'
-    get 'artist_users/information/edit' => 'artist_users#edit'
-    patch 'artist_users/information' => 'artist_users#update'
-    get 'artist_users/unsubscribe'
-
+    scope :artist_users do
+      get 'my_page' => 'artist_users#show'
+      get 'information/edit' => 'artist_users#edit'
+      patch 'information' => 'artist_users#update'
+      get 'unsubscribe' => 'artist_users#unsubscribe'
+    end
+    resources :artist_users, except:[:new, :show, :index, :edit, :update, :create, :destroy] do
+      resources :live_schedules, only:[:new, :create, :index, :edit, :update, :destroy]
+    end
     resources :genres, only:[:index, :create]
   end
   scope module: :artist do
