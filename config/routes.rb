@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  # namespace :artist do
+  #   get 'topics/new'
+  #   get 'topics/index'
+  #   get 'topics/show'
+  #   get 'topics/edit'
+  # end
   # アーティスト会員用
   namespace :artist do
     scope :artist_users do
@@ -10,6 +16,7 @@ Rails.application.routes.draw do
     end
 
     resources :genres, only:[:index, :create]
+    resources :topics
 
     resources :artist_users, except:[:new, :show, :index, :edit, :update, :create, :destroy] do
       resources :live_schedules, only:[:new, :create, :index, :edit, :update, :destroy]

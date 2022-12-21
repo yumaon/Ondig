@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 text-white">
+      <h3>Topic 投稿フォーム</h3>
+    </div>
+  </div>
+  <%= form_with model: @topic, url: artist_topics_path(current_artist_user.id) do |f| %>
+  <div class="row text-white">
+    <div class="col-md-12 col-form-label">
+      <%= f.label :body, "本文" %>
+      <%= f.text_area :body, class: "ml-5" %>
+    </div>
+    <div class="col-md-12 col-form-label">
+      <%= f.label :topic_image, "画像" %>
+      <%= f.file_field :location %>
+    </div>
+    <div class="col-md-12 col-form-label">
+      <%= f.label :youtube_url, "youtubeリンク" %>
+      <%= f.text_field :youtube_url %>
+    </div>
+    <%= f.submit '投稿する', class: "ml-5 btn btn-success btn-follow btn-lg px-3" %>
+  </div>
+  <% end %>
+</div>
