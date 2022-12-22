@@ -51,6 +51,7 @@ body {
   height: 100%;
   background-size: cover;
   border-radius: 10px;
+  object-fit: cover;
 }
 
 .profile-box-image {
@@ -60,6 +61,7 @@ body {
   border-radius: 50%;
   bottom: 140px;
   box-shadow: 10px 10px 15px -10px;
+  object-fit: cover;
 }
 
 .artist-detail-box {
@@ -118,6 +120,7 @@ body {
   border-radius: 50%;
   bottom: 35px;
   box-shadow: 10px 10px 15px -10px;
+  object-fit: cover;
 }
 
 /*followボタンCSS*/
@@ -149,6 +152,7 @@ body {
   height: 90px;
   border-radius: 50%;
   bottom: 35px;
+  object-fit: cover;
 }
 
 /*Topic詳細ページ用CSS*/
@@ -164,6 +168,7 @@ body {
   height: 110px;
   border-radius: 50%;
   bottom: 35px;
+  object-fit: cover;
 }
 
 .topic-youtube-box {
