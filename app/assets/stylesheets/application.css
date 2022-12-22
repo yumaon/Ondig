@@ -136,15 +136,51 @@ body {
   color: #FFFFFF;
 }
 
+/*Topic一覧ページ用CSS*/
+
+.mini-topic-box {
+  width: 100%;
+  background: rgba(217, 217, 217, 0.2);
+  border-radius: 10px;
+}
+
+.mini-topic-profile-image {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  bottom: 35px;
+}
+
+/*Topic詳細ページ用CSS*/
+
 .topic-box {
   width: 100%;
   background: rgba(217, 217, 217, 0.2);
   border-radius: 10px;
 }
 
-.mini-profile-image {
-  width: 70px;
-  height: 70px;
+.topic-profile-image {
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
   bottom: 35px;
+}
+
+.topic-youtube-box {
+  padding-top: 56.25%;
+  width: 100%;
+  position: relative;
+  text-align: center;
+}
+
+.topic-youtube-box iframe {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.topic-image {
+  width: 80%;
 }

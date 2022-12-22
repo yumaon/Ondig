@@ -1,2 +1,24 @@
-<h1>Artist::Topics#edit</h1>
-<p>Find me in app/views/artist/topics/edit.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 text-white">
+      <h3>Topic 編集フォーム</h3>
+    </div>
+  </div>
+  <%= form_with model: @topic, url: artist_topic_path(@topic) do |f| %>
+  <div class="row text-white">
+    <div class="col-md-12 col-form-label">
+      <%= f.label :body, "本文" %>
+      <%= f.text_area :body, class: "ml-5" %>
+    </div>
+    <div class="col-md-12 col-form-label">
+      <%= f.label :topic_image, "画像" %>
+      <%= f.file_field :topic_image %>
+    </div>
+    <div class="col-md-12 col-form-label">
+      <%= f.label :youtube_url, "youtubeリンク" %>
+      <%= f.text_field :youtube_url %>
+    </div>
+    <%= f.submit '編集内容を保存', class: "ml-5 btn btn-success btn-follow btn-lg px-3" %>
+  </div>
+  <% end %>
+</div>

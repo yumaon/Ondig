@@ -1,11 +1,5 @@
 Rails.application.routes.draw do
 
-  # namespace :artist do
-  #   get 'topics/new'
-  #   get 'topics/index'
-  #   get 'topics/show'
-  #   get 'topics/edit'
-  # end
   # アーティスト会員用
   namespace :artist do
     scope :artist_users do
