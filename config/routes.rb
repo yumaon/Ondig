@@ -33,6 +33,15 @@ Rails.application.routes.draw do
     root to: 'homes#top'
     get 'about' => 'homes#about'
   end
+  
+  namespace :public do
+    scope :public_users do
+      get 'my_page' => 'public_users#show'
+      get 'information/edit' => 'public_users#edit'
+      patch 'information' => 'public_users#update'
+      get 'unsubscribe' => 'public_users#unsubscribe'
+    end
+  end
 
   # 管理者用
   devise_for :admin,skip: [:registrations, :passwords], controllers: {

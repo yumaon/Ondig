@@ -184,3 +184,12 @@ body {
 .topic-image {
   width: 80%;
 }
+
+/*My page用CSS*/
+.my-page-box-image {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  bottom: 35px;
+  box-shadow: 10px 10px 15px -10px;
+}

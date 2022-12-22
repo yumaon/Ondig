@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="text-white"><%= @public_user.name_display %> さんの情報編集</h2>
+    </div>
+  </div>
+  <div class="row">
+  <%= form_with model: @public_user, url: public_information_path do |f| %>
+
+    <div class="field">
+      <%= f.label :profile_image, class: "text-white" %><br>
+      <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*"  %>
+    </div>
+
+    <div class="field">
+      <%= f.label :last_name, class: "text-white" %><br>
+      <%= f.text_field :last_name, autofocus: true %>
+    </div>
+
+    <div class="field">
+      <%= f.label :last_name_kana, class: "text-white" %><br>
+      <%= f.text_field :last_name_kana %>
+    </div>
+
+    <div class="field">
+      <%= f.label :first_name, class: "text-white" %><br>
+      <%= f.text_field :first_name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :first_name_kana, class: "text-white" %><br>
+      <%= f.text_field :first_name_kana %>
+    </div>
+
+    <div class="field">
+      <%= f.label :nickname, class: "text-white" %><br>
+      <%= f.text_field :nickname %>
+    </div>
+
+    <div class="field">
+      <%= f.label :introduction, class: "text-white" %><br>
+      <%= f.text_field :introduction %>
+    </div>
+
+    <div class="field">
+      <%= f.label :email, class: "text-white" %><br />
+      <%= f.email_field :email, autocomplete: "email" %>
+    </div>
+
+    <div class="field">
+      <%= f.submit "変更を保存" %>
+    </div>
+  <% end %>
+  </div>
+</div>
