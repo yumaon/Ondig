@@ -33,8 +33,10 @@ Rails.application.routes.draw do
     root to: 'homes#top'
     get 'about' => 'homes#about'
   end
-  
+
   namespace :public do
+    resources :topics, only:[:index, :show]
+
     scope :public_users do
       get 'my_page' => 'public_users#show'
       get 'information/edit' => 'public_users#edit'

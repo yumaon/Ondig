@@ -40,6 +40,9 @@
               </li>
               <% elsif public_user_signed_in? %>
               <li class="nav-item">
+                <%= link_to "Topics", public_topics_path, class: 'nav-link text-light' %>
+              </li>
+              <li class="nav-item">
                 <%= link_to "My page", public_my_page_path, class: 'nav-link text-light' %>
               </li>
               <li class="nav-item">
