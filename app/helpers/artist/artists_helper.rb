@@ -1,2 +1,0 @@
-module Artist::ArtistsHelper
-end

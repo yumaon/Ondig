@@ -13,7 +13,7 @@
 
         <!--Topicに紐づく会員のprofileページに遷移するリンクをartist_nameで表示-->
           <div class="d-flex align-items-center ml-5">
-            <%= link_to profile_artist_path(@topic.artist_user_id) do %>
+            <%= link_to profile_artist_artist_user_path(@topic.artist_user_id) do %>
             <h3 class="text-white"><%= @topic.artist_user.artist_name %></h3>
             <% end %>
           </div>

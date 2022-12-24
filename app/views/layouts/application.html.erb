@@ -27,13 +27,13 @@
             <ul class="navbar-nav mr-auto">
               <% if artist_user_signed_in? %>
               <li class="nav-item">
-                <%= link_to "Artists", artists_path, class: 'nav-link text-light' %>
+                <%= link_to "Artists", artist_artist_users_path, class: 'nav-link text-light' %>
               </li>
               <li class="nav-item">
                 <%= link_to "Topics", artist_topics_path, class: 'nav-link text-light' %>
               </li>
               <li class="nav-item">
-                <%= link_to "My page", artist_my_page_path, class: 'nav-link text-light' %>
+                <%= link_to "My page", my_page_artist_artist_users_path, class: 'nav-link text-light' %>
               </li>
               <li class="nav-item">
                 <%= link_to "Log out", destroy_artist_user_session_path, method: :delete, class: 'nav-link text-light' %>

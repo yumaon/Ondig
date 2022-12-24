@@ -1,4 +1,8 @@
 class Artist::ArtistUsersController < ApplicationController
+  def index
+    @artist_users = ArtistUser.all
+  end
+
   def show
     @artist_user = current_artist_user
   end
@@ -10,7 +14,7 @@ class Artist::ArtistUsersController < ApplicationController
   def update
     @artist_user = current_artist_user
     @artist_user.update(artist_user_params)
-    redirect_to artist_my_page_path
+    redirect_to my_page_artist_artist_users_path
   end
 
   def unsubscribe

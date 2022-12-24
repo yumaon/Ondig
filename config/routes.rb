@@ -2,30 +2,25 @@ Rails.application.routes.draw do
 
   # アーティスト会員用
   namespace :artist do
-    scope :artist_users do
-      get 'my_page' => 'artist_users#show'
-      get 'information/edit' => 'artist_users#edit'
-      patch 'information' => 'artist_users#update'
-      get 'unsubscribe' => 'artist_users#unsubscribe'
+    resources :artist_users, only:[:index] do
+      collection do
+        get 'my_page' => 'artist_users#show'
+        get 'information/edit' => 'artist_users#edit'
+        patch 'information' => 'artist_users#update'
+        get 'unsubscribe' => 'artist_users#unsubscribe'
+      end
+
+      member do
+        get 'profile' => 'profiles#show'
+        get 'profile/edit' => 'profiles#edit'
+        patch 'profile' => 'profiles#update', as: 'profile_update'
+      end
+      resources :live_schedules, only:[:new, :create, :index, :edit, :update, :destroy]
+      resources :items, only:[:new, :create, :index, :edit, :update, :destroy]
     end
 
     resources :genres, only:[:index, :create]
     resources :topics
-
-    resources :artist_users, except:[:new, :show, :index, :edit, :update, :create, :destroy] do
-      resources :live_schedules, only:[:new, :create, :index, :edit, :update, :destroy]
-      resources :items, only:[:new, :create, :index, :edit, :update, :destroy]
-    end
-  end
-
-  scope module: :artist do
-    resources :artists, only:[:index,] do
-      member do
-        get 'profile', action: :show
-        get 'profile/edit', action: :edit
-        patch 'profile', action: :update, as: 'profile_update'
-      end
-    end
   end
 
   # 一般会員用

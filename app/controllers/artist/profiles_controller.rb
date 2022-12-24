@@ -1,8 +1,4 @@
-class Artist::ArtistsController < ApplicationController
-  def index
-    @artist_users = ArtistUser.all
-  end
-
+class Artist::ProfilesController < ApplicationController
   def show
     @artist_user = ArtistUser.find(params[:id])
   end
@@ -14,7 +10,7 @@ class Artist::ArtistsController < ApplicationController
   def update
     @artist_user = ArtistUser.find(params[:id])
     @artist_user.update(profile_params)
-    redirect_to profile_artist_path(@artist_user)
+    redirect_to profile_artist_artist_user_path(@artist_user)
   end
 
   private

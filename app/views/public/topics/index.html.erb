@@ -13,7 +13,7 @@
       <% @topics.each do |topic| %>
         <div class="mini-topic-box">
           <div class="d-flex mt-3 p-3">
-            <%= link_to profile_artist_path(topic.artist_user_id) do %>
+            <%= link_to profile_artist_artist_user_path(topic.artist_user_id) do %>
               <div class="ml-2">
                 <%= image_tag topic.artist_user.profile_image, class: "mini-topic-profile-image" %><br>
                 <p class="text-center text-white mt-2"><%= topic.artist_user.artist_name %></p>
