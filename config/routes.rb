@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  # namespace :public do
+  #   get 'profiles/show'
+  # end
+  # namespace :public do
+  #   get 'artist_users/index'
+  # end
   # アーティスト会員用
   namespace :artist do
     resources :artist_users, only:[:index] do
@@ -30,6 +36,11 @@ Rails.application.routes.draw do
   end
 
   namespace :public do
+    resources :artist_users, only:[:index] do
+      member do
+        get 'profile' => 'profiles#show'
+      end
+    end
     resources :topics, only:[:index, :show]
 
     scope :public_users do

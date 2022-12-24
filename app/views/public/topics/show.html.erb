@@ -13,8 +13,14 @@
 
         <!--Topicに紐づく会員のprofileページに遷移するリンクをartist_nameで表示-->
           <div class="d-flex align-items-center ml-5">
-            <%= link_to profile_artist_path(@topic.artist_user_id) do %>
-            <h3 class="text-white"><%= @topic.artist_user.artist_name %></h3>
+            <% if artist_user_signed_in? %>
+              <%= link_to profile_artist_artist_user_path(@topic.artist_user_id) do %>
+              <h3 class="text-white"><%= @topic.artist_user.artist_name %></h3>
+              <% end %>
+            <% elsif public_user_signed_in? %>
+              <%= link_to profile_public_artist_user_path(@topic.artist_user_id) do %>
+              <h3 class="text-white"><%= @topic.artist_user.artist_name %></h3>
+              <% end %>
             <% end %>
           </div>
       </div>
@@ -42,13 +48,11 @@
     </div>
 
     <!--投稿したArtist会員のidと、ログインしているArtist会員のidが一致している場合に”編集”、”削除”ボタンを表示-->
-    <% if artist_user_signed_in? %>
-      <% if @topic.artist_user_id == current_artist_user.id %>
+      <% if artist_user_signed_in? && @topic.artist_user_id == current_artist_user.id %>
         <div class="flex-fill text-right mr-4 pb-2">
           <%= link_to "編集", edit_artist_topic_path(@topic), class: "btn btn-follow btn-success mr-3" %>
           <%= link_to "削除", artist_topic_path(@topic), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-follow btn-success" %>
         </div>
       <% end %>
-    <% end %>
   </div>
 </div>

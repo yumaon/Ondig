@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 profile-box">
+      <div class="row">
+        <div class="col-md-12 profile-box-header">
+          <%= image_tag @artist_user.get_header_image, class: "profile_box_header_image" %>
+        </div>
+        <div class="col-md-12 text-center">
+          <div class=""><%= image_tag @artist_user.get_profile_image, class: "profile-box-image rounded-circle"; %></div>
+        </div>
+        <div class="col-md-12 artist-detail-box">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <h1 class="text-white"><%= @artist_user.artist_name %></h1>
+            </div>
+            <div class="col-md-12 text-center">
+              <span class="text-white">Genre: <%= @artist_user.genre.name %></span>
+            </div>
+            <div class="col-md-12 text-center mt-3">
+              <%= link_to "+ Follow", '/', class: "btn btn-follow btn-success btn-lg" %>
+              <% if artist_user_signed_in? && current_artist_user.id == @artist_user.id %>
+                <%= link_to "Profile設定", profile_edit_artist_artist_user_path(@artist_user) %>
+              <% end %>
+            </div>
+            <%= link_to "Live Schedule", artist_artist_user_live_schedules_path(@artist_user) %>
+            <%= link_to "Items", artist_artist_user_items_path(@artist_user) %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% if @artist_user.youtube_url.present? %>
+  <div class="row">
+    <div class="profile-youtube-box">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @artist_user.youtube_url.last(11) %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+  <% end %>
+</div>
