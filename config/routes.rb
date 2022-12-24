@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
   # namespace :public do
+  #   get 'items/index'
+  # end
+  # namespace :public do
   #   get 'profiles/show'
   # end
   # namespace :public do
@@ -40,6 +43,7 @@ Rails.application.routes.draw do
       member do
         get 'profile' => 'profiles#show'
       end
+      resources :items, only:[:index]
     end
     resources :topics, only:[:index, :show]
 
