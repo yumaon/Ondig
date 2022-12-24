@@ -26,7 +26,7 @@
               <%= link_to "Live Schedule", artist_artist_user_live_schedules_path(@artist_user) %>
               <%= link_to "Items", artist_artist_user_items_path(@artist_user) %>
             <% elsif public_user_signed_in? %>
-
+              <%= link_to "Live Schedule", public_artist_user_live_schedules_path(@artist_user) %>
               <%= link_to "Items", public_artist_user_items_path(@artist_user) %>
             <% end %>
           </div>
