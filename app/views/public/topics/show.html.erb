@@ -55,4 +55,21 @@
         </div>
       <% end %>
   </div>
+
+  <div class="row topic-comment-box">
+    <div class="col-md-12">
+      <p>コメント件数:<%= @topic.topic_comments.count %></p>
+      <% @topic.topic_comments.each do |topic_comment| %>
+        <%= image_tag topic_comment.public_user.get_profile_image %>
+        <%= topic_comment.public_user.nickname %>
+        <%= topic_comment.created_at.strftime('%Y/%m/%d') %><%= topic_comment.comment %>
+      <% end %>
+    </div>
+    <div class="col-md-12">
+      <%= form_with model: @topic_comment, url: public_topic_topic_comments_path(@topic), method: :post do |f| %>
+        <%= f.text_area :comment, placeholder: "コメントをここに" %>
+        <%= f.submit "送信する" %>
+      <% end %>
+    </div>
+  </div>
 </div>

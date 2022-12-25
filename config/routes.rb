@@ -1,17 +1,5 @@
 Rails.application.routes.draw do
 
-  # namespace :public do
-  #   get 'live_schedules/index'
-  # end
-  # namespace :public do
-  #   get 'items/index'
-  # end
-  # namespace :public do
-  #   get 'profiles/show'
-  # end
-  # namespace :public do
-  #   get 'artist_users/index'
-  # end
   # アーティスト会員用
   namespace :artist do
     resources :artist_users, only:[:index] do
@@ -49,7 +37,9 @@ Rails.application.routes.draw do
       resources :live_schedules, only:[:index]
       resources :items, only:[:index]
     end
-    resources :topics, only:[:index, :show]
+    resources :topics, only:[:index, :show] do
+      resources :topic_comments, only:[:create]
+    end
 
     scope :public_users do
       get 'my_page' => 'public_users#show'

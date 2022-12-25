@@ -4,6 +4,8 @@ class PublicUser < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :topic_comments, dependent: :destroy
+
   has_one_attached :profile_image
 
   def get_profile_image
@@ -13,7 +15,7 @@ class PublicUser < ApplicationRecord
     end
     profile_image
   end
-  
+
   def name_display
     last_name + first_name
   end
