@@ -5,70 +5,102 @@
     </div>
   </div>
 
-  <div class="row topic-box pt-4">
-    <div class="col-md-12">
-      <div class="d-flex">
-        <!--Artist会員のprofile画像を表示-->
-        <%= image_tag @topic.artist_user.profile_image, class: "topic-profile-image ml-2" %>
+  <div class="row">
+    <div class="topic-box">
+      <div class="col-md-12">
+        <div class="d-flex pt-4">
+          <!--Artist会員のprofile画像を表示-->
+          <%= image_tag @topic.artist_user.profile_image, class: "topic-profile-image ml-2" %>
 
-        <!--Topicに紐づく会員のprofileページに遷移するリンクをartist_nameで表示-->
-          <div class="d-flex align-items-center ml-5">
-            <% if artist_user_signed_in? %>
-              <%= link_to profile_artist_artist_user_path(@topic.artist_user_id) do %>
-              <h3 class="text-white"><%= @topic.artist_user.artist_name %></h3>
+          <!--Topicに紐づく会員のprofileページに遷移するリンクをartist_nameで表示-->
+            <div class="d-flex align-items-center ml-5">
+              <% if artist_user_signed_in? %>
+                <%= link_to profile_artist_artist_user_path(@topic.artist_user_id) do %>
+                <h3 class="text-white"><%= @topic.artist_user.artist_name %></h3>
+                <% end %>
+              <% elsif public_user_signed_in? %>
+                <%= link_to profile_public_artist_user_path(@topic.artist_user_id) do %>
+                <h3 class="text-white"><%= @topic.artist_user.artist_name %></h3>
+                <% end %>
               <% end %>
-            <% elsif public_user_signed_in? %>
-              <%= link_to profile_public_artist_user_path(@topic.artist_user_id) do %>
-              <h3 class="text-white"><%= @topic.artist_user.artist_name %></h3>
-              <% end %>
-            <% end %>
-          </div>
-      </div>
-    </div>
-
-    <!--Topic投稿データにyoutubeリンクが登録されていた場合にiframeを表示-->
-    <% if @topic.youtube_url.present? %>
-      <div class="col-md-12 mt-3">
-        <div class="topic-youtube-box">
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @topic.youtube_url.last(11) %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
         </div>
       </div>
-    <% end %>
 
-    <!--Topic投稿データに画像が登録されていた場合に画像データを表示-->
-    <% if @topic.topic_image.present? %>
+      <!--Topic投稿データにyoutubeリンクが登録されていた場合にiframeを表示-->
+      <% if @topic.youtube_url.present? %>
+        <div class="col-md-12 mt-3">
+          <div class="topic-youtube-box">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @topic.youtube_url.last(11) %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+      <% end %>
+
+      <!--Topic投稿データに画像が登録されていた場合に画像データを表示-->
+      <% if @topic.topic_image.present? %>
+        <div class="col-md-12 text-center mt-3">
+          <%= image_tag @topic.topic_image, class: "topic-image" %>
+        </div>
+      <% end %>
+
+      <!--Topicの本文-->
       <div class="col-md-12 text-center mt-3">
-        <%= image_tag @topic.topic_image, class: "topic-image" %>
+        <%= simple_format @topic.body, class: "text-white" %>
       </div>
-    <% end %>
 
-    <!--Topicの本文-->
-    <div class="col-md-12 text-center mt-3">
-      <%= simple_format @topic.body, class: "text-white" %>
-    </div>
+      <!--投稿日-->
+      <div class="col-md-10 mx-auto pl-5 border-bottom mb-3">
+        <p class="text-white"><%= @topic.created_at.strftime('%Y/%m/%d') %></p>
+      </div>
 
-    <!--投稿したArtist会員のidと、ログインしているArtist会員のidが一致している場合に”編集”、”削除”ボタンを表示-->
+      <!--投稿したArtist会員のidと、ログインしているArtist会員のidが一致している場合に”編集”、”削除”ボタンを表示-->
       <% if artist_user_signed_in? && @topic.artist_user_id == current_artist_user.id %>
         <div class="flex-fill text-right mr-4 pb-2">
           <%= link_to "編集", edit_artist_topic_path(@topic), class: "btn btn-follow btn-success mr-3" %>
           <%= link_to "削除", artist_topic_path(@topic), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-follow btn-success" %>
         </div>
       <% end %>
+    </div>
   </div>
 
-  <div class="row topic-comment-box">
-    <div class="col-md-12">
-      <p>コメント件数:<%= @topic.topic_comments.count %></p>
+  <div class="row mt-5">
+    <div class="col-md-12 text-white">
+      <h5>Comments (<%= @topic.topic_comments.count %>)</h5>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 topic-comment-box pb-3">
       <% @topic.topic_comments.each do |topic_comment| %>
-        <%= image_tag topic_comment.public_user.get_profile_image %>
-        <%= topic_comment.public_user.nickname %>
-        <%= topic_comment.created_at.strftime('%Y/%m/%d') %><%= topic_comment.comment %>
+        <div class="text-white border-bottom">
+          <div class="d-flex pt-3 pl-3 pr-3">
+            <div class="ml-2">
+              <%= image_tag topic_comment.public_user.get_profile_image, class: "comment-profile-image" %>
+              <p><%= topic_comment.public_user.nickname %></p>
+            </div>
+            <div class="ml-5 flex-fill">
+              <p><%= topic_comment.public_user.nickname %></p>
+              <p><%= simple_format topic_comment.comment %></p>
+              <p class="text-right"><%= topic_comment.created_at.strftime('%Y/%m/%d') %></p>
+            </div>
+          </div>
+          <!--<div class="flex-fill text-right mr-4 pb-2">-->
+          <!--  <%= topic_comment.created_at.strftime('%Y/%m/%d') %>-->
+          <!--</div>-->
+        </div>
       <% end %>
     </div>
-    <div class="col-md-12">
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 comment-form-box mt-3 p-3">
       <%= form_with model: @topic_comment, url: public_topic_topic_comments_path(@topic), method: :post do |f| %>
-        <%= f.text_area :comment, placeholder: "コメントをここに" %>
-        <%= f.submit "送信する" %>
+      <div class="text-center">
+        <%= f.text_area :comment, placeholder: "コメントをここに", class: "col-md-7" %>
+      </div>
+      <div class="text-center">
+        <%= f.submit "送信する", class: "btn btn-success btn-follow" %>
+      </div>
       <% end %>
     </div>
   </div>
