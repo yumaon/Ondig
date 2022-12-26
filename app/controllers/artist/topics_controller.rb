@@ -15,6 +15,7 @@ class Artist::TopicsController < ApplicationController
 
   def show
     @topic = Topic.find(params[:id])
+    @topic_comment = TopicComment.new
   end
 
   def edit

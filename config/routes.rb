@@ -20,7 +20,9 @@ Rails.application.routes.draw do
     end
 
     resources :genres, only:[:index, :create]
-    resources :topics
+    resources :topics do
+      resources :topic_comments, only:[:create, :destroy]
+    end
   end
 
   # 一般会員用

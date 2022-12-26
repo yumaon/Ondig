@@ -69,40 +69,82 @@
     </div>
   </div>
 
+  <!--コメントの表示-->
   <div class="row">
     <div class="col-md-12 topic-comment-box pb-3">
       <% @topic.topic_comments.each do |topic_comment| %>
         <div class="text-white border-bottom">
           <div class="d-flex pt-3 pl-3 pr-3">
-            <div class="ml-2">
-              <%= image_tag topic_comment.public_user.get_profile_image, class: "comment-profile-image" %>
-              <p><%= topic_comment.public_user.nickname %></p>
-            </div>
-            <div class="ml-5 flex-fill">
-              <p><%= topic_comment.public_user.nickname %></p>
-              <p><%= simple_format topic_comment.comment %></p>
-              <p class="text-right"><%= topic_comment.created_at.strftime('%Y/%m/%d') %></p>
-              <% if topic_comment.public_user == current_public_user %>
-                <div class="text-right">
-                  <%= link_to "削除", public_topic_topic_comment_path(topic_comment.topic, topic_comment), method: :delete, class: "btn btn-danger btn-red" %>
-                </div>
-              <% end %>
-            </div>
+            <!--topic_commentに紐づいているidが一般会員の場合のコメント表示(public_user)-->
+            <% if topic_comment.public_user_id.present? %>
+              <div class="ml-2">
+                <%= image_tag topic_comment.public_user.get_profile_image, class: "comment-profile-image" %>
+                <p><%= topic_comment.public_user.nickname %></p>
+              </div>
+              <div class="ml-5 flex-fill">
+                <p><%= simple_format topic_comment.comment %></p>
+                <p class="text-right"><%= topic_comment.created_at.strftime('%Y/%m/%d') %></p>
+                <% if topic_comment.public_user == current_public_user %>
+                  <div class="text-right">
+                    <%= link_to "削除", public_topic_topic_comment_path(topic_comment.topic, topic_comment), method: :delete, class: "btn btn-danger btn-red" %>
+                  </div>
+                <% end %>
+              </div>
+
+            <!--topic_commentに紐づいているidがアーティスト会員の場合のコメント表示(artist_user)-->
+            <% elsif topic_comment.artist_user_id.present? %>
+              <div class="ml-2">
+                <%= image_tag topic_comment.artist_user.get_profile_image, class: "comment-profile-image" %>
+                <% if artist_user_signed_in? %>
+                  <%= link_to profile_artist_artist_user_path do %>
+                    <p class="text-white"><%= topic_comment.artist_user.artist_name %></p>
+                  <% end %>
+                <% elsif public_user_signed_in? %>
+                  <%= link_to profile_public_artist_user_path do %>
+                    <p class="text-white"><%= topic_comment.artist_user.artist_name %></p>
+                  <% end %>
+                <% end %>
+              </div>
+              <div class="ml-5 flex-fill">
+                <p><%= simple_format topic_comment.comment %></p>
+                <p class="text-right"><%= topic_comment.created_at.strftime('%Y/%m/%d') %></p>
+                <% if topic_comment.artist_user == current_artist_user %>
+                  <div class="text-right">
+                    <%= link_to "削除", artist_topic_topic_comment_path(topic_comment.topic, topic_comment), method: :delete, class: "btn btn-danger btn-red" %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
           </div>
         </div>
       <% end %>
     </div>
   </div>
 
+  <!--コメント投稿フォーム-->
   <div class="row">
     <div class="col-md-12 comment-form-box mt-3 p-3">
-      <%= form_with model: @topic_comment, url: public_topic_topic_comments_path(@topic), method: :post do |f| %>
-      <div class="text-center">
-        <%= f.text_area :comment, placeholder: "コメントをここに", class: "col-md-7" %>
-      </div>
-      <div class="text-center">
-        <%= f.submit "送信する", class: "btn btn-success btn-follow" %>
-      </div>
+      <!--ログインしているのが一般会員の場合(public_user)-->
+      <% if public_user_signed_in? %>
+        <%= form_with model: @topic_comment, url: public_topic_topic_comments_path(@topic), method: :post do |f| %>
+        <div class="text-center">
+          <%= f.text_area :comment, placeholder: "コメントをここに", class: "col-md-7" %>
+        </div>
+        <div class="text-center">
+          <%= f.submit "送信する", class: "btn btn-success btn-follow" %>
+        </div>
+        <% end %>
+
+      <!--ログインしているのがアーティスト会員の場合(artist_user)-->
+      <% elsif artist_user_signed_in? %>
+        <%= form_with model: @topic_comment, url: artist_topic_topic_comments_path(@topic), method: :post do |f| %>
+        <div class="text-center">
+          <%= f.text_area :comment, placeholder: "コメントをここに", class: "col-md-7" %>
+        </div>
+        <div class="text-center">
+          <%= f.submit "送信する", class: "btn btn-success btn-follow" %>
+        </div>
+        <% end %>
       <% end %>
     </div>
   </div>
