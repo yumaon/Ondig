@@ -38,7 +38,7 @@ Rails.application.routes.draw do
       resources :items, only:[:index]
     end
     resources :topics, only:[:index, :show] do
-      resources :topic_comments, only:[:create]
+      resources :topic_comments, only:[:create, :destroy]
     end
 
     scope :public_users do

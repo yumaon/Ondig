@@ -82,11 +82,13 @@
               <p><%= topic_comment.public_user.nickname %></p>
               <p><%= simple_format topic_comment.comment %></p>
               <p class="text-right"><%= topic_comment.created_at.strftime('%Y/%m/%d') %></p>
+              <% if topic_comment.public_user == current_public_user %>
+                <div class="text-right">
+                  <%= link_to "削除", public_topic_topic_comment_path(topic_comment.topic, topic_comment), method: :delete, class: "btn btn-danger btn-red" %>
+                </div>
+              <% end %>
             </div>
           </div>
-          <!--<div class="flex-fill text-right mr-4 pb-2">-->
-          <!--  <%= topic_comment.created_at.strftime('%Y/%m/%d') %>-->
-          <!--</div>-->
         </div>
       <% end %>
     </div>
