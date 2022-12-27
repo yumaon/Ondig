@@ -1,55 +1,6 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="profile-box-header">
-      <%= image_tag @artist_user.get_header_image, class: "profile_box_header_image" %>
-    </div>
-    <div class="col-lg-3 text-center artist-detail-box">
-      <div><%= image_tag @artist_user.get_profile_image, class: "profile-box-image rounded-circle"; %></div>
-      <div class="mt-3">
-        <div class="col-lg-12">
-          <h1 class="text-white"><%= @artist_user.artist_name %></h1>
-        </div>
-        <div class="col-lg-12 mt-3">
-          <span class="text-white">From: <%= @artist_user.activity_location_i18n %></span>
-        </div>
-        <div class="col-lg-12">
-          <span class="text-white">Genre: <%= @artist_user.genre.name %></span>
-        </div>
-        <div class="col-lg-12 mt-3">
-          <span class="text-white"><%= simple_format @artist_user.introduction %></span>
-        </div>
-        <div class="col-lg-12 mt-3">
-          <%= link_to "+ Follow", '/', class: "btn btn-follow btn-success btn-lg" %>
-        </div>
-        <div class="col-lg-12 mt-3">
-          <% if artist_user_signed_in? && current_artist_user.id == @artist_user.id %>
-            <%= link_to "Profile設定", profile_edit_artist_artist_user_path(@artist_user) %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-9 p-5">
-      <div class="row">
-        <div class="col-lg-12">
-          <ul class="nav justify-content-center border-bottom">
-            <% if artist_user_signed_in? %>
-              <li class="nav-item">
-                <%= link_to "Live Schedule", artist_artist_user_live_schedules_path(@artist_user), class: "nav-link text-white h5" %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "Items", artist_artist_user_items_path(@artist_user), class: "nav-link text-white h5" %>
-              </li>
-            <% elsif public_user_signed_in? %>
-              <li class="nav-item">
-                <%= link_to "Live Schedule", public_artist_user_live_schedules_path(@artist_user), class: "nav-link text-white h5" %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "Items", public_artist_user_items_path(@artist_user), class: "nav-link text-white h5" %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
+    <%= render 'profile', artist_user: @artist_user %>
       <div class="row">
         <div class="col-lg-12 p-5">
           <% if @artist_user.youtube_url.present? %>

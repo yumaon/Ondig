@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-12 text-white">
+    <h3>live Schedule</h3>
+  </div>
+  <% if artist_user_signed_in? && artist_user.id == current_artist_user.id %>
+  <div class="col-md-12 text-white">
+    <%= link_to "Scheduleを追加する", new_artist_artist_user_live_schedule_path(artist_user) %>
+  </div>
+  <% end %>
+  <div class="col-md-12">
+    <table class="table border-bottom">
+      <thead>
+        <tr class="table-light">
+          <th>日付</th>
+          <th>イベント名</th>
+          <th>場所</th>
+          <th>Open時間</th>
+          <th>チケット価格</th>
+          <% if artist_user_signed_in? && artist_user.id == current_artist_user.id %>
+          <th></th>
+          <th></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody class="text-white">
+        <% live_schedules.each do |live_schedule| %>
+          <tr>
+            <td>
+              <%= live_schedule.schedule_date.strftime( "%Y年%m月%d日" ) %>
+            </td>
+            <td>
+              <%= live_schedule.name %>
+            </td>
+            <td>
+              <%= live_schedule.location %>
+            </td>
+            <td>
+              <%=  live_schedule.schedule_date.strftime( "%H:%M" ) %>
+            </td>
+            <td>
+              ¥<%= live_schedule.price.to_s(:delimited) %>
+            </td>
+            <% if artist_user_signed_in? && artist_user.id == current_artist_user.id %>
+            <td>
+              <%= link_to "編集", edit_artist_artist_user_live_schedule_path(artist_user, live_schedule) %>
+            </td>
+            <td>
+              <%= link_to "削除", artist_artist_user_live_schedule_path(artist_user, live_schedule), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+            </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
