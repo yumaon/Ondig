@@ -1,0 +1,2 @@
+module Artist::FavoritesHelper
+end

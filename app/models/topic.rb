@@ -9,4 +9,8 @@ class Topic < ApplicationRecord
     favorites.exists?(public_user_id: public_user.id)
   end
 
+  def artist_user_favorited_by?(artist_user)
+    favorites.exists?(artist_user_id: artist_user.id)
+  end
+
 end

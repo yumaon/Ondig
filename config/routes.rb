@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     resources :genres, only:[:index, :create]
     resources :topics do
       resources :topic_comments, only:[:create, :destroy]
+      resource :favorites, only:[:create, :destroy]
     end
   end
 

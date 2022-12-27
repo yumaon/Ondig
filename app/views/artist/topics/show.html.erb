@@ -51,6 +51,35 @@
       <!--投稿日-->
       <div class="col-md-10 mx-auto pl-5 border-bottom mb-3">
         <p class="text-white"><%= @topic.created_at.strftime('%Y/%m/%d') %></p>
+        <% if public_user_signed_in? %>
+          <% if @topic.public_user_favorited_by?(current_public_user) %>
+            <p>
+              <%= link_to public_topic_favorites_path(@topic), method: :delete do %>
+                ♥<%= @topic.favorites.count %> いいね
+              <% end %>
+            </p>
+          <% else %>
+            <p>
+              <%= link_to public_topic_favorites_path(@topic), method: :post do %>
+                ♡<%= @topic.favorites.count %> いいね
+              <% end %>
+            </p>
+          <% end %>
+        <% elsif artist_user_signed_in? %>
+          <% if @topic.artist_user_favorited_by?(current_artist_user) %>
+            <p>
+              <%= link_to artist_topic_favorites_path(@topic), method: :delete do %>
+                ♥<%= @topic.favorites.count %> いいね
+              <% end %>
+            </p>
+          <% else %>
+            <p>
+              <%= link_to artist_topic_favorites_path(@topic), method: :post do %>
+                ♡<%= @topic.favorites.count %> いいね
+              <% end %>
+            </p>
+          <% end %>
+        <% end %>
       </div>
 
       <!--投稿したArtist会員のidと、ログインしているArtist会員のidが一致している場合に”編集”、”削除”ボタンを表示-->
@@ -96,7 +125,7 @@
               <div class="ml-2">
                 <%= image_tag topic_comment.artist_user.get_profile_image, class: "comment-profile-image" %>
                 <% if artist_user_signed_in? %>
-                  <%= link_to profile_artist_artist_user_path(topic_comment.artist_user_id) do %>
+                  <%= link_to profile_artist_artist_user_path do %>
                     <p class="text-white"><%= topic_comment.artist_user.artist_name %></p>
                   <% end %>
                 <% elsif public_user_signed_in? %>
