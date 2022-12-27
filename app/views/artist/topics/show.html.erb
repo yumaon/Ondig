@@ -96,7 +96,7 @@
               <div class="ml-2">
                 <%= image_tag topic_comment.artist_user.get_profile_image, class: "comment-profile-image" %>
                 <% if artist_user_signed_in? %>
-                  <%= link_to profile_artist_artist_user_path do %>
+                  <%= link_to profile_artist_artist_user_path(topic_comment.artist_user_id) do %>
                     <p class="text-white"><%= topic_comment.artist_user.artist_name %></p>
                   <% end %>
                 <% elsif public_user_signed_in? %>

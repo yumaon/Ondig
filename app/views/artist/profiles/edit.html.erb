@@ -11,6 +11,10 @@
       <%= f.file_field :header_image, class: "ml-5" %>
     </div>
     <div class="col-md-12 col-form-label">
+      <%= f.label :introduction, "自己紹介文" %>
+      <%= f.text_area :introduction, class: "ml-5" %>
+    </div>
+    <div class="col-md-12 col-form-label">
       <%= f.label :youtube_url, "YoutubeのURL" %>
       <%= f.text_field :youtube_url %>
     </div>

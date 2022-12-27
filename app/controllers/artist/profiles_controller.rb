@@ -16,6 +16,6 @@ class Artist::ProfilesController < ApplicationController
   private
 
   def profile_params
-    params.require(:artist_user).permit(:header_image, :youtube_url)
+    params.require(:artist_user).permit(:header_image, :youtube_url, :introduction)
   end
 end
