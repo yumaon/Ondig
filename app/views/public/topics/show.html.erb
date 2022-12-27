@@ -51,6 +51,19 @@
       <!--投稿日-->
       <div class="col-md-10 mx-auto pl-5 border-bottom mb-3">
         <p class="text-white"><%= @topic.created_at.strftime('%Y/%m/%d') %></p>
+        <% if @topic.public_user_favorited_by?(current_public_user) %>
+          <p>
+            <%= link_to public_topic_favorites_path(@topic), method: :delete do %>
+              ♥<%= @topic.favorites.count %> いいね
+            <% end %>
+          </p>
+        <% else %>
+          <p>
+            <%= link_to public_topic_favorites_path(@topic), method: :post do %>
+              ♡<%= @topic.favorites.count %> いいね
+            <% end %>
+          </p>
+        <% end %>
       </div>
 
       <!--投稿したArtist会員のidと、ログインしているArtist会員のidが一致している場合に”編集”、”削除”ボタンを表示-->

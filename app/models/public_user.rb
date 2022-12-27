@@ -5,6 +5,7 @@ class PublicUser < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :topic_comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 
   has_one_attached :profile_image
 

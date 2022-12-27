@@ -9,6 +9,7 @@ class ArtistUser < ApplicationRecord
   has_many :items, dependent: :destroy
   has_many :topics, dependent: :destroy
   has_many :topic_comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 
   has_one_attached :profile_image
   has_one_attached :header_image

@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     end
     resources :topics, only:[:index, :show] do
       resources :topic_comments, only:[:create, :destroy]
+      resource :favorites, only:[:create, :destroy]
     end
 
     scope :public_users do
