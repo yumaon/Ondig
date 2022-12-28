@@ -1,5 +1,10 @@
 class Artist::FavoritesController < ApplicationController
 
+  def index
+    @artist_user = ArtistUser.find(params[:artist_user_id])
+    @favorites = @artist_user.favorites
+  end
+
   def create
     topic = Topic.find(params[:topic_id])
     favorite = current_artist_user.favorites.new(topic_id: topic.id)
