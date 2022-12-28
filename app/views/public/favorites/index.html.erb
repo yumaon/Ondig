@@ -3,5 +3,9 @@
     <div class="col-lg-3 d-flex">
       <%= render 'artist/artist_users/my_page', public_user: @public_user %>
     </div>
+
+    <div class="col-lg-9">
+      <%= render 'artist/favorites/favorite', favorites: @favorites %>
+    </div>
   </div>
 </div>

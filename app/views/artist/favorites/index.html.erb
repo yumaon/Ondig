@@ -1,61 +1,11 @@
 <div class="container">
   <div class="row mt-3">
     <div class="col-lg-3 d-flex">
-      <div class="my-page-profile-box text-center p-4 mt-5 mx-auto">
-        <div>
-          <%= image_tag @artist_user.get_profile_image, class: "my-page-box-image" %>
-        </div>
-        <div class="text-white mt-3 border-bottom">
-          <h4><%= @artist_user.artist_name %></h4>
-          <div>
-            Genre: <%= @artist_user.genre.name %>
-            <%= link_to "変更", artist_genres_path, class: "btn btn-success btn-follow btn-sm ml-3" %>
-          </div>
-        </div>
-        <div class="mt-3 d-flex flex-column">
-          <%= link_to "Artist Profile", profile_artist_artist_user_path(@artist_user), class: "text-white" %>
-          <%= link_to "My Topics", profile_artist_artist_user_path(@artist_user), class: "text-white" %>
-          <%= link_to "Favorite Topics", artist_artist_user_favorites_path, class: "text-white" %>
-          <%= link_to "登録情報編集", information_edit_artist_artist_users_path %>
-        </div>
-      </div>
+      <%= render 'artist/artist_users/my_page', artist_user: @artist_user %>
     </div>
 
     <div class="col-lg-9">
-      <div>
-        <h3 class="text-white">Favorite Topics</h3>
-      </div>
-      <% @favorites.each do |favorite| %>
-        <div class="mini-topic-box">
-          <div class="d-flex mt-3 p-3">
-            <%= link_to profile_artist_artist_user_path(favorite.topic.artist_user_id) do %>
-              <div class="ml-2">
-                <%= image_tag favorite.topic.artist_user.profile_image, class: "mini-topic-profile-image" %><br>
-                <p class="text-center text-white mt-2"><%= favorite.topic.artist_user.artist_name %></p>
-              </div>
-            <% end %>
-            <div class="ml-5 d-flex align-items-center flex-fill">
-              <% if artist_user_signed_in? %>
-                <%= link_to artist_topic_path(favorite.topic) do %>
-                  <%= simple_format favorite.topic.body, class: "text-white" %>
-                <% end %>
-              <% elsif public_user_signed_in? %>
-                <%= link_to public_topic_path(favorite.topic) do %>
-                  <%= simple_format favorite.topic.body, class: "text-white" %>
-                <% end %>
-              <% end %>
-            </div>
-          </div>
-          <% if artist_user_signed_in? %>
-            <% if favorite.topic.artist_user_id == current_artist_user.id %>
-              <div class="flex-fill text-right mr-4 pb-2">
-                <%= link_to "編集", edit_artist_topic_path(favorite.topic), class: "btn btn-follow btn-success mr-3" %>
-                <%= link_to "削除", artist_topic_path(favorite.topic), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-follow btn-success" %>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
-      <% end %>
+      <%= render 'artist/favorites/favorite', favorites: @favorites %>
     </div>
   </div>
 </div>

@@ -42,6 +42,7 @@ Rails.application.routes.draw do
         patch 'information' => 'public_users#update'
         get 'unsubscribe' => 'public_users#unsubscribe'
       end
+      resources :favorites, only:[:index]
     end
     resources :artist_users, only:[:index] do
       member do
