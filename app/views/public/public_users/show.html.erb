@@ -1,21 +1,27 @@
-<div class="container-fluid">
+<div class="container">
   <div class="row">
-    <div class="col-md-4">
-      <div class="row">
-        <%= image_tag @public_user.get_profile_image, class: "my-page-box-image" %>
-      </div>
-      <div class="row">
-        <%= @public_user.nickname %>
-      </div>
-      <div class="row">
-        <% if @public_user.introduction.present? %>
-          <%= @public_user.introduction %>
-        <% else %>
-          自己紹介文は登録されてません。
-        <% end %>
-      </div>
-      <div class="row">
-        <%= link_to "登録情報編集", public_information_edit_path %>
+    <div class="col-lg-3 d-flex">
+      <div class="my-page-profile-box text-center p-4 mt-3 mx-auto">
+        <div>
+          <%= image_tag @public_user.get_profile_image, class: "my-page-box-image" %>
+        </div>
+        <div class="text-white mt-3 border-bottom">
+          <h4><%= @public_user.nickname %></h4>
+          <div>
+            <% if @public_user.introduction.present? %>
+              <%= @public_user.introduction %>
+            <% else %>
+              自己紹介文は登録されてません。
+            <% end %>
+          </div>
+        </div>
+        <div class="mt-3 d-flex flex-column">
+          <%= link_to "TimeLine", "/", class: "text-white" %>
+          <%= link_to "Favotite Topics", "/", class: "text-white" %>
+          <%= link_to "Follow List", "/", class: "text-white" %>
+          <%= link_to "Message", "/", class: "text-white" %>
+          <%= link_to "登録情報編集", public_information_edit_path %>
+        </div>
       </div>
     </div>
   </div>
