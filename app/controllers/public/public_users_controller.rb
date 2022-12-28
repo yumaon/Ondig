@@ -10,7 +10,7 @@ class Public::PublicUsersController < ApplicationController
   def update
     public_user = current_public_user
     public_user.update(public_user_params)
-    redirect_to public_my_page_path
+    redirect_to my_page_public_public_users_path
   end
 
   def unsubscribe

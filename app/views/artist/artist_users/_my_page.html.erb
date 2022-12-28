@@ -1,0 +1,41 @@
+<div class="my-page-profile-box text-center p-4 mt-5 mx-auto">
+  <% if artist_user_signed_in? %>
+    <div>
+      <%= image_tag artist_user.get_profile_image, class: "my-page-box-image" %>
+    </div>
+    <div class="text-white mt-3 border-bottom">
+      <h4><%= artist_user.artist_name %></h4>
+      <div>
+        Genre: <%= artist_user.genre.name %>
+        <%= link_to "変更", artist_genres_path, class: "btn btn-success btn-follow btn-sm ml-3" %>
+      </div>
+    </div>
+    <div class="mt-3 d-flex flex-column">
+      <%= link_to "Artist Profile", profile_artist_artist_user_path(artist_user), class: "text-white" %>
+      <%= link_to "My Topics", profile_artist_artist_user_path(artist_user), class: "text-white" %>
+      <%= link_to "Favorite Topics", artist_artist_user_favorites_path(artist_user), class: "text-white" %>
+      <%= link_to "登録情報編集", information_edit_artist_artist_users_path %>
+    </div>
+  <% elsif public_user_signed_in? %>
+    <div>
+      <%= image_tag public_user.get_profile_image, class: "my-page-box-image" %>
+    </div>
+    <div class="text-white mt-3 border-bottom">
+      <h4><%= public_user.nickname %></h4>
+      <div>
+        <% if public_user.introduction.present? %>
+          <%= public_user.introduction %>
+        <% else %>
+          自己紹介文は登録されてません。
+        <% end %>
+      </div>
+    </div>
+    <div class="mt-3 d-flex flex-column">
+      <%= link_to "TimeLine", "/", class: "text-white" %>
+      <%= link_to "Favotite Topics", "/", class: "text-white" %>
+      <%= link_to "Follow List", "/", class: "text-white" %>
+      <%= link_to "Message", "/", class: "text-white" %>
+      <%= link_to "登録情報編集", information_edit_public_public_users_path %>
+    </div>
+  <% end %>
+</div>

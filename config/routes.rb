@@ -35,6 +35,14 @@ Rails.application.routes.draw do
   end
 
   namespace :public do
+    resources :public_users, except:[:new, :show, :index, :edit, :create, :update, :destroy] do
+      collection do
+        get 'my_page' => 'public_users#show'
+        get 'information/edit' => 'public_users#edit'
+        patch 'information' => 'public_users#update'
+        get 'unsubscribe' => 'public_users#unsubscribe'
+      end
+    end
     resources :artist_users, only:[:index] do
       member do
         get 'profile' => 'profiles#show'
@@ -45,13 +53,6 @@ Rails.application.routes.draw do
     resources :topics, only:[:index, :show] do
       resources :topic_comments, only:[:create, :destroy]
       resource :favorites, only:[:create, :destroy]
-    end
-
-    scope :public_users do
-      get 'my_page' => 'public_users#show'
-      get 'information/edit' => 'public_users#edit'
-      patch 'information' => 'public_users#update'
-      get 'unsubscribe' => 'public_users#unsubscribe'
     end
   end
 
