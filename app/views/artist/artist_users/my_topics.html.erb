@@ -24,7 +24,7 @@
           </div>
           <div class="flex-fill text-right mr-4 pb-2">
             <%= link_to "編集", edit_artist_topic_path(topic), class: "btn btn-follow btn-success mr-3" %>
-            <%= link_to "削除", artist_topic_path(topic), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-follow btn-success" %>
+            <%= link_to "削除",destroy_my_topic_artist_artist_users_path(topic), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-follow btn-success" %>
           </div>
         </div>
       <% end %>

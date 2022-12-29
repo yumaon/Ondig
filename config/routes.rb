@@ -7,6 +7,7 @@ Rails.application.routes.draw do
         get 'my_page' => 'artist_users#show'
         get 'my_page/favorite_topics' => 'favorites#index'
         get 'my_page/my_topics' => 'artist_users#my_topics'
+        delete 'my_page/my_topics/:id' => 'artist_users#destroy', as: 'destroy_my_topic'
         get 'information/edit' => 'artist_users#edit'
         patch 'information' => 'artist_users#update'
         get 'unsubscribe' => 'artist_users#unsubscribe'
