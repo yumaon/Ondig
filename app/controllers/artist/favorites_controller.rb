@@ -1,7 +1,7 @@
 class Artist::FavoritesController < ApplicationController
 
   def index
-    @artist_user = ArtistUser.find(params[:artist_user_id])
+    @artist_user = current_artist_user
     @favorites = @artist_user.favorites
   end
 

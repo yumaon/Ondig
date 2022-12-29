@@ -13,7 +13,7 @@
     <div class="mt-3 d-flex flex-column">
       <%= link_to "Artist Profile", profile_artist_artist_user_path(artist_user), class: "text-white" %>
       <%= link_to "My Topics", profile_artist_artist_user_path(artist_user), class: "text-white" %>
-      <%= link_to "Favorite Topics", artist_artist_user_favorites_path(artist_user), class: "text-white" %>
+      <%= link_to "Favorite Topics", my_page_favorite_topics_artist_artist_users_path, class: "text-white" %>
       <%= link_to "登録情報編集", information_edit_artist_artist_users_path %>
     </div>
   <% elsif public_user_signed_in? %>
@@ -32,7 +32,7 @@
     </div>
     <div class="mt-3 d-flex flex-column">
       <%= link_to "TimeLine", "/", class: "text-white" %>
-      <%= link_to "Favotite Topics", public_public_user_favorites_path(public_user), class: "text-white" %>
+      <%= link_to "Favotite Topics", my_page_favorite_topics_public_public_users_path, class: "text-white" %>
       <%= link_to "Follow List", "/", class: "text-white" %>
       <%= link_to "Message", "/", class: "text-white" %>
       <%= link_to "登録情報編集", information_edit_public_public_users_path %>

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     resources :artist_users, only:[:index] do
       collection do
         get 'my_page' => 'artist_users#show'
-        # get 'my_page/favorite_topics' => 'favorites#index'
+        get 'my_page/favorite_topics' => 'favorites#index'
         get 'information/edit' => 'artist_users#edit'
         patch 'information' => 'artist_users#update'
         get 'unsubscribe' => 'artist_users#unsubscribe'
@@ -18,7 +18,7 @@ Rails.application.routes.draw do
       end
       resources :live_schedules, only:[:new, :create, :index, :edit, :update, :destroy]
       resources :items, only:[:new, :create, :index, :edit, :update, :destroy]
-      resources :favorites, only:[:index]
+      # resources :favorites, only:[:index]
     end
 
     resources :genres, only:[:index, :create]
@@ -38,11 +38,12 @@ Rails.application.routes.draw do
     resources :public_users, except:[:new, :show, :index, :edit, :create, :update, :destroy] do
       collection do
         get 'my_page' => 'public_users#show'
+        get 'my_page/favorite_topics' => 'favorites#index'
         get 'information/edit' => 'public_users#edit'
         patch 'information' => 'public_users#update'
         get 'unsubscribe' => 'public_users#unsubscribe'
       end
-      resources :favorites, only:[:index]
+      # resources :favorites, only:[:index]
     end
     resources :artist_users, only:[:index] do
       member do

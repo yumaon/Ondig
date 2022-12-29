@@ -1,7 +1,7 @@
 class Public::FavoritesController < ApplicationController
 
   def index
-    @public_user = PublicUser.find(params[:public_user_id])
+    @public_user = current_public_user
     @favorites = @public_user.favorites
   end
 
