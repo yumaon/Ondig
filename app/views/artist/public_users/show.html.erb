@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-lg-3 d-flex">
+      <div class="my-page-profile-box text-center p-4 mt-5 mx-auto">
+        <div>
+          <%= image_tag @public_user.get_profile_image, class: "my-page-box-image" %>
+        </div>
+        <div class="text-white mt-3 border-bottom">
+          <h4><%= @public_user.nickname %></h4>
+          <div>
+            <% if @public_user.introduction.present? %>
+              <%= @public_user.introduction %>
+            <% else %>
+              自己紹介文は登録されてません。
+            <% end %>
+          </div>
+        </div>
+        <div class="mt-3">
+          <%= link_to "+ follow", "/", class: "btn btn-success btn-follow" %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

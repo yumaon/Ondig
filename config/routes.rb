@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
 
+  # namespace :artist do
+  #   get 'public_users/show'
+  # end
   # アーティスト会員用
   namespace :artist do
+    resources :public_users, only:[:show]
     resources :artist_users, only:[:index] do
       collection do
         get 'my_page' => 'artist_users#show'
