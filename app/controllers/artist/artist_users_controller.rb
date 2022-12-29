@@ -7,6 +7,12 @@ class Artist::ArtistUsersController < ApplicationController
     @artist_user = current_artist_user
   end
 
+  # My pageで自身が投稿したtopic一覧を表示するためのアクション
+  def my_topics
+    @artist_user = current_artist_user
+    @topics = @artist_user.topics
+  end
+
   def edit
     @artist_user = current_artist_user
   end
