@@ -54,6 +54,7 @@ Rails.application.routes.draw do
       end
       resources :live_schedules, only:[:index]
       resources :items, only:[:index]
+      resources :profile_topics, only:[:index]
     end
     resources :topics, only:[:index, :show] do
       resources :topic_comments, only:[:create, :destroy]

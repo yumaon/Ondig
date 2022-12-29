@@ -41,6 +41,9 @@
             <%= link_to "Items", artist_artist_user_items_path(artist_user), class: "nav-link text-white h5" %>
           </li>
         <% elsif public_user_signed_in? %>
+           <li class="nav-item">
+            <%= link_to "Topics", public_artist_user_profile_topics_path(artist_user), class: "nav-link text-white h5" %>
+          </li>
           <li class="nav-item">
             <%= link_to "Live Schedule", public_artist_user_live_schedules_path(artist_user), class: "nav-link text-white h5" %>
           </li>
