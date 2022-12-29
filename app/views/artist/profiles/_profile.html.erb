@@ -32,6 +32,9 @@
       <ul class="nav justify-content-center border-bottom">
         <% if artist_user_signed_in? %>
           <li class="nav-item">
+            <%= link_to "Topics", artist_artist_user_profile_topics_path(artist_user), class: "nav-link text-white h5" %>
+          </li>
+          <li class="nav-item">
             <%= link_to "Live Schedule", artist_artist_user_live_schedules_path(artist_user), class: "nav-link text-white h5" %>
           </li>
           <li class="nav-item">

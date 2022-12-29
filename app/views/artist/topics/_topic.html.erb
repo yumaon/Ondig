@@ -1,0 +1,31 @@
+<% topics.each do |topic| %>
+  <div class="mini-topic-box">
+    <div class="d-flex mt-3 p-3">
+      <%= link_to profile_artist_artist_user_path(topic.artist_user_id) do %>
+        <div class="ml-2">
+          <%= image_tag topic.artist_user.profile_image, class: "mini-topic-profile-image" %><br>
+          <p class="text-center text-white mt-2"><%= topic.artist_user.artist_name %></p>
+        </div>
+      <% end %>
+      <div class="ml-5 d-flex align-items-center flex-fill">
+        <% if artist_user_signed_in? %>
+          <%= link_to artist_topic_path(topic) do %>
+            <%= simple_format topic.body, class: "text-white" %>
+          <% end %>
+        <% elsif public_user_signed_in? %>
+          <%= link_to public_topic_path(topic) do %>
+            <%= simple_format topic.body, class: "text-white" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <% if artist_user_signed_in? %>
+      <% if topic.artist_user_id == current_artist_user.id %>
+        <div class="flex-fill text-right mr-4 pb-2">
+          <%= link_to "編集", edit_artist_topic_path(topic), class: "btn btn-follow btn-success mr-3" %>
+          <%= link_to "削除", artist_topic_path(topic), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-follow btn-success" %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

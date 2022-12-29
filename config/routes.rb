@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  # namespace :artist do
+  #   get 'profile_topics/index'
+  #   get 'profile_topics/show'
+  # end
   # アーティスト会員用
   namespace :artist do
     resources :artist_users, only:[:index] do
@@ -20,6 +24,7 @@ Rails.application.routes.draw do
       end
       resources :live_schedules, only:[:new, :create, :index, :edit, :update, :destroy]
       resources :items, only:[:new, :create, :index, :edit, :update, :destroy]
+      resources :profile_topics, only:[:index, :show]
       # resources :favorites, only:[:index]
     end
 
