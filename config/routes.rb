@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
 
-  # namespace :artist do
-  #   get 'public_users/show'
-  # end
   # アーティスト会員用
   namespace :artist do
-    resources :public_users, only:[:show]
+    resources :public_users, only:[:show] do
+      post 'relationships' => 'relationships#public_follow'
+      delete 'relationships' => 'relationships#public_unfollow'
+    end
     resources :artist_users, only:[:index] do
       collection do
         get 'my_page' => 'artist_users#show'
@@ -25,6 +25,9 @@ Rails.application.routes.draw do
       resources :live_schedules, only:[:new, :create, :index, :edit, :update, :destroy]
       resources :items, only:[:new, :create, :index, :edit, :update, :destroy]
       resources :profile_topics, only:[:index]
+      resource :relationships, only:[:create, :destroy]
+      get 'followings' => 'relationships#followings', as: 'followings'
+      get 'followers' => 'relationships#followers', as: 'followers'
       # resources :favorites, only:[:index]
     end
 
@@ -42,7 +45,7 @@ Rails.application.routes.draw do
   end
 
   namespace :public do
-    resources :public_users, except:[:new, :show, :index, :edit, :create, :update, :destroy] do
+    resources :public_users, only:[] do
       collection do
         get 'my_page' => 'public_users#show'
         get 'my_page/favorite_topics' => 'favorites#index'
@@ -50,6 +53,9 @@ Rails.application.routes.draw do
         patch 'information' => 'public_users#update'
         get 'unsubscribe' => 'public_users#unsubscribe'
       end
+      get 'profile' => 'public_users#public_profile'
+      post 'relationships' => 'relationships#public_follow'
+      delete 'relationships' => 'relationships#public_unfollow'
       # resources :favorites, only:[:index]
     end
     resources :artist_users, only:[:index] do
@@ -59,6 +65,8 @@ Rails.application.routes.draw do
       resources :live_schedules, only:[:index]
       resources :items, only:[:index]
       resources :profile_topics, only:[:index]
+      post 'relationships' => 'relationships#artist_follow'
+      delete 'relationships' => 'relationships#artist_unfollow'
     end
     resources :topics, only:[:index, :show] do
       resources :topic_comments, only:[:create, :destroy]

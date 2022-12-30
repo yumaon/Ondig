@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-lg-3 d-flex">
+      <div class="my-page-profile-box text-center p-4 mt-5 mx-auto">
+        <div>
+          <%= image_tag @public_user.get_profile_image, class: "my-page-box-image" %>
+        </div>
+        <div class="text-white mt-3 border-bottom">
+          <h4><%= @public_user.nickname %></h4>
+          <div>
+            <% if @public_user.introduction.present? %>
+              <%= @public_user.introduction %>
+            <% else %>
+              自己紹介文は登録されてません。
+            <% end %>
+          </div>
+        </div>
+        <div class="mt-3">
+          <% if artist_user_signed_in? %>
+            <% if current_artist_user.public_following?(@public_user) %>
+              <%= link_to "- Unfollow", artist_public_user_relationships_path(@public_user.id), method: :delete, class: "btn btn-danger btn-red" %>
+            <% else %>
+              <%= link_to "+ Follow", artist_public_user_relationships_path(@public_user.id), method: :post, class: "btn btn-success btn-follow" %>
+            <% end %>
+          <% elsif public_user_signed_in? && current_public_user.id != @public_user.id %>
+            <% if current_public_user.public_following?(@public_user) %>
+              <%= link_to "- Unfollow", public_public_user_relationships_path(@public_user.id), method: :delete, class: "btn btn-danger btn-red" %>
+            <% else %>
+              <%= link_to "+ Follow", public_public_user_relationships_path(@public_user.id), method: :post, class: "btn btn-success btn-follow" %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

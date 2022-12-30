@@ -16,9 +16,25 @@
     <div class="col-lg-12 mt-3">
       <span class="text-white"><%= simple_format artist_user.introduction %></span>
     </div>
+
+    <% if artist_user_signed_in? && current_artist_user.id != artist_user.id %>
     <div class="col-lg-12 mt-3">
-      <%= link_to "+ Follow", '/', class: "btn btn-follow btn-success btn-lg" %>
+      <% if current_artist_user.artist_following?(artist_user) %>
+        <%= link_to "- Unfollow", artist_artist_user_relationships_path(artist_user.id), method: :delete, class: "btn btn-red btn-danger btn-lg" %>
+      <% else %>
+        <%= link_to "+ Follow", artist_artist_user_relationships_path(artist_user.id), method: :post, class: "btn btn-follow btn-success btn-lg" %>
+      <% end %>
     </div>
+    <% elsif public_user_signed_in? %>
+    <div class="col-lg-12 mt-3">
+      <% if current_public_user.artist_following?(artist_user) %>
+        <%= link_to "- Unfollow", public_artist_user_relationships_path(artist_user.id), method: :delete, class: "btn btn-red btn-danger btn-lg" %>
+      <% else %>
+        <%= link_to "+ Follow", public_artist_user_relationships_path(artist_user.id), method: :post, class: "btn btn-follow btn-success btn-lg" %>
+      <% end %>
+    </div>
+    <% end %>
+
     <div class="col-lg-12 mt-3">
       <% if artist_user_signed_in? && current_artist_user.id == artist_user.id %>
         <%= link_to "Profile設定", profile_edit_artist_artist_user_path(artist_user) %>

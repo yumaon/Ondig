@@ -3,6 +3,10 @@ class Public::PublicUsersController < ApplicationController
     @public_user = current_public_user
   end
 
+  def public_profile
+    @public_user = PublicUser.find(params[:public_user_id])
+  end
+
   def edit
     @public_user = current_public_user
   end
