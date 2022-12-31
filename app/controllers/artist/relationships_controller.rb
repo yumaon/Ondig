@@ -1,7 +1,7 @@
 class Artist::RelationshipsController < ApplicationController
 
   # followをするとき
-  def create
+  def artist_follow
     current_artist_user.follow_an_artist(params[:artist_user_id])
     redirect_to request.referer
   end
@@ -12,7 +12,7 @@ class Artist::RelationshipsController < ApplicationController
   end
 
   # followを外すとき
-  def destroy
+  def artist_unfollow
     current_artist_user.unfollow_an_artist(params[:artist_user_id])
     redirect_to request.referer
   end
@@ -24,8 +24,8 @@ class Artist::RelationshipsController < ApplicationController
 
   # follow一覧
   def followings
-    artist_user = ArtistUser.find(params[:artist_user_id])
-    @artist_users = artist_user.artist_followings
+    @artist_user = ArtistUser.find(params[:artist_user_id])
+    @followings = @artist_user.artist_relationships
   end
 
   # follower一覧
