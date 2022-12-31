@@ -26,5 +26,7 @@ class Public::RelationshipsController < ApplicationController
   end
 
   def followers
+    @public_user = PublicUser.find(params[:public_user_id])
+    @followers = @public_user.public_reverse_of_relationships
   end
 end

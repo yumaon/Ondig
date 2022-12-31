@@ -56,6 +56,8 @@ Rails.application.routes.draw do
       get 'profile' => 'public_users#public_profile'
       post 'relationships' => 'relationships#public_follow'
       delete 'relationships' => 'relationships#public_unfollow'
+      get 'followings' => 'relationships#followings', as: 'followings'
+      get 'followers' => 'relationships#followers', as: 'followers'
       # resources :favorites, only:[:index]
     end
     resources :artist_users, only:[:index] do

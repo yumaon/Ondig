@@ -30,7 +30,7 @@ class Artist::RelationshipsController < ApplicationController
 
   # follower一覧
   def followers
-    artist_user = ArtistUser.find(params[:artist_user_id])
-    @artist_users = artist_user.artist_followers
+    @artist_user = ArtistUser.find(params[:artist_user_id])
+    @followers = @artist_user.artist_reverse_of_relationships
   end
 end

@@ -15,10 +15,11 @@ class ArtistUser < ApplicationRecord
   has_many :artist_relationships, class_name: "Relationship", foreign_key: "artist_follower_id", dependent: :destroy
   has_many :artist_reverse_of_relationships, class_name: "Relationship", foreign_key: "artist_followed_id", dependent: :destroy
 
-  # 一覧画面で使用する
+  # followをしているかの確認時に
   has_many :artist_followings, through: :artist_relationships, source: :artist_followed
-  has_many :artist_followers, through: :artist_reverse_of_relationships, source: :artist_follower
   has_many :public_followings, through: :artist_relationships, source: :public_followed
+  # has_many :artist_followers, through: :artist_reverse_of_relationships, source: :artist_follower
+  # has_many :public_followers, through: :artist_reverse_of_relationships, source: :public_follower
 
   has_one_attached :profile_image
   has_one_attached :header_image

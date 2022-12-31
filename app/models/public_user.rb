@@ -11,10 +11,10 @@ class PublicUser < ApplicationRecord
   has_many :public_relationships, class_name: "Relationship", foreign_key: "public_follower_id", dependent: :destroy
   has_many :public_reverse_of_relationships, class_name: "Relationship", foreign_key: "public_followed_id", dependent: :destroy
 
-  # 一覧画面で使用する
+  # followをしているかの確認時に使用。
   has_many :artist_followings, through: :public_relationships, source: :artist_followed
   has_many :public_followings, through: :public_relationships, source: :public_followed
-  has_many :public_followers, through: :public_reverse_of_relationships, source: :public_follower
+  # has_many :public_followers, through: :public_reverse_of_relationships, source: :public_follower
 
   has_one_attached :profile_image
 

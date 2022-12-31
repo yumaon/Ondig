@@ -105,17 +105,21 @@ body {
 /*アーティスト一覧ページ用CSS*/
 
 .mini-profile-box {
-  /*width: 280px;*/
   height: 400px;
   background: rgba(217, 217, 217, 0.2);
   border-radius: 10px;
 }
 
-.mini-profile-box-header {
-  /*width: 280px;*/
+.mini-profile-header-box {
+  padding: 0;
+}
+
+.mini-profile-header {
+  width: 100%;
   height: 115px;
   background: #cec1c1;
   border-radius: 10px;
+  object-fit: cover;
   /*position: relative;*/
 }
 
@@ -127,6 +131,18 @@ body {
   bottom: 35px;
   box-shadow: 10px 10px 15px -10px;
   object-fit: cover;
+}
+
+.mini-profile-detail {
+  position: relative;
+  bottom: 30px;
+}
+
+.introduction-box {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 /*followボタンCSS*/
