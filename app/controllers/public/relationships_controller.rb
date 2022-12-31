@@ -23,6 +23,8 @@ class Public::RelationshipsController < ApplicationController
   end
 
   def followings
+    @public_user = PublicUser.find(params[:public_user_id])
+    @followings = @public_user.public_relationships
   end
 
   def followers

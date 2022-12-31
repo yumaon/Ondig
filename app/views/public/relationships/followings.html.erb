@@ -1,2 +1,95 @@
-<h1>Public::Relationships#followings</h1>
-<p>Find me in app/views/public/relationships/followings.html.erb</p>
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-lg-3 d-flex">
+      <%= render 'artist/artist_users/my_page', public_user: @public_user %>
+    </div>
+
+    <div class="col-lg-9">
+      <div>
+        <h3 class="text-white">Followings</h3>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+          <% @followings.each do |following| %>
+            <% if following.artist_followed_id.present? %>
+
+              <div class="col-md-3 m-3 mini-profile-box">
+                <div class="row">
+                  <div class="col-md-12 mini-profile-header-box">
+                    <%= image_tag following.artist_followed.get_header_image, class: "mini-profile-header" %>
+                  </div>
+                  <div class="col-md-12 text-center">
+                    <div class=""><%= image_tag following.artist_followed.get_profile_image, class: "mini-profile-box-image rounded-circle"; %></div>
+                  </div>
+                  <div class="mini-profile-detail col-md-12">
+                    <div class="col-md-12 text-center">
+                      <%= link_to profile_public_artist_user_path(following.artist_followed.id) , class: "text-white" do %>
+                        <%= following.artist_followed.artist_name %>
+                      <% end %>
+                    </div>
+                    <div class="col-md-12 text-center">
+                      <span class="text-white">Genre: <%= following.artist_followed.genre.name %></span>
+                    </div>
+                    <div class="col-md-12 text-center text-white introduction-box">
+                      <% if following.artist_followed.introduction.present? %>
+                        <p><%= simple_format following.artist_followed.introduction %></p>
+                      <% else %>
+                        <p class="m-3">自己紹介文は登録されてません.</p>
+                      <% end %>
+                    </div>
+                    <div class="col-md-12 text-center mt-3">
+                      <% if current_public_user.artist_following?(following.artist_followed) %>
+                        <%= link_to "- Unfollow", public_artist_user_relationships_path(following.artist_followed.id), method: :delete, class: "btn btn-red btn-danger btn-lg" %>
+                      <% else %>
+                        <%= link_to "+ Follow", public_artist_user_relationships_path(following.artist_followed.id), method: :post, class: "btn btn-follow btn-success btn-lg" %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            <% else %>
+
+              <div class="col-md-3 m-3 mini-profile-box">
+                <div class="row">
+                  <div class="col-md-12 mini-profile-header">
+
+                  </div>
+                  <div class="col-md-12 text-center">
+                    <div class=""><%= image_tag following.public_followed.get_profile_image, class: "mini-profile-box-image rounded-circle"; %></div>
+                  </div>
+                  <div class="mini-profile-detail col-md-12">
+                    <div class="col-md-12 text-center">
+                      <%= link_to public_public_user_profile_path(following.public_followed.id) , class: "text-white" do %>
+                        <%= following.public_followed.nickname %>
+                      <% end %>
+                    </div>
+                    <div class="col-md-12 text-center">
+                      <span class="text-white"></span></span>
+                    </div>
+                    <div class="col-md-12 text-center text-white introduction-box">
+                      <% if following.public_followed.introduction.present? %>
+                        <p><%= simple_format following.public_followed.introduction %></p>
+                      <% else %>
+                        <p class="m-3">自己紹介文は登録されてません.</p>
+                      <% end %>
+                    </div>
+                    <div class="col-md-12 text-center mt-3">
+                      <% if current_public_user.public_following?(following.public_followed) %>
+                        <%= link_to "- Unfollow", public_public_user_relationships_path(following.public_followed.id), method: :delete, class: "btn btn-red btn-danger btn-lg" %>
+                      <% else %>
+                        <%= link_to "+ Follow", public_public_user_relationships_path(following.public_followed.id), method: :post, class: "btn btn-follow btn-success btn-lg" %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
