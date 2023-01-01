@@ -1,0 +1,62 @@
+<div>
+  <h3 class="text-white">Time Line</h3>
+</div>
+<% tl_topics.each do |topic| %>
+  <div class="mini-topic-box">
+    <div class="d-flex mt-3 px-3 pt-3">
+      <div class="ml-2">
+        <%= image_tag topic.artist_user.profile_image, class: "mini-topic-profile-image" %><br>
+        <% if artist_user_signed_in? %>
+          <%= link_to profile_artist_artist_user_path(topic.artist_user_id) do %>
+            <p class="text-center text-white mt-2"><%= topic.artist_user.artist_name %></p>
+          <% end %>
+        <% else %>
+          <%= link_to profile_public_artist_user_path(topic.artist_user_id) do %>
+            <p class="text-center text-white mt-2"><%= topic.artist_user.artist_name %></p>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="ml-5 d-flex align-items-center flex-fill">
+        <% if artist_user_signed_in? %>
+          <%= link_to artist_topic_path(topic) do %>
+            <%= simple_format topic.body, class: "text-white" %>
+          <% end %>
+        <% else %>
+          <%= link_to public_topic_path(topic) do %>
+            <%= simple_format topic.body, class: "text-white" %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-md-10 mx-auto pb-1 d-flex justify-content-between">
+      <p class="text-white"><%= topic.created_at.strftime('%Y/%m/%d') %></p>
+      <div class="d-flex">
+        <% if public_user_signed_in? %>
+          <% if topic.public_user_favorited_by?(current_public_user) %>
+            <%= link_to public_topic_favorites_path(topic), class: "text-white", method: :delete do %>
+              ♥<%= topic.favorites.count %>
+            <% end %>
+          <% else %>
+            <%= link_to public_topic_favorites_path(topic), class: "text-white", method: :post do %>
+              ♡<%= topic.favorites.count %>
+            <% end %>
+          <% end %>
+        <% elsif artist_user_signed_in? %>
+          <% if topic.artist_user_favorited_by?(current_artist_user) %>
+            <%= link_to artist_topic_favorites_path(topic), class: "text-white", method: :delete do %>
+              ♥<%= topic.favorites.count %>
+            <% end %>
+          <% else %>
+            <%= link_to artist_topic_favorites_path(topic), class: "text-white", method: :post do %>
+              ♡<%= topic.favorites.count %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <div class="ml-5">
+          <p class="text-white"><%= topic.topic_comments.count %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,6 +1,7 @@
 class Public::PublicUsersController < ApplicationController
   def show
     @public_user = current_public_user
+    @tl_topics = Topic.where(artist_user_id: current_public_user.artist_following_ids)
   end
 
   def public_profile

@@ -5,6 +5,7 @@ class Artist::ArtistUsersController < ApplicationController
 
   def show
     @artist_user = current_artist_user
+    @tl_topics = Topic.where(artist_user_id: [current_artist_user.id, *current_artist_user.artist_following_ids])
   end
 
   # My pageで自身が投稿したtopic一覧を表示するためのアクション
