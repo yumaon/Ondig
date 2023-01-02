@@ -46,7 +46,7 @@
       <% if @isRoom == true %>
         <%= link_to "Message roomへ", rooms_artist_artist_users_path(@roomId) %>
       <% else %>
-        <%= form_with model: @room, url: artist_artist_user_rooms_path(current_artist_user) do |f| %>
+        <%= form_with model: @room, url: rooms_create_artist_artist_users_path do |f| %>
           <%= fields_for @join do |j| %>
             <%= j.hidden_field :artist_user_id, value: artist_user.id %>
           <% end %>
