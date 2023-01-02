@@ -40,6 +40,22 @@
         <%= link_to "Profile設定", profile_edit_artist_artist_user_path(artist_user) %>
       <% end %>
     </div>
+
+    <% unless artist_user.id == current_artist_user.id %>
+      <% if current_artist_user.artist_following?(artist_user) %>
+      <% if @isRoom == true %>
+        <%= link_to "Message roomへ", rooms_artist_artist_users_path(@roomId) %>
+      <% else %>
+        <%= form_with model: @room, url: artist_artist_user_rooms_path(current_artist_user) do |f| %>
+          <%= fields_for @join do |j| %>
+            <%= j.hidden_field :artist_user_id, value: artist_user.id %>
+          <% end %>
+          <%= f.submit "Messageを送る", class: "btn btn-success btn-green" %>
+        <% end %>
+      <% end %>
+      <% end %>
+    <% end %>
+
   </div>
 </div>
 <div class="col-lg-9 p-5">

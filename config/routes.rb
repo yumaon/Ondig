@@ -15,6 +15,8 @@ Rails.application.routes.draw do
         get 'information/edit' => 'artist_users#edit'
         patch 'information' => 'artist_users#update'
         get 'unsubscribe' => 'artist_users#unsubscribe'
+        get 'rooms/:id' => 'rooms#show', as: 'rooms'
+        post 'messages' => 'messages#create'
       end
 
       member do
@@ -25,6 +27,7 @@ Rails.application.routes.draw do
       resources :live_schedules, only:[:new, :create, :index, :edit, :update, :destroy]
       resources :items, only:[:new, :create, :index, :edit, :update, :destroy]
       resources :profile_topics, only:[:index]
+      resource :rooms, only:[:create]
       # resource :relationships, only:[:create, :destroy]
       post 'relationships' => 'relationships#artist_follow'
       delete 'relationships' => 'relationships#artist_unfollow'

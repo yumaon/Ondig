@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_29_171734) do
+ActiveRecord::Schema.define(version: 2023_01_01_065522) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -95,6 +95,17 @@ ActiveRecord::Schema.define(version: 2022_12_29_171734) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "joins", force: :cascade do |t|
+    t.integer "artist_user_id"
+    t.integer "public_user_id"
+    t.integer "room_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["artist_user_id"], name: "index_joins_on_artist_user_id"
+    t.index ["public_user_id"], name: "index_joins_on_public_user_id"
+    t.index ["room_id"], name: "index_joins_on_room_id"
+  end
+
   create_table "live_schedules", force: :cascade do |t|
     t.integer "artist_user_id", null: false
     t.string "name", null: false
@@ -103,6 +114,18 @@ ActiveRecord::Schema.define(version: 2022_12_29_171734) do
     t.string "location", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer "artist_user_id"
+    t.integer "public_user_id"
+    t.integer "room_id", null: false
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["artist_user_id"], name: "index_messages_on_artist_user_id"
+    t.index ["public_user_id"], name: "index_messages_on_public_user_id"
+    t.index ["room_id"], name: "index_messages_on_room_id"
   end
 
   create_table "public_users", force: :cascade do |t|
@@ -133,6 +156,12 @@ ActiveRecord::Schema.define(version: 2022_12_29_171734) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "rooms", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "topic_comments", force: :cascade do |t|
     t.integer "topic_id", null: false
     t.integer "public_user_id"
@@ -152,4 +181,10 @@ ActiveRecord::Schema.define(version: 2022_12_29_171734) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "joins", "artist_users"
+  add_foreign_key "joins", "public_users"
+  add_foreign_key "joins", "rooms"
+  add_foreign_key "messages", "artist_users"
+  add_foreign_key "messages", "public_users"
+  add_foreign_key "messages", "rooms"
 end
