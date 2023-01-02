@@ -318,3 +318,17 @@ body {
   letter-spacing: -0.015em;
   color: #FFFFFF;
 }
+
+/*ダイレクトメッセージ一覧ページ用CSS*/
+.dm-index-box {
+  width: 100%;
+  background: rgba(217, 217, 217, 0.2);
+  border-radius: 10px;
+}
+
+.dm-index-content-box {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}

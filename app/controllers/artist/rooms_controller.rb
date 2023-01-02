@@ -6,6 +6,15 @@ class Artist::RoomsController < ApplicationController
     redirect_to rooms_artist_artist_users_path(@room.id)
   end
 
+  def index
+    @artist_user = ArtistUser.find(params[:artist_user_id])
+    my_room_id = []
+    @artist_user.joins.each do |join|
+      my_room_id << join.room.id
+    end
+    @another_joins = Join.where(room_id: my_room_id).where.not(artist_user_id: @artist_user.id)
+  end
+
   def show
     @artist_user = current_artist_user
     @room = Room.find(params[:id])

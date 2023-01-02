@@ -28,7 +28,7 @@ Rails.application.routes.draw do
       resources :live_schedules, only:[:new, :create, :index, :edit, :update, :destroy]
       resources :items, only:[:new, :create, :index, :edit, :update, :destroy]
       resources :profile_topics, only:[:index]
-      # resource :rooms, only:[:create]
+      resources :rooms, only:[:index]
       # resource :relationships, only:[:create, :destroy]
       post 'relationships' => 'relationships#artist_follow'
       delete 'relationships' => 'relationships#artist_unfollow'
