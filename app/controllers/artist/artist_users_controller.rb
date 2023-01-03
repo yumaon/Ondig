@@ -6,7 +6,7 @@ class Artist::ArtistUsersController < ApplicationController
   def show
     @artist_user = current_artist_user
     # TimeLineを表示するため、自身のtopicsとfollowしているユーザーのtopicsを取得
-    @tl_topics = Topic.where(artist_user_id: [current_artist_user.id, *current_artist_user.artist_following_ids])
+    @tl_topics = Topic.where(artist_user_id: [current_artist_user.id, *current_artist_user.artist_following_ids]).order(created_at: :desc)
   end
 
   # My pageで自身が投稿したtopic一覧を表示するためのアクション
