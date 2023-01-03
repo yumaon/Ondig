@@ -23,8 +23,8 @@
          <div class="dm-box overflow-auto mt-3 p-4">
            <% if @messages.present? %>
              <% @messages.each do |message| %>
+               <!--DMの送り主がArtist会員の場合の表示-->
                <% if message.artist_user.present? %>
-               <!--% unless message.artist_user.id == current_artist_user.id %>-->
                  <div class="justify-content-start d-flex flex-fill">
                    <div class="align-baseline pt-1"><%= image_tag message.artist_user.get_profile_image, class: "dm-box-image" %></div>
                    <div class="text-white px-3 py-1 dm-content-box m-1">
@@ -34,6 +34,9 @@
                  <div class="mt-1 ml-5 text-white dm-content-datetime">
                    <%= message.created_at.strftime("%Y-%m-%d %H:%M") %>
                  </div>
+
+               <!--DMの送り主がPublic会員の場合の表示-->
+               <!--ログイン中のPubilcUserの情報も入ってしまってるので、それを除くための記述-->
                <% elsif message.public_user.present? && message.public_user.id != current_public_user.id %>
                  <div class="justify-content-start d-flex flex-fill">
                    <div class="align-baseline pt-1"><%= image_tag message.public_user.get_profile_image, class: "dm-box-image" %></div>
@@ -44,6 +47,8 @@
                  <div class="mt-1 ml-5 text-white dm-content-datetime">
                    <%= message.created_at.strftime("%Y-%m-%d %H:%M") %>
                  </div>
+
+               <!--ログインしているPublic会員のDMの返信内容を表示させるための記述-->
                <% else %>
                  <div class="justify-content-end d-flex flex-fill">
                    <div class="text-white px-3 py-1 dm-content-box-sender m-1">

@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-lg-3 d-flex">
+      <%= render 'artist/artist_users/my_page', public_user: @public_user %>
+    </div>
+
+    <div class="col-lg-9">
+      <div>
+        <h3 class="text-white">Messages</h3>
+      </div>
+
+      <div class="dm-index-box p-3 mt-3">
+        <% @another_joins.each do |join| %>
+          <% if join.public_user.present? && join.public_user != @public_user %>
+            <table class="table table-borderless">
+              <tr>
+                <td class="col-1"><%= image_tag join.public_user.profile_image, class: "dm-box-image" %></td>
+                <td class="align-middle col-3">
+                  <%= link_to public_public_user_profile_path(join.public_user.id), class: "text-white" do %>
+                    <%= join.public_user.nickname %>
+                  <% end %>
+                </td>
+                <td class="align-middle col-4">
+                  <%= link_to rooms_public_public_users_path(join.room), class: "text-white dm-index-content-box" do %>
+                    <%= Message.find_by(id: join.room.message_ids.last)&.content %>
+                  <% end %>
+                </td>
+                <td class="text-white text-right align-middle"><%= Message.find_by(id: join.room.message_ids.last)&.created_at.strftime("%Y-%m-%d %H:%M") %> </td>
+              </tr>
+            </table>
+          <% elsif join.artist_user.present? %>
+            <table class="table table-borderless">
+              <tr>
+                <td class="col-1"><%= image_tag join.artist_user.profile_image, class: "dm-box-image" %></td>
+                <td class="align-middle col-3">
+                  <%= link_to profile_public_artist_user_path(join.artist_user.id), class: "text-white" do %>
+                    <%= join.artist_user.artist_name %>
+                  <% end %>
+                </td>
+                <td class="align-middle col-4">
+                  <%= link_to rooms_public_public_users_path(join.room), class: "text-white dm-index-content-box" do %>
+                    <%= Message.find_by(id: join.room.message_ids.last)&.content %>
+                  <% end %>
+                </td>
+                <td class="text-white text-right align-middle"><%= Message.find_by(id: join.room.message_ids.last)&.created_at.strftime("%Y-%m-%d %H:%M") %> </td>
+              </tr>
+            </table>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -38,7 +38,7 @@
       <%= link_to "Favotite Topics", my_page_favorite_topics_public_public_users_path, class: "text-white" %>
       <%= link_to "Followings", public_public_user_followings_path(public_user), class: "text-white" %>
       <%= link_to "Follower", public_public_user_followers_path(public_user), class: "text-white" %>
-      <%= link_to "Message", "/", class: "text-white" %>
+      <%= link_to "Message", public_public_user_rooms_path(public_user), class: "text-white" %>
       <%= link_to "登録情報編集", information_edit_public_public_users_path %>
     </div>
   <% end %>

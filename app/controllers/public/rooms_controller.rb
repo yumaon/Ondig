@@ -5,7 +5,16 @@ class Public::RoomsController < ApplicationController
     @join2 = Join.create(params.require(:join).permit(:public_user_id, :artist_user_id, :room_id).merge(:room_id => @room.id))
     redirect_to rooms_public_public_users_path(@room.id)
   end
-  
+
+  def index
+    @public_user = PublicUser.find(params[:public_user_id])
+    my_room_id = []
+    @public_user.joins.each do |join|
+      my_room_id << join.room.id
+    end
+    @another_joins = Join.where(room_id: my_room_id).order(created_at: :desc)
+  end
+
   def show
     @public_user = current_public_user
     @room = Room.find(params[:id])
@@ -16,5 +25,5 @@ class Public::RoomsController < ApplicationController
     else
       redirect_back(fallback_location: root_path)
     end
-  end 
+  end
 end

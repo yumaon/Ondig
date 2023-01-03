@@ -68,8 +68,8 @@ Rails.application.routes.draw do
       get 'followings' => 'relationships#followings', as: 'followings'
       get 'followers' => 'relationships#followers', as: 'followers'
       # resources :favorites, only:[:index]
+      resources :rooms, only:[:index]
     end
-    resources :rooms, only:[:index]
     resources :artist_users, only:[:index] do
       member do
         get 'profile' => 'profiles#show'
