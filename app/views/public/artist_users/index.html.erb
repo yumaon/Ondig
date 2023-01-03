@@ -1,23 +1,11 @@
 <div class="container">
   <div class="row">
-    <% @artist_users.each do |artist| %>
-    <div class="col-md-3 m-3 mini-profile-box">
-      <div class="row">
-        <div class="col-md-12 mini-profile-box-header">
-        </div>
-        <div class="col-md-12 text-center">
-          <div class=""><%= image_tag artist.get_profile_image, class: "mini-profile-box-image rounded-circle"; %></div>
-        </div>
-        <div class="col-md-12 text-center">
-          <%= link_to profile_public_artist_user_path(artist.id) , class: "text-white" do %>
-            <%= artist.artist_name %>
-          <% end %>
-        </div>
-        <div class="col-md-12 text-center">
-          <span class="text-white">Genre: <%= artist.genre.name %></span>
-        </div>
-      </div>
+    <div class="col-lg-3 d-flex">
+
     </div>
-    <% end %>
+
+    <div class="col-lg-9">
+      <%= render 'artist/artist_users/artists_list', artist_users: @artist_users %>
+    </div>
   </div>
 </div>
