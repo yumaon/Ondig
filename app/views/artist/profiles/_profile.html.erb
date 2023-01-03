@@ -41,7 +41,8 @@
       <% end %>
     </div>
 
-    <% unless artist_user.id == current_artist_user.id %>
+    <!--% unless artist_user.id == current_artist_user.id %>-->
+    <% if artist_user_signed_in? && artist_user.id != current_artist_user.id %>
       <% if current_artist_user.artist_following?(artist_user) %>
       <% if @isRoom == true %>
         <%= link_to "Message roomへ", rooms_artist_artist_users_path(@roomId) %>
@@ -54,6 +55,21 @@
         <% end %>
       <% end %>
       <% end %>
+    <% elsif public_user_signed_in? %>
+
+      <% if current_public_user.artist_following?(artist_user) %>
+      <% if @isRoom == true %>
+        <%= link_to "Message roomへ", rooms_public_public_users_path(@roomId) %>
+      <% else %>
+        <%= form_with model: @room, url: rooms_create_public_public_users_path do |f| %>
+          <%= fields_for @join do |j| %>
+            <%= j.hidden_field :artist_user_id, value: artist_user.id %>
+          <% end %>
+          <%= f.submit "Messageを送る", class: "btn btn-success btn-green" %>
+        <% end %>
+      <% end %>
+      <% end %>
+
     <% end %>
 
   </div>

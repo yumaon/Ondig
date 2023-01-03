@@ -6,6 +6,24 @@ class Public::PublicUsersController < ApplicationController
 
   def public_profile
     @public_user = PublicUser.find(params[:public_user_id])
+
+    @current_PublicUser_join = Join.where(public_user_id: current_public_user.id)
+    @PublicUser_join = Join.where(public_user_id: @public_user.id)
+    unless @public_user.id == current_public_user.id
+      @current_PublicUser_join.each do |current_public|
+        @PublicUser_join.each do |other_public|
+          if current_public.room_id == other_public.room_id then
+            @isRoom = true
+            @roomId = current_public.room_id
+          end
+        end
+      end
+      if @isRoom
+      else
+        @room = Room.new
+        @join = Join.new
+      end
+    end
   end
 
   def edit

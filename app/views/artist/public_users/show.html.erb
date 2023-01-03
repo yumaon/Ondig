@@ -22,6 +22,24 @@
             <%= link_to "+ Follow", artist_public_user_relationships_path(@public_user.id), method: :post, class: "btn btn-success btn-follow" %>
           <% end %>
         </div>
+
+        <div class="mt-3">
+
+          <% if current_artist_user.public_following?(@public_user) %>
+            <% if @isRoom == true %>
+              <%= link_to "Message roomへ", rooms_artist_artist_users_path(@roomId) %>
+            <% else %>
+              <%= form_with model: @room, url: rooms_create_artist_artist_users_path do |f| %>
+                <%= fields_for @join do |j| %>
+                  <%= j.hidden_field :public_user_id, value: @public_user.id %>
+                <% end %>
+                <%= f.submit "Messageを送る", class: "btn btn-success btn-green" %>
+              <% end %>
+            <% end %>
+          <% end %>
+
+        </div>
+
       </div>
     </div>
   </div>

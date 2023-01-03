@@ -58,6 +58,9 @@ Rails.application.routes.draw do
         get 'information/edit' => 'public_users#edit'
         patch 'information' => 'public_users#update'
         get 'unsubscribe' => 'public_users#unsubscribe'
+        post 'rooms' => 'rooms#create', as: 'rooms_create'
+        get 'rooms/:id' => 'rooms#show', as: 'rooms'
+        post 'messages' => 'messages#create'
       end
       get 'profile' => 'public_users#public_profile'
       post 'relationships' => 'relationships#public_follow'
@@ -66,6 +69,7 @@ Rails.application.routes.draw do
       get 'followers' => 'relationships#followers', as: 'followers'
       # resources :favorites, only:[:index]
     end
+    resources :rooms, only:[:index]
     resources :artist_users, only:[:index] do
       member do
         get 'profile' => 'profiles#show'

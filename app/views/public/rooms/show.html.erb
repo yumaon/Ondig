@@ -1,17 +1,17 @@
 <div class="container">
   <div class="row mt-3">
     <div class="col-lg-3 d-flex">
-      <%= render 'artist/artist_users/my_page', artist_user: @artist_user %>
+      <%= render 'artist/artist_users/my_page', public_user: @public_user %>
     </div>
 
      <div class="col-lg-9">
        <div class="col-md-12">
          <% @joins.each do |join| %>
-           <% if join.public_user.present? %>
-             <h3 class="text-white"><%= join.public_user.nickname %> さんとのメッセージ</h3>
+           <% if join.artist_user.present? %>
+             <h3 class="text-white"><%= join.artist_user.artist_name %> さんとのメッセージ</h3>
            <% else %>
-             <% unless join.artist_user.id == current_artist_user.id %>
-               <h3 class="text-white"><%= join.artist_user.artist_name %> さんとのメッセージ</h3>
+             <% unless join.public_user.id == current_public_user.id %>
+               <h3 class="text-white"><%= join.public_user.nickname %> さんとのメッセージ</h3>
              <% end %>
             <% end %>
          <% end %>
@@ -23,9 +23,20 @@
          <div class="dm-box overflow-auto mt-3 p-4">
            <% if @messages.present? %>
              <% @messages.each do |message| %>
-               <% unless message.artist_user.id == current_artist_user.id %>
+               <% if message.artist_user.present? %>
+               <!--% unless message.artist_user.id == current_artist_user.id %>-->
                  <div class="justify-content-start d-flex flex-fill">
                    <div class="align-baseline pt-1"><%= image_tag message.artist_user.get_profile_image, class: "dm-box-image" %></div>
+                   <div class="text-white px-3 py-1 dm-content-box m-1">
+                     <p><%= simple_format message.content %></p>
+                   </div>
+                 </div>
+                 <div class="mt-1 ml-5 text-white dm-content-datetime">
+                   <%= message.created_at.strftime("%Y-%m-%d %H:%M") %>
+                 </div>
+               <% elsif message.public_user.present? && message.public_user.id != current_public_user.id %>
+                 <div class="justify-content-start d-flex flex-fill">
+                   <div class="align-baseline pt-1"><%= image_tag message.public_user.get_profile_image, class: "dm-box-image" %></div>
                    <div class="text-white px-3 py-1 dm-content-box m-1">
                      <p><%= simple_format message.content %></p>
                    </div>
@@ -50,7 +61,7 @@
 
        <div class="col-md-12 text-center mt-3">
          <div class="dm-form">
-           <%= form_with model: @message, url: messages_artist_artist_users_path, method: :post do |f| %>
+           <%= form_with model: @message, url: messages_public_public_users_path, method: :post do |f| %>
              <%= f.text_area :content, placeholder: "メッセージを入力して下さい", class: "col-5" %>
              <%= f.hidden_field :room_id, value: @room.id %><br>
              <%= f.submit "送信する", class: "btn btn-success btn-green col-3" %>

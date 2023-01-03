@@ -6,6 +6,8 @@ class PublicUser < ApplicationRecord
 
   has_many :topic_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :messages, dependent: :destroy
+  has_many :joins, dependent: :destroy
 
   # followをした、followをされたの関係
   has_many :public_relationships, class_name: "Relationship", foreign_key: "public_follower_id", dependent: :destroy

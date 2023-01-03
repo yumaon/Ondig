@@ -2,7 +2,7 @@ class Artist::RoomsController < ApplicationController
   def create
     @room = Room.create
     @join1 = Join.create(:room_id => @room.id, :artist_user_id => current_artist_user.id)
-    @join2 = Join.create(params.require(:join).permit(:artist_user_id, :room_id).merge(:room_id => @room.id))
+    @join2 = Join.create(params.require(:join).permit(:artist_user_id, :public_user_id, :room_id).merge(:room_id => @room.id))
     redirect_to rooms_artist_artist_users_path(@room.id)
   end
 
@@ -12,7 +12,7 @@ class Artist::RoomsController < ApplicationController
     @artist_user.joins.each do |join|
       my_room_id << join.room.id
     end
-    @another_joins = Join.where(room_id: my_room_id).where.not(artist_user_id: @artist_user.id)
+    @another_joins = Join.where(room_id: my_room_id).order(created_at: :desc)
   end
 
   def show
