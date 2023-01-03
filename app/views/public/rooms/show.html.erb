@@ -8,10 +8,10 @@
        <div class="col-md-12">
          <% @joins.each do |join| %>
            <% if join.artist_user.present? %>
-             <h3 class="text-white"><%= join.artist_user.artist_name %> さんとのメッセージ</h3>
+             <h3 class="text-white"><%= join.artist_user.artist_name %> <span class="h6">さんとのメッセージ</span></h3>
            <% else %>
              <% unless join.public_user.id == current_public_user.id %>
-               <h3 class="text-white"><%= join.public_user.nickname %> さんとのメッセージ</h3>
+               <h3 class="text-white"><%= join.public_user.nickname %> <span class="h6">さんとのメッセージ</span></h3>
              <% end %>
             <% end %>
          <% end %>
