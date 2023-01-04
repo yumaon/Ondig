@@ -15,11 +15,11 @@ class Artist::ArtistUsersController < ApplicationController
     @topics = @artist_user.topics
   end
 
-  # My page の My Topicsページで削除ボタンを実行したとき用のアクション
+  # My page の My TopicsページとFavorite Topicsページで削除ボタンを実行したとき用のアクション
   def destroy
     topic = Topic.find(params[:id])
     topic.destroy
-    redirect_to my_page_my_topics_artist_artist_users_path
+    redirect_to request.referer
   end
 
   def edit
