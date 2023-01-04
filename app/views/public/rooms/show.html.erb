@@ -69,7 +69,7 @@
            <%= form_with model: @message, url: messages_public_public_users_path, method: :post do |f| %>
              <%= f.text_area :content, placeholder: "メッセージを入力して下さい", class: "col-5" %>
              <%= f.hidden_field :room_id, value: @room.id %><br>
-             <%= f.submit "送信する", class: "btn btn-success btn-green col-3" %>
+             <%= f.submit "送信する", class: "btn btn-primary btn-green col-3" %>
            <% end %>
          </div>
        </div>
