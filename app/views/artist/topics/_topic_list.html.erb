@@ -1,31 +1,88 @@
+<div>
+  <h3 class="text-white">Topics</h3>
+</div>
+
+<% if artist_user_signed_in? %>
+<div class="col-md-12 text-center text-white">
+  <%= link_to "+ Topicを投稿する", new_artist_topic_path, class: "btn btn-primary btn-green col-4" %>
+</div>
+<% end %>
+
 <% topics.each do |topic| %>
   <div class="mini-topic-box">
-    <div class="d-flex mt-3 p-3">
-      <%= link_to profile_artist_artist_user_path(topic.artist_user_id) do %>
-        <div class="ml-2">
-          <%= image_tag topic.artist_user.profile_image, class: "mini-topic-profile-image" %><br>
-          <p class="text-center text-white mt-2"><%= topic.artist_user.artist_name %></p>
-        </div>
-      <% end %>
+    <div class="d-flex mt-3 px-3 pt-3">
+      <div class="ml-2">
+        <% if artist_user_signed_in? %>
+          <%= link_to profile_artist_artist_user_path(topic.artist_user_id) do %>
+            <%= image_tag topic.artist_user.profile_image, class: "mini-topic-profile-image" %><br>
+            <p class="text-center text-white mini-artist-name mt-2"><%= topic.artist_user.artist_name %></p>
+          <% end %>
+        <% else %>
+          <%= link_to profile_public_artist_user_path(topic.artist_user_id) do %>
+            <%= image_tag topic.artist_user.profile_image, class: "mini-topic-profile-image" %><br>
+            <p class="text-center text-white mini-artist-name mt-2"><%= topic.artist_user.artist_name %></p>
+          <% end %>
+        <% end %>
+      </div>
       <div class="ml-5 d-flex align-items-center flex-fill">
         <% if artist_user_signed_in? %>
           <%= link_to artist_topic_path(topic) do %>
             <%= simple_format topic.body, class: "text-white" %>
           <% end %>
-        <% elsif public_user_signed_in? %>
+        <% else %>
           <%= link_to public_topic_path(topic) do %>
             <%= simple_format topic.body, class: "text-white" %>
           <% end %>
         <% end %>
       </div>
     </div>
-    <% if artist_user_signed_in? %>
-      <% if topic.artist_user_id == current_artist_user.id %>
-        <div class="flex-fill text-right mr-4 pb-2">
-          <%= link_to "編集", edit_artist_topic_path(topic), class: "btn btn-follow btn-success mr-3" %>
-          <%= link_to "削除", artist_topic_path(topic), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-follow btn-success" %>
+
+    <div class="col-md-10 mx-auto pb-1 d-flex justify-content-between">
+      <p class="text-white ml-5"><%= topic.created_at.strftime('%Y/%m/%d') %></p>
+      <div class="d-flex">
+        <% if topic.topic_image.present? %>
+        <p class="text-white mr-5"><i class="far fa-image"></i> !</p>
+        <% end %>
+        <% if topic.youtube_url.present? %>
+        <p class="text-white mr-5"><i class="fab fa-youtube"></i> !</p>
+        <% end %>
+        <% if public_user_signed_in? %>
+          <% if topic.public_user_favorited_by?(current_public_user) %>
+            <%= link_to public_topic_favorites_path(topic), class: "text-white", method: :delete do %>
+              <i class="fas fa-heart"></i>
+            <% end %>
+            <p class="text-white ml-2"><%= topic.favorites.count %></p>
+          <% else %>
+            <%= link_to public_topic_favorites_path(topic), class: "text-white", method: :post do %>
+              <i class="far fa-heart"></i>
+            <% end %>
+            <p class="text-white ml-2"><%= topic.favorites.count %></p>
+          <% end %>
+        <% elsif artist_user_signed_in? %>
+          <% if topic.artist_user_favorited_by?(current_artist_user) %>
+            <%= link_to artist_topic_favorites_path(topic), class: "text-white", method: :delete do %>
+              <i class="fas fa-heart"></i>
+            <% end %>
+            <p class="text-white ml-2"><%= topic.favorites.count %></p>
+          <% else %>
+            <%= link_to artist_topic_favorites_path(topic), class: "text-white", method: :post do %>
+              <i class="far fa-heart"></i>
+            <% end %>
+            <p class="text-white ml-2"><%= topic.favorites.count %></p>
+          <% end %>
+        <% end %>
+        <div class="ml-5">
+          <p class="text-white"><i class="far fa-comment-dots"></i> <%= topic.topic_comments.count %></p>
         </div>
-      <% end %>
+      </div>
+    </div>
+
+    <% if artist_user_signed_in? && topic.artist_user_id == current_artist_user.id %>
+      <div class="col-md-10 flex-fill text-right mx-auto pb-2">
+        <%= link_to "編集", edit_artist_topic_path(topic), class: "btn btn-follow btn-success mr-3" %>
+        <%= link_to "削除", artist_topic_path(topic), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-red btn-danger" %>
+      </div>
     <% end %>
+
   </div>
 <% end %>

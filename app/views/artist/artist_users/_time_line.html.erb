@@ -5,14 +5,15 @@
   <div class="mini-topic-box">
     <div class="d-flex mt-3 px-3 pt-3">
       <div class="ml-2">
-        <%= image_tag topic.artist_user.profile_image, class: "mini-topic-profile-image" %><br>
         <% if artist_user_signed_in? %>
           <%= link_to profile_artist_artist_user_path(topic.artist_user_id) do %>
-            <p class="text-center text-white mt-2"><%= topic.artist_user.artist_name %></p>
+            <%= image_tag topic.artist_user.profile_image, class: "mini-topic-profile-image" %><br>
+            <p class="text-center text-white mini-artist-name mt-2"><%= topic.artist_user.artist_name %></p>
           <% end %>
         <% else %>
           <%= link_to profile_public_artist_user_path(topic.artist_user_id) do %>
-            <p class="text-center text-white mt-2"><%= topic.artist_user.artist_name %></p>
+            <%= image_tag topic.artist_user.profile_image, class: "mini-topic-profile-image" %><br>
+            <p class="text-center text-white mini-artist-name mt-2"><%= topic.artist_user.artist_name %></p>
           <% end %>
         <% end %>
       </div>
