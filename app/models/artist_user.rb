@@ -26,6 +26,11 @@ class ArtistUser < ApplicationRecord
   has_one_attached :profile_image
   has_one_attached :header_image
 
+  # Artistのキーワード検索
+  def self.search(keyword)
+    ArtistUser.where(["artist_name like? OR introduction like?", "%#{keyword}", "%#{keyword}"])
+  end
+
   # followをしたときの処理
   def follow_an_artist(artist_user_id)
     artist_relationships.create(artist_followed_id: artist_user_id)

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
         post 'rooms' => 'rooms#create', as: 'rooms_create'
         get 'rooms/:id' => 'rooms#show', as: 'rooms'
         post 'messages' => 'messages#create'
+        get 'search' => 'artist_users#search'
       end
 
       member do
@@ -73,6 +74,9 @@ Rails.application.routes.draw do
     resources :artist_users, only:[:index] do
       member do
         get 'profile' => 'profiles#show'
+      end
+      collection do
+        get 'search' => 'artist_users#search'
       end
       resources :live_schedules, only:[:index]
       resources :items, only:[:index]

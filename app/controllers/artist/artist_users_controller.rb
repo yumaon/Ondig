@@ -3,6 +3,13 @@ class Artist::ArtistUsersController < ApplicationController
     @artist_users = ArtistUser.all
   end
 
+  # Artist検索アクション
+  def search
+    @artist_users = ArtistUser.search(params[:keyword])
+    @keyword = params[:keyword]
+    render "index"
+  end
+
   def show
     @artist_user = current_artist_user
     # TimeLineを表示するため、自身のtopicsとfollowしているユーザーのtopicsを取得

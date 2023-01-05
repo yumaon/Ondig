@@ -14,7 +14,7 @@
           <div class="d-flex mt-3 px-3 pt-3">
             <div class="ml-2">
               <%= image_tag topic.artist_user.profile_image, class: "mini-topic-profile-image" %><br>
-              <p class="text-center text-white mt-2"><%= topic.artist_user.artist_name %></p>
+              <p class="text-center text-white mini-artist-name mt-2"><%= topic.artist_user.artist_name %></p>
             </div>
             <div class="ml-5 d-flex align-items-center flex-fill">
               <%= link_to artist_topic_path(topic) do %>
