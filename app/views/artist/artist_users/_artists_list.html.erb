@@ -2,19 +2,41 @@
   <h3 class="text-white">Artists <span class="h5">(<%= artist_users.count %> 件)</span></h3>
 </div>
 
-<div class="search-form">
+<div class="search-form p-3 col-md-10">
   <% if artist_user_signed_in? %>
-    <%= form_with url: search_artist_artist_users_path, method: :get, local: true do |f| %>
-      <div class="d-flex">
-        <%= f.text_field :keyword, value: keyword, placeholder: 'Search' %>
-        <%= f.submit "検索", class: "btn btn-success btn-green" %>
+    <%= form_with(scope: :search, url: search_artist_artist_users_path, method: :get, local: true) do |f| %>
+      <div class="field">
+        <%= f.label :artist_name, "アーティスト名", class: "text-white col-2" %>
+        <%= f.text_field :artist_name, value: @search_params[:artist_name], placeholder: 'Search' %>
+      </div>
+      <div class="field">
+        <%= f.label :genre_id, "ジャンル選択", class: "text-white col-2" %>
+        <%= f.collection_select(:genre_id, Genre.all, :id, :name, selected: @search_params[:genre_id], include_blank: t('helpers.select.全て')) %>
+      </div>
+      <div class="field">
+        <%= f.label :activity_location, "エリアを選択", class: "text-white col-2" %>
+        <%= f.select :activity_location, ArtistUser.activity_locations_i18n.invert, selected: @search_params[:activity_location], include_blank: t('helpers.select.全て') %>
+        <div class="text-center">
+          <%= f.submit "検索", class: "btn btn-success btn-green col-5" %>
+        </div>
       </div>
     <% end %>
   <% else %>
-    <%= form_with url: search_public_artist_users_path, method: :get, local: true do |f| %>
-      <div class="d-flex">
-        <%= f.text_field :keyword, value: keyword, placeholder: 'Search' %>
-        <%= f.submit "検索", class: "btn btn-success btn-green" %>
+    <%= form_with(scope: :search, url: search_public_artist_users_path, method: :get, local: true) do |f| %>
+      <div class="field">
+        <%= f.label :artist_name, "アーティスト名", class: "text-white col-2" %>
+        <%= f.text_field :artist_name, value: @search_params[:artist_name], placeholder: 'Search' %>
+      </div>
+      <div class="field">
+        <%= f.label :genre_id, "ジャンル選択", class: "text-white col-2" %>
+        <%= f.collection_select(:genre_id, Genre.all, :id, :name, selected: @search_params[:genre_id], include_blank: t('helpers.select.全て')) %>
+      </div>
+      <div class="field">
+        <%= f.label :activity_location, "エリアを選択", class: "text-white col-2" %>
+        <%= f.select :activity_location, ArtistUser.activity_locations_i18n.invert, selected: @search_params[:activity_location], include_blank: t('helpers.select.全て') %>
+        <div class="text-center">
+          <%= f.submit "検索", class: "btn btn-success btn-green col-5" %>
+        </div>
       </div>
     <% end %>
   <% end %>
@@ -47,7 +69,8 @@
                 </div>
               <% end %>
               <div class="col-md-12 text-center">
-                <span class="text-white">Genre: <%= artist.genre.name %></span>
+                <span class="text-white">Genre: <%= artist.genre.name %></span><br>
+                <span class="text-white"><%= artist.activity_location_i18n %></span>
               </div>
               <div class="col-md-12 text-center text-white introduction-box">
                 <% if artist.introduction.present? %>

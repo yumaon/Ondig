@@ -1,0 +1,59 @@
+<% if artist_user_signed_in? %>
+  <div class="row mt-5 d-flex justify-content-center">
+    <div class="col-md-8 current-user-box text-center py-3">
+      <div>
+        <%= image_tag artist_user.get_profile_image, class: "my-page-box-image" %>
+      </div>
+      <div class="text-white mt-3">
+        <%= artist_user.artist_name %>
+      </div>
+    </div>
+
+    <div class="col-md-8 genre-search-box text-center m-3">
+      <div class="text-white mt-3 border-bottom">
+        <p>Genres</p>
+      </div>
+
+      <div class="my-3">
+        <ul class="nav flex-column">
+          <%= form_tag artist_artist_users_path, method: :get do %>
+            <% genres.each do |genre| %>
+              <li class="nav-item text-white">
+                <%= link_to genre.name, artist_artist_users_path(name: genre.id), class: "text-white" %>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+<% elsif public_user_signed_in? %>
+  <div class="row mt-5 d-flex justify-content-center">
+    <div class="col-md-8 current-user-box text-center py-3">
+      <div>
+        <%= image_tag public_user.get_profile_image, class: "my-page-box-image" %>
+      </div>
+      <div class="text-white mt-3">
+        <%= public_user.nickname %>
+      </div>
+    </div>
+
+    <div class="col-md-8 genre-search-box text-center m-3">
+      <div class="text-white mt-3 border-bottom">
+        <p>Genres</p>
+      </div>
+
+      <div class="my-3">
+        <ul class="nav flex-column">
+          <%= form_tag public_artist_users_path, method: :get do %>
+            <% genres.each do |genre| %>
+              <li class="nav-item text-white">
+                <%= link_to genre.name, public_artist_users_path(name: genre.id), class: "text-white" %>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+<% end %>

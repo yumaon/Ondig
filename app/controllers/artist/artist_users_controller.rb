@@ -1,12 +1,23 @@
 class Artist::ArtistUsersController < ApplicationController
   def index
-    @artist_users = ArtistUser.all
+    @genres = Genre.all
+    @artist_user = current_artist_user
+    @search_params = artist_user_search_params
+
+    # サイドバーのジャンル検索ボタンを押された時の処理
+    if params[:name].present?
+      @artist_users = Genre.find(params[:name]).artist_users
+    else
+      @artist_users = ArtistUser.all
+    end
   end
 
   # Artist検索アクション
   def search
-    @artist_users = ArtistUser.search(params[:keyword])
-    @keyword = params[:keyword]
+    @artist_user = current_artist_user
+    @genres = Genre.all
+    @search_params = artist_user_search_params
+    @artist_users = ArtistUser.search(@search_params).includes(:genre)
     render "index"
   end
 
@@ -46,5 +57,9 @@ class Artist::ArtistUsersController < ApplicationController
 
   def artist_user_params
     params.require(:artist_user).permit(:profile_image, :artist_name, :rep_name, :rep_name_kana, :activity_location, :email, :genre_id)
+  end
+
+  def artist_user_search_params
+    params.fetch(:search, {}).permit(:artist_name, :genre_id, :activity_location)
   end
 end

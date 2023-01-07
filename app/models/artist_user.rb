@@ -26,10 +26,22 @@ class ArtistUser < ApplicationRecord
   has_one_attached :profile_image
   has_one_attached :header_image
 
-  # Artistのキーワード検索
-  def self.search(keyword)
-    ArtistUser.where(["artist_name like? OR introduction like?", "%#{keyword}", "%#{keyword}"])
+  # Artistの検索機能（絞り込み検索）
+  scope :search, -> (search_params) do
+    return if search_params.blank?
+
+    # パラメータを指定して検索を実行する
+    artist_name_like(search_params[:artist_name])
+      .genre_id_is(search_params[:genre_id])
+      .activity_location_is(search_params[:activity_location])
   end
+
+  # artist_nameが存在する場合、artist_nameをlike検索する
+  scope :artist_name_like, -> (artist_name) { where('artist_name LIKE ?', "%#{artist_name}") if artist_name.present? }
+  # genre_idが存在する場合、genre_idで検索する
+  scope :genre_id_is, -> (genre_id) { where(genre_id: genre_id) if genre_id.present? }
+  # activity_locationが存在する場合、activity_locationで検索する
+  scope :activity_location_is, -> (activity_location) { where(activity_location: activity_location) if activity_location.present? }
 
   # followをしたときの処理
   def follow_an_artist(artist_user_id)

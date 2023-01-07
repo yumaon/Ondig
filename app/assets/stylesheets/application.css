@@ -102,7 +102,22 @@ body {
   object-fit: cover;
 }
 
+/*アーティスト一覧ページ　サイドバー用CSS*/
+.current-user-box {
+  background: rgba(217, 217, 217, 0.2);
+  border-radius: 10px;
+}
+
+.genre-search-box {
+  background: rgba(217, 217, 217, 0.2);
+  border-radius: 10px;
+}
+
 /*アーティスト一覧ページ用CSS*/
+.search-form {
+  background: rgba(217, 217, 217, 0.2);
+  border-radius: 10px;
+}
 
 .mini-profile-box {
   height: 400px;
