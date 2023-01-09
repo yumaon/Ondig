@@ -5,12 +5,20 @@ class Artist::TopicsController < ApplicationController
 
   def create
     topic = current_artist_user.topics.new(topic_params)
-    topic.save
-    redirect_to artist_topic_path(topic)
+
+    # 受け取ったタグの値をスペースで区切り配列にし保存する(半角と全角の両方を対応させる)
+    tag_list = params[:topic][:name].split(/[ |　]/)
+    if topic.save
+      topic.save_tag(tag_list)
+      redirect_to artist_topic_path(topic)
+    else
+     render :new
+    end
   end
 
   def index
     @topics = Topic.all
+    @tag_lists = Tag.all
   end
 
   def show
@@ -32,6 +40,15 @@ class Artist::TopicsController < ApplicationController
     topic = Topic.find(params[:id])
     topic.destroy
     redirect_to artist_topics_path
+  end
+
+  def tag_search
+    @tag_lists = Tag.all
+    @tag = Tag.find(params[:tag_id])
+    @topics = @tag.topics.all
+    @search_display = @tag.name
+    @search_display_text = "の関連Topics"
+    render "index"
   end
 
   private

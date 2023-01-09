@@ -11,6 +11,12 @@
       <%= f.text_area :body, class: "ml-5" %>
     </div>
     <div class="col-md-12 col-form-label">
+      <%= f.label :name, "タグ付け" %>
+      <p>スペースを入れて入力することで複数のタグ付けが可能です。</p>
+      <p>"例: Live 新曲 MV"</p>
+      <%= f.text_field :name %>
+    </div>
+    <div class="col-md-12 col-form-label">
       <%= f.label :topic_image, "画像" %>
       <%= f.file_field :topic_image %>
     </div>

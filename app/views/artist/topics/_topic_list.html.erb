@@ -8,6 +8,33 @@
 </div>
 <% end %>
 
+<div class="d-flex justify-content-center">
+  <div class="col-md-8 tag-list-box mt-3 p-2 d-flex">
+    <% tag_lists.each do |tag_list| %>
+      <% if artist_user_signed_in? %>
+        <%= link_to artist_tag_topics_path(tag_list.id) do %>
+          <div class="tags px-2 m-1">
+            <p class="text-white"><%= tag_list.name %><%="(#{tag_list.topics.count})" %></p>
+          </div>
+        <% end %>
+      <% else %>
+        <%= link_to public_tag_topics_path(tag_list.id) do %>
+          <div class="tags px-2 m-1">
+            <p class="text-white"><%= tag_list.name %><%="(#{tag_list.topics.count})" %></p>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+<div class="d-flex mt-2">
+  <div class="tags px-2">
+    <span class="text-white"><%= @search_display %></span>
+  </div>
+  <span class="text-white ml-2"><%= @search_display_text %></span>
+</div>
+
 <% topics.each do |topic| %>
   <div class="mini-topic-box">
     <div class="d-flex mt-3 px-3 pt-3">
@@ -37,14 +64,34 @@
       </div>
     </div>
 
+    <% if topic.tags.present? %>
+    <div class="col-md-10 mx-auto d-flex">
+      <% topic.tags.each do |tag| %>
+        <% if artist_user_signed_in? %>
+          <%= link_to artist_tag_topics_path(tag.id) do %>
+          <div class="tags px-2 m-1">
+            <p class="text-white"><%= tag.name %></p>
+          </div>
+          <% end %>
+        <% else %>
+          <%= link_to public_tag_topics_path(tag.id) do %>
+          <div class="tags px-2 m-1">
+            <p class="text-white"><%= tag.name %></p>
+          </div>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+    <% end %>
+
     <div class="col-md-10 mx-auto pb-1 d-flex justify-content-between">
-      <p class="text-white ml-5"><%= topic.created_at.strftime('%Y/%m/%d') %></p>
+      <p class="text-white"><%= topic.created_at.strftime('%Y/%m/%d') %></p>
       <div class="d-flex">
         <% if topic.topic_image.present? %>
-        <p class="text-white mr-5"><i class="far fa-image"></i> !</p>
+        <p class="text-white mr-5"><i class="far fa-image"></i></p>
         <% end %>
         <% if topic.youtube_url.present? %>
-        <p class="text-white mr-5"><i class="fab fa-youtube"></i> !</p>
+        <p class="text-white mr-5"><i class="fab fa-youtube"></i></p>
         <% end %>
         <% if public_user_signed_in? %>
           <% if topic.public_user_favorited_by?(current_public_user) %>

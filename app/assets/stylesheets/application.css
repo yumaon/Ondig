@@ -192,7 +192,27 @@ body {
   color: #FFFFFF;
 }
 
+/*Tag関係CSS*/
+.tag-list-box {
+  width: 100%;
+  background: rgba(217, 217, 217, 0.2);
+  border-radius: 10px;
+}
+
+.tags {
+  background: #54b187;
+  border-radius: 5px;
+}
+
+.tags p {
+  margin-bottom: 0;
+  font-size: 80%;
+}
+
 /*Topic一覧ページ用CSS*/
+.fa-image, .fa-youtube {
+  color: #fb3f50;
+}
 
 .mini-topic-box {
   width: 100%;
