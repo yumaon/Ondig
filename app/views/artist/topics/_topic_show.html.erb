@@ -1,0 +1,223 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 text-white">
+      <h3>Topics</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="topic-box">
+      <div class="col-md-12">
+        <div class="d-flex pt-4">
+          <!--Artist会員のprofile画像を表示-->
+          <%= image_tag topic.artist_user.profile_image, class: "topic-profile-image ml-2" %>
+
+          <!--Topicに紐づく会員のprofileページに遷移するリンクをartist_nameで表示-->
+            <div class="d-flex align-items-center ml-5">
+              <!--アーティストユーザー用-->
+              <% if artist_user_signed_in? %>
+                <%= link_to profile_artist_artist_user_path(topic.artist_user_id) do %>
+                <h3 class="text-white"><%= topic.artist_user.artist_name %></h3>
+                <% end %>
+
+              <!--一般会員用-->
+              <% elsif public_user_signed_in? %>
+                <%= link_to profile_public_artist_user_path(topic.artist_user_id) do %>
+                <h3 class="text-white"><%= topic.artist_user.artist_name %></h3>
+                <% end %>
+              <% end %>
+            </div>
+        </div>
+      </div>
+
+      <!--Topic投稿データにyoutubeリンクが登録されていた場合にiframeを表示-->
+      <% if topic.youtube_url.present? %>
+        <div class="col-md-12 mt-3">
+          <div class="topic-youtube-box">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= topic.youtube_url.last(11) %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+      <% end %>
+
+      <!--Topic投稿データに画像が登録されていた場合に画像データを表示-->
+      <% if topic.topic_image.present? %>
+        <div class="col-md-12 text-center mt-3">
+          <%= image_tag topic.topic_image, class: "topic-image" %>
+        </div>
+      <% end %>
+
+      <!--Topicの本文-->
+      <div class="col-md-12 text-center mt-3">
+        <%= simple_format topic.body, class: "text-white" %>
+      </div>
+
+      <!--トピックスに紐づいているタグを表示、クリックでタグ検索できるようボタンで表示-->
+      <% if topic.tags.present? %>
+      <div class="col-md-10 mx-auto d-flex">
+        <% topic.tags.each do |tag| %>
+        <!--アーティストユーザー用-->
+          <% if artist_user_signed_in? %>
+            <%= link_to artist_tag_topics_path(tag.id) do %>
+            <div class="tags px-2 m-1">
+              <p class="text-white"><%= tag.name %></p>
+            </div>
+            <% end %>
+
+        <!--一般会員用-->
+          <% else %>
+            <%= link_to public_tag_topics_path(tag.id) do %>
+            <div class="tags px-2 m-1">
+              <p class="text-white"><%= tag.name %></p>
+            </div>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+      <% end %>
+
+      <div class="col-md-10 mx-auto pl-5 border-bottom mb-3 d-flex justify-content-between">
+        <!--投稿日の表示-->
+        <p class="text-white"><%= topic.created_at.strftime('%Y/%m/%d') %></p>
+        <div class="d-flex">
+          <!--トピックスに画像が投稿されていた場合のアイコン表示-->
+          <% if topic.topic_image.present? %>
+            <p class="text-white mr-5"><i class="far fa-image"></i></p>
+          <% end %>
+
+          <!--トピックスにyoutubeのリンクが投稿されていた場合のアイコン表示-->
+          <% if topic.youtube_url.present? %>
+            <p class="text-white mr-5"><i class="fab fa-youtube"></i></p>
+          <% end %>
+
+          <!--一般会員用いいねボタンの表示-->
+          <% if public_user_signed_in? %>
+            <% if topic.public_user_favorited_by?(current_public_user) %>
+              <%= link_to public_topic_favorites_path(topic), class: "text-white", method: :delete do %>
+                <i class="fas fa-heart"></i>
+              <% end %>
+              <p class="text-white ml-2"><%= topic.favorites.count %></p>
+            <% else %>
+              <%= link_to public_topic_favorites_path(topic), class: "text-white", method: :post do %>
+                <i class="far fa-heart"></i>
+              <% end %>
+              <p class="text-white ml-2"><%= topic.favorites.count %></p>
+            <% end %>
+
+          <!--アーティストユーザー用いいねボタンの表示-->
+          <% elsif artist_user_signed_in? %>
+            <% if topic.artist_user_favorited_by?(current_artist_user) %>
+              <%= link_to artist_topic_favorites_path(topic), class: "text-white", method: :delete do %>
+                <i class="fas fa-heart"></i>
+              <% end %>
+              <p class="text-white ml-2"><%= topic.favorites.count %></p>
+            <% else %>
+              <%= link_to artist_topic_favorites_path(topic), class: "text-white", method: :post do %>
+                <i class="far fa-heart"></i>
+              <% end %>
+              <p class="text-white ml-2"><%= topic.favorites.count %></p>
+            <% end %>
+          <% end %>
+
+          <!--Topicに紐づくコメントの数を表示-->
+          <div class="ml-5">
+            <p class="text-white"><i class="far fa-comment-dots"></i> <%= topic.topic_comments.count %></p>
+          </div>
+        </div>
+      </div>
+
+      <!--投稿したArtist会員のidと、ログインしているArtist会員のidが一致している場合に”編集”、”削除”ボタンを表示-->
+      <% if artist_user_signed_in? && topic.artist_user_id == current_artist_user.id %>
+        <div class="flex-fill text-right mr-4 pb-2">
+          <%= link_to "編集", edit_artist_topic_path(topic), class: "btn btn-follow btn-success mr-3" %>
+          <%= link_to "削除", artist_topic_path(topic), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-follow btn-success" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-12 text-white">
+      <h5>Comments (<%= topic.topic_comments.count %>)</h5>
+    </div>
+  </div>
+
+  <!--コメントの表示-->
+  <div class="row">
+    <div class="col-md-12 topic-comment-box pb-3">
+      <% topic.topic_comments.each do |topic_comment| %>
+        <div class="text-white border-bottom">
+          <div class="d-flex pt-3 pl-3 pr-3">
+            <!--topic_commentに紐づいているidが一般会員の場合のコメント表示(public_user)-->
+            <% if topic_comment.public_user_id.present? %>
+              <div class="ml-2">
+                <%= image_tag topic_comment.public_user.get_profile_image, class: "comment-profile-image" %>
+                <p><%= topic_comment.public_user.nickname %></p>
+              </div>
+              <div class="ml-5 flex-fill">
+                <p><%= simple_format topic_comment.comment %></p>
+                <p class="text-right"><%= topic_comment.created_at.strftime('%Y/%m/%d') %></p>
+                <% if topic_comment.public_user == current_public_user %>
+                  <div class="text-right">
+                    <%= link_to "削除", public_topic_topic_comment_path(topic_comment.topic, topic_comment), method: :delete, class: "btn btn-danger btn-red" %>
+                  </div>
+                <% end %>
+              </div>
+
+            <!--topic_commentに紐づいているidがアーティスト会員の場合のコメント表示(artist_user)-->
+            <% elsif topic_comment.artist_user_id.present? %>
+              <div class="ml-2">
+                <%= image_tag topic_comment.artist_user.get_profile_image, class: "comment-profile-image" %>
+                <% if artist_user_signed_in? %>
+                  <%= link_to profile_artist_artist_user_path do %>
+                    <p class="text-white"><%= topic_comment.artist_user.artist_name %></p>
+                  <% end %>
+                <% elsif public_user_signed_in? %>
+                  <%= link_to profile_public_artist_user_path do %>
+                    <p class="text-white"><%= topic_comment.artist_user.artist_name %></p>
+                  <% end %>
+                <% end %>
+              </div>
+              <div class="ml-5 flex-fill">
+                <p><%= simple_format topic_comment.comment %></p>
+                <p class="text-right"><%= topic_comment.created_at.strftime('%Y/%m/%d') %></p>
+                <% if topic_comment.artist_user == current_artist_user %>
+                  <div class="text-right">
+                    <%= link_to "削除", artist_topic_topic_comment_path(topic_comment.topic, topic_comment), method: :delete, class: "btn btn-danger btn-red" %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <!--コメント投稿フォーム-->
+  <div class="row">
+    <div class="col-md-12 comment-form-box mt-3 p-3">
+      <!--ログインしているのが一般会員の場合(public_user)-->
+      <% if public_user_signed_in? %>
+        <%= form_with model: topic_comment, url: public_topic_topic_comments_path(topic), method: :post do |f| %>
+        <div class="text-center">
+          <%= f.text_area :comment, placeholder: "コメントをここに", class: "col-md-7" %>
+        </div>
+        <div class="text-center">
+          <%= f.submit "送信する", class: "btn btn-success btn-follow" %>
+        </div>
+        <% end %>
+
+      <!--ログインしているのがアーティスト会員の場合(artist_user)-->
+      <% elsif artist_user_signed_in? %>
+        <%= form_with model: topic_comment, url: artist_topic_topic_comments_path(topic), method: :post do |f| %>
+        <div class="text-center">
+          <%= f.text_area :comment, placeholder: "コメントをここに", class: "col-md-7" %>
+        </div>
+        <div class="text-center">
+          <%= f.submit "送信する", class: "btn btn-success btn-follow" %>
+        </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
