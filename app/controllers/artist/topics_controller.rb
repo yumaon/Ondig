@@ -50,6 +50,14 @@ class Artist::TopicsController < ApplicationController
     redirect_to artist_topics_path
   end
 
+  def search
+    @artist_user = current_artist_user
+    @tag_lists = Tag.all
+    @topics = Topic.search(params[:keyword])
+    @keyword = params[:keyword]
+    render "index"
+  end
+
   def tag_search
     @artist_user = current_artist_user
     @tag_lists = Tag.all

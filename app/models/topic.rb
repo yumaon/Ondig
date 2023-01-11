@@ -32,6 +32,11 @@ class Topic < ApplicationRecord
     end
   end
 
+  # トピックスのキーワード検索
+  def self.search(keyword)
+    Topic.where(["body LIKE?", "%#{keyword}"])
+  end
+
   def public_user_favorited_by?(public_user)
     favorites.exists?(public_user_id: public_user.id)
   end
