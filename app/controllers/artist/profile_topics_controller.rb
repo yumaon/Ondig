@@ -2,6 +2,7 @@ class Artist::ProfileTopicsController < ApplicationController
   def index
     @artist_user = ArtistUser.find(params[:artist_user_id])
     @topics = @artist_user.topics
+    @tag_lists = Tag.all
 
     @current_ArtistUser_join = Join.where(artist_user_id: current_artist_user.id)
     @ArtistUser_join = Join.where(artist_user_id: @artist_user.id)

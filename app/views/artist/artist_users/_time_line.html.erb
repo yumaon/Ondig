@@ -30,6 +30,26 @@
       </div>
     </div>
 
+    <% if topic.tags.present? %>
+    <div class="col-md-10 mx-auto d-flex">
+      <% topic.tags.each do |tag| %>
+        <% if artist_user_signed_in? %>
+          <%= link_to artist_tag_topics_path(tag.id) do %>
+          <div class="tags px-2 m-1">
+            <p class="text-white"><%= tag.name %></p>
+          </div>
+          <% end %>
+        <% else %>
+          <%= link_to public_tag_topics_path(tag.id) do %>
+          <div class="tags px-2 m-1">
+            <p class="text-white"><%= tag.name %></p>
+          </div>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+    <% end %>
+
     <div class="col-md-10 mx-auto pb-1 d-flex justify-content-between">
       <p class="text-white ml-5"><%= topic.created_at.strftime('%Y/%m/%d') %></p>
       <div class="d-flex">
