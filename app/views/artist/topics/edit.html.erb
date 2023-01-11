@@ -11,6 +11,10 @@
       <%= f.text_area :body, class: "ml-5" %>
     </div>
     <div class="col-md-12 col-form-label">
+      <%= f.label :name, "タグ付け" %>
+      <%= f.text_field :name, value: @tag_list %>
+    </div>
+    <div class="col-md-12 col-form-label">
       <%= f.label :topic_image, "画像" %>
       <%= f.file_field :topic_image %>
     </div>

@@ -28,12 +28,19 @@ class Artist::TopicsController < ApplicationController
 
   def edit
     @topic = Topic.find(params[:id])
+    @tag_list = @topic.tags.pluck(:name).join('　')
   end
 
   def update
     topic = Topic.find(params[:id])
-    topic.update(topic_params)
-    redirect_to artist_topic_path(topic)
+    tag_list = params[:topic][:name].split(/[ |　]/)
+
+    if topic.update(topic_params)
+      topic.save_tag(tag_list)
+      redirect_to artist_topic_path(topic)
+    else
+      render :edit
+    end
   end
 
   def destroy
