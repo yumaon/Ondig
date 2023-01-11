@@ -108,6 +108,12 @@ body {
   border-radius: 10px;
 }
 
+.follow-detail-display p {
+  margin-bottom: 0;
+  color: #b6b9ff;
+  font-size: 80%;
+}
+
 .genre-search-box {
   background: rgba(217, 217, 217, 0.2);
   border-radius: 10px;

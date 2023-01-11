@@ -41,27 +41,28 @@
     <% end %>
   </div>
 
-  <div class="col-md-8 genre-search-box text-center m-3">
-    <div class="text-white mt-3 border-bottom">
-      <p>Genres</p>
-    </div>
+  <div class="d-flex justify-content-center">
+    <div class="col-md-8 tag-list-box mt-3 p-2 d-flex flex-wrap">
+      <div class="col-md-12 text-center mb-2 pb-2 border-bottom">
+        <span class="text-white">Tags</span>
+      </div>
 
-    <div class="my-3">
-      <ul class="nav flex-column">
-        <%= form_tag artist_artist_users_path, method: :get do %>
-          <% genres.each do |genre| %>
-            <% if artist_user_signed_in? %>
-              <li class="nav-item text-white">
-                <%= link_to genre.name, artist_artist_users_path(name: genre.id), class: "text-white" %>
-              </li>
-            <% elsif public_user_signed_in? %>
-              <li class="nav-item text-white">
-                <%= link_to genre.name, public_artist_users_path(name: genre.id), class: "text-white" %>
-              </li>
-            <% end %>
+      <% tag_lists.each do |tag_list| %>
+        <% if artist_user_signed_in? %>
+          <%= link_to artist_tag_topics_path(tag_list.id) do %>
+            <div class="tags px-2 m-1">
+              <p class="text-white"><%= tag_list.name %><%="(#{tag_list.topics.count})" %></p>
+            </div>
+          <% end %>
+        <% else %>
+          <%= link_to public_tag_topics_path(tag_list.id) do %>
+            <div class="tags px-2 m-1">
+              <p class="text-white"><%= tag_list.name %><%="(#{tag_list.topics.count})" %></p>
+            </div>
           <% end %>
         <% end %>
-      </ul>
+      <% end %>
     </div>
   </div>
+
 </div>

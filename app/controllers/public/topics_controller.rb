@@ -1,5 +1,6 @@
 class Public::TopicsController < ApplicationController
   def index
+    @public_user = current_public_user
     @topics = Topic.all
     @tag_lists = Tag.all
   end
@@ -10,6 +11,7 @@ class Public::TopicsController < ApplicationController
   end
 
   def tag_search
+    @public_user = current_public_user
     @tag_lists = Tag.all
     @tag = Tag.find(params[:tag_id])
     @topics = @tag.topics.all

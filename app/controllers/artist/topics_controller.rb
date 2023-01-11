@@ -17,6 +17,7 @@ class Artist::TopicsController < ApplicationController
   end
 
   def index
+    @artist_user = current_artist_user
     @topics = Topic.all
     @tag_lists = Tag.all
   end
@@ -50,6 +51,7 @@ class Artist::TopicsController < ApplicationController
   end
 
   def tag_search
+    @artist_user = current_artist_user
     @tag_lists = Tag.all
     @tag = Tag.find(params[:tag_id])
     @topics = @tag.topics.all
