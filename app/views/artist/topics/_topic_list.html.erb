@@ -3,17 +3,22 @@
 </div>
 
 <% if artist_user_signed_in? %>
-<div class="col-md-12 text-center text-white">
-  <%= link_to "+ Topicを投稿する", new_artist_topic_path, class: "btn btn-primary btn-green col-4" %>
+<div class="col-md-12 mt-2">
+  <div class="row">
+    <div class="col-md-6">
+      <%= link_to "+ Topicを投稿する", new_artist_topic_path, class: "btn btn-primary btn-green col-6" %>
+    </div>
+    <div class="col-md-6">
+      <%= form_with url: search_artist_topics_path, method: :get do |f| %>
+      <div class="d-flex justify-content-end">
+        <%= f.text_field :keyword, value: @keyword, placeholder: 'Search', class: "col-9"%>
+        <%= f.submit "検索", class: "btn btn-primary btn-green ml-2"%>
+      </div>
+      <% end %>
+    </div>
+  </div>
 </div>
 <% end %>
-
-<div class="search-form">
-  <%= form_with url: search_artist_topics_path, method: :get do |f| %>
-    <%= f.text_field :keyword, value: @keyword %>
-    <%= f.submit "検索" %>
-  <% end %>
-</div>
 
 <div class="d-flex mt-2">
   <div class="tags px-2">
