@@ -10,13 +10,20 @@ class Public::TopicsController < ApplicationController
     @topic_comment = TopicComment.new
   end
 
+  def search
+    @public_user = current_public_user
+    @tag_lists = Tag.all
+    @topics = Topic.search(params[:keyword])
+    @keyword = params[:keyword]
+    render "index"
+  end
+
   def tag_search
     @public_user = current_public_user
     @tag_lists = Tag.all
     @tag = Tag.find(params[:tag_id])
     @topics = @tag.topics.all
     @search_display = @tag.name
-    @search_display_text = "の関連Topics"
     render "index"
   end
 end

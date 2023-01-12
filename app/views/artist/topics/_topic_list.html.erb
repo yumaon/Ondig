@@ -2,40 +2,70 @@
   <h3 class="text-white">Topics</h3>
 </div>
 
-<% if artist_user_signed_in? %>
 <div class="col-md-12 mt-2">
   <div class="row">
+    <% if artist_user_signed_in? %>
+    <!--トピックス投稿ボタンの表示-->
     <div class="col-md-6">
       <%= link_to "+ Topicを投稿する", new_artist_topic_path, class: "btn btn-primary btn-green col-6" %>
     </div>
+
+    <!--アーティストユーザー用検索フォームの設置-->
     <div class="col-md-6">
       <%= form_with url: search_artist_topics_path, method: :get do |f| %>
       <div class="d-flex justify-content-end">
-        <%= f.text_field :keyword, value: @keyword, placeholder: 'Search', class: "col-9"%>
+        <%= f.text_field :keyword, value: keyword, placeholder: 'Search', class: "col-9"%>
         <%= f.submit "検索", class: "btn btn-primary btn-green ml-2"%>
       </div>
       <% end %>
     </div>
+
+    <!--一般ユーザー用検索フォームの設置-->
+    <% else %>
+    <div class="col-md-12">
+      <%= form_with url: search_public_topics_path, method: :get do |f| %>
+      <div class="d-flex justify-content-end">
+        <%= f.text_field :keyword, value: keyword, placeholder: 'Search', class: "col-4"%>
+        <%= f.submit "検索", class: "btn btn-primary btn-green ml-2"%>
+      </div>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+</div>
+
+<!--キーワード検索の際に、入力されたキーワードを表示させる-->
+<% if keyword.present? %>
+<div class="mt-3">
+  <div class="">
+    <span class="text-white">"<%= keyword %>"の検索結果</span>
   </div>
 </div>
 <% end %>
 
-<div class="d-flex mt-2">
+<!--タグ検索の際に、何のタグで検索したかを表示させる-->
+<% if search_display.present? %>
+<div class="d-flex mt-3">
   <div class="tags px-2">
-    <span class="text-white"><%= @search_display %></span>
+    <span class="text-white"><%= search_display %></span>
   </div>
-  <span class="text-white ml-2"><%= @search_display_text %></span>
+  <span class="text-white ml-2">の関連Topics</span>
 </div>
+<% end %>
 
+<!--トピックス一覧の表示-->
 <% topics.each do |topic| %>
   <div class="mini-topic-box">
     <div class="d-flex mt-3 px-3 pt-3">
       <div class="ml-2">
+        <!--アーティストプロフィールページへのリンク(ArtistUser用)-->
         <% if artist_user_signed_in? %>
           <%= link_to profile_artist_artist_user_path(topic.artist_user_id) do %>
             <%= image_tag topic.artist_user.profile_image, class: "mini-topic-profile-image" %><br>
             <p class="text-center text-white mini-artist-name mt-2"><%= topic.artist_user.artist_name %></p>
           <% end %>
+
+        <!--アーティストユーザープロフィールページへのリンク(PublicUser用)-->
         <% else %>
           <%= link_to profile_public_artist_user_path(topic.artist_user_id) do %>
             <%= image_tag topic.artist_user.profile_image, class: "mini-topic-profile-image" %><br>
@@ -44,10 +74,12 @@
         <% end %>
       </div>
       <div class="ml-5 d-flex align-items-center flex-fill">
+        <!--トピックス詳細ページへのリンク(ArtistUser用)-->
         <% if artist_user_signed_in? %>
           <%= link_to artist_topic_path(topic) do %>
             <%= simple_format topic.body, class: "text-white" %>
           <% end %>
+        <!--トピックス詳細ページへのリンク(PublicUser用)-->
         <% else %>
           <%= link_to public_topic_path(topic) do %>
             <%= simple_format topic.body, class: "text-white" %>
@@ -56,16 +88,19 @@
       </div>
     </div>
 
+    <!--トピックスに紐づいているタグを表示-->
     <% if topic.tags.present? %>
     <div class="col-md-10 mx-auto d-flex flex-wrap">
       <% topic.tags.each do |tag| %>
         <% if artist_user_signed_in? %>
+          <!--取得したタグでタグ検索をできるようリンクを設置(ArtistUser用)-->
           <%= link_to artist_tag_topics_path(tag.id) do %>
           <div class="tags px-2 m-1">
             <p class="text-white"><%= tag.name %></p>
           </div>
           <% end %>
         <% else %>
+          <!--取得したタグでタグ検索をできるようリンクを設置(PublicUser用)-->
           <%= link_to public_tag_topics_path(tag.id) do %>
           <div class="tags px-2 m-1">
             <p class="text-white"><%= tag.name %></p>
@@ -77,27 +112,22 @@
     <% end %>
 
     <div class="col-md-10 mx-auto pb-1 d-flex justify-content-between">
+      <!--トピックスの投稿日を表示-->
       <p class="text-white"><%= topic.created_at.strftime('%Y/%m/%d') %></p>
+
       <div class="d-flex">
+        <!--トピックスに画像が投稿されていた場合のアイコン表示-->
         <% if topic.topic_image.present? %>
         <p class="text-white mr-5"><i class="far fa-image"></i></p>
         <% end %>
+
+        <!--トピックスにyoutubeのリンクが投稿されていた場合のアイコン表示-->
         <% if topic.youtube_url.present? %>
         <p class="text-white mr-5"><i class="fab fa-youtube"></i></p>
         <% end %>
-        <% if public_user_signed_in? %>
-          <% if topic.public_user_favorited_by?(current_public_user) %>
-            <%= link_to public_topic_favorites_path(topic), class: "text-white", method: :delete do %>
-              <i class="fas fa-heart"></i>
-            <% end %>
-            <p class="text-white ml-2"><%= topic.favorites.count %></p>
-          <% else %>
-            <%= link_to public_topic_favorites_path(topic), class: "text-white", method: :post do %>
-              <i class="far fa-heart"></i>
-            <% end %>
-            <p class="text-white ml-2"><%= topic.favorites.count %></p>
-          <% end %>
-        <% elsif artist_user_signed_in? %>
+
+        <!--いいねボタンの表示(ArtistUser用)-->
+        <% if artist_user_signed_in? %>
           <% if topic.artist_user_favorited_by?(current_artist_user) %>
             <%= link_to artist_topic_favorites_path(topic), class: "text-white", method: :delete do %>
               <i class="fas fa-heart"></i>
@@ -109,13 +139,29 @@
             <% end %>
             <p class="text-white ml-2"><%= topic.favorites.count %></p>
           <% end %>
+
+        <!--いいねボタンの表示(PublicUser用)-->
+        <% else %>
+          <% if topic.public_user_favorited_by?(current_public_user) %>
+            <%= link_to public_topic_favorites_path(topic), class: "text-white", method: :delete do %>
+              <i class="fas fa-heart"></i>
+            <% end %>
+            <p class="text-white ml-2"><%= topic.favorites.count %></p>
+          <% else %>
+            <%= link_to public_topic_favorites_path(topic), class: "text-white", method: :post do %>
+              <i class="far fa-heart"></i>
+            <% end %>
+            <p class="text-white ml-2"><%= topic.favorites.count %></p>
+          <% end %>
         <% end %>
         <div class="ml-5">
+          <!--トピックスに紐づいているコメントの数を表示-->
           <p class="text-white"><i class="far fa-comment-dots"></i> <%= topic.topic_comments.count %></p>
         </div>
       </div>
     </div>
 
+    <!--アーティストユーザーがログインしていて、かつ、投稿者本人の場合に、編集・削除ボタンを表示-->
     <% if artist_user_signed_in? && topic.artist_user_id == current_artist_user.id %>
       <div class="col-md-10 flex-fill text-right mx-auto pb-2">
         <%= link_to "編集", edit_artist_topic_path(topic), class: "btn btn-follow btn-success mr-3" %>

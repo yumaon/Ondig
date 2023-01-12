@@ -64,7 +64,6 @@ class Artist::TopicsController < ApplicationController
     @tag = Tag.find(params[:tag_id])
     @topics = @tag.topics.all
     @search_display = @tag.name
-    @search_display_text = "の関連Topics"
     render "index"
   end
 
