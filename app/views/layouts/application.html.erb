@@ -51,6 +51,10 @@
               <li class="nav-item">
                 <%= link_to "Log out", destroy_public_user_session_path, method: :delete, class: 'nav-link' %>
               </li>
+              <% elsif admin_signed_in? %>
+              <li class="nav-item">
+                <%= link_to "Log out", destroy_admin_session_path, method: :delete, class: 'nav-link text-white' %>
+              </li>
               <% else %>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle btn btn-outline-success" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
