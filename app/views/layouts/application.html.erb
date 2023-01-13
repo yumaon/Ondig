@@ -53,6 +53,9 @@
               </li>
               <% elsif admin_signed_in? %>
               <li class="nav-item">
+                <%= link_to "一般会員一覧", admin_public_users_path, class: 'nav-link text-white' %>
+              </li>
+              <li class="nav-item">
                 <%= link_to "Log out", destroy_admin_session_path, method: :delete, class: 'nav-link text-white' %>
               </li>
               <% else %>
