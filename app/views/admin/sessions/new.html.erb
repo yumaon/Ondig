@@ -1,38 +1,36 @@
 <div class="container-fluid main-visual" style="background-image: url('<%= asset_path("main-visual-image.jpg") %>');">
   <div class="row">
-      <div class="col-md-5 login-form text-white pt-5">
+    <div class="col-md-5 login-form text-white pt-5">
 
-        <div class="text-center">
-          <h4>管理者ログイン</h4>
-        </div>
-
-
-        <div class="field-box mt-5">
-          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-          <div class="form-group row d-flex justify-content-center">
-              <%= f.label :email, "メールアドレス", class: "col-lg-4 col-form-label text-center" %>
-              <div class="col-lg-5">
-                <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "example@example.com", class: "form-control" %>
-              </div>
-          </div>
-
-          <div class="form-group row d-flex justify-content-center">
-              <%= f.label :password, "パスワード", class: "col-lg-4 col-form-label text-center" %>
-              <div class="col-lg-5">
-                <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
-              </div>
-          </div>
-
-
-          <div class="actions text-center mt-3">
-            <%= f.submit "ログイン", class: "btn btn-primary btn-green col-4" %>
-          </div>
-
-          <% end %>
-          <%= render "admin/shared/links" %>
-        </div>
-
-
+      <div class="text-center mt-5">
+        <h4>管理者ログイン</h4>
       </div>
+
+      <!--管理者ログインフォーム-->
+      <div class="field-box mt-5">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <!--メールアドレス入力欄-->
+        <div class="form-group row d-flex justify-content-center">
+          <%= f.label :email, "メールアドレス", class: "col-lg-4 col-form-label text-center" %>
+          <div class="col-lg-5">
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "example@example.com", class: "form-control" %>
+          </div>
+        </div>
+        <!--パスワード入力欄-->
+        <div class="form-group row d-flex justify-content-center">
+          <%= f.label :password, "パスワード", class: "col-lg-4 col-form-label text-center" %>
+          <div class="col-lg-5">
+            <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+          </div>
+        </div>
+        <!--ログインボタン-->
+        <div class="actions text-center mt-5">
+          <%= f.submit "ログイン", class: "btn btn-primary btn-green col-4" %>
+        </div>
+
+        <% end %>
+        <%= render "admin/shared/links" %>
+      </div>
+    </div>
   </div>
 </div>
