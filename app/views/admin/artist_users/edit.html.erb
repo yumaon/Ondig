@@ -1,2 +1,118 @@
-<h1>Admin::ArtistUsers#edit</h1>
-<p>Find me in app/views/admin/artist_users/edit.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 mx-auto mt-4 d-flex align-items-center">
+      <!--アーティスト会員のプロフィールイメージと、氏名を表示-->
+      <%= image_tag @artist_user.get_profile_image, class: "dedail-page-profile-image" %>
+      <span class="text-white h4 ml-3"><%= @artist_user.artist_name %>さんの会員情報編集</span>
+    </div>
+
+    <div class="col-md-10 mt-3 mx-auto box p-4">
+      <div class="row text-white">
+        <!--会員のIDを表示-->
+        <div class="col-md-3">
+          <p>会員ID</p>
+        </div>
+        <div class="col-md-9">
+          <%= @artist_user.id %>
+        </div>
+      </div>
+
+      <!--編集フォーム-->
+      <%= form_with model: @artist_user, url: admin_artist_user_path do |f| %>
+      <div class="form-group row">
+        <!--アーティスト名のフォーム-->
+        <div class="col-md-3">
+          <%= f.label :artist_name, "アーティスト名", class: "col-form-label text-white" %>
+        </div>
+        <div class="col-md-9">
+          <%= f.text_field :artist_name, class: "form-control col-4" %>
+        </div>
+      </div>
+
+      <!--代表者氏名のフォーム-->
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :rep_name, "代表者氏名", class: "col-form-label text-white" %>
+        </div>
+        <div class="col-md-9 d-flex">
+          <%= f.text_field :rep_name, class: "mr-4 form-control col-4" %>
+        </div>
+      </div>
+
+      <!--代表者氏名 フリガナのフォーム-->
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :rep_name_kana, "フリガナ", class: "col-form-label text-white" %>
+        </div>
+        <div class="col-md-9">
+          <%= f.text_field :rep_name_kana, class: "form-control col-4" %>
+        </div>
+      </div>
+
+      <!--登録ジャンルのフォーム-->
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :genre_id, "ジャンル", class: "col-form-label text-white" %>
+        </div>
+        <div class="col-md-9">
+          <%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: false }, class: "form-control col-4" %>
+        </div>
+      </div>
+
+      <!--出身のフォーム-->
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :activity_location, "出身", class: "col-form-label text-white" %>
+        </div>
+        <div class="col-md-9">
+          <%= f.select :activity_location, ArtistUser.activity_locations_i18n.invert, {prompt: '選択してください'}, class: "form-control col-4" %>
+        </div>
+      </div>
+
+      <!--メールアドレスのフォーム-->
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :email, "メールアドレス", class: "col-form-label text-white" %>
+        </div>
+        <div class="col-md-9">
+          <%= f.email_field :email, autocomplete: "email", class: "form-control col-6" %>
+        </div>
+      </div>
+
+      <!--Profileページに設定しているyoutube URLのフォーム-->
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :youtube_url, "Youtube URL", class: "col-form-label text-white" %>
+        </div>
+        <div class="col-md-9">
+          <%= f.text_field :youtube_url, class: "form-control col-6" %>
+        </div>
+      </div>
+
+      <!--会員ステータスの切り替えラジオボタンの設置-->
+      <div class="form-group row">
+        <div class="col-md-3 col-form-label">
+          <p class="text-white">会員ステータス</p>
+        </div>
+        <div class="col-md-9 d-flex mt-2">
+          <div class="form-check">
+            <%= f.radio_button :is_deleted, :false, class: "form-check-input" %>
+            <%= f.label :is_deleted_false, "有効", class: "mr-4 form-check-label text-white" %>
+          </div>
+          <div class="form-check">
+            <%= f.radio_button :is_deleted, :true, class: "form-check-input" %>
+            <%= f.label :is_deleted_true, "退会", class: "form-check-label text-white" %>
+          </div>
+        </div>
+      </div>
+
+      <!--変更保存ボタン-->
+      <div class="form-group row">
+        <div class="col-md-3 text-center"></div>
+        <div class="col-md-9">
+          <%= f.submit "変更を保存", class: "btn btn-success btn-follow col-4" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
