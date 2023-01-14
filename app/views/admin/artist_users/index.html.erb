@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 mx-auto mt-4">
+      <h4 class="text-white">Artist会員 一覧</h4>
+    </div>
+    <div class="col-md-10 mt-3 mx-auto">
+      <!--Artist会員の一覧をテーブルで表示-->
+      <table class="table table-hover table-borderless text-white">
+        <thead class="border-bottom">
+          <tr>
+            <th>会員ID</th>
+            <th>アーティスト名</th>
+            <th>代表者氏名</th>
+            <th>ジャンル</th>
+            <th>メールアドレス</th>
+            <th>ステータス</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @artist_users.each do |artist_user| %>
+          <tr>
+            <td>
+              <span class="text-white"><%= artist_user.id %></span>
+            </td>
+            <td>
+              <%= link_to artist_user.artist_name, admin_artist_user_path(artist_user.id), class: "text-white" %>
+            </td>
+            <td>
+              <span class="text-white"><%= artist_user.rep_name %></span>
+            </td>
+            <td>
+              <span class="text-white"><%= artist_user.genre.name %></span>
+            </td>
+            <td>
+              <span class="text-white"><%= artist_user.email %></span>
+            </td>
+            <td>
+              <% if artist_user.is_deleted == false %>
+              <span class="text-success"><strong>有効</strong></span>
+              <% else %>
+              <span class="text-black-50"><strong>退会</strong></span>
+              <% end %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

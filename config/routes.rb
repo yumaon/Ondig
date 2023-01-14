@@ -105,6 +105,7 @@ Rails.application.routes.draw do
   # 管理者用
    namespace :admin do
     resources :public_users, only:[:index, :show, :edit, :update]
+    resources :artist_users, only:[:index, :show, :edit, :update]
   end
 
   # 管理者用
