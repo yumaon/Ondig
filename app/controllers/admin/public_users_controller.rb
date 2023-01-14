@@ -4,6 +4,7 @@ class Admin::PublicUsersController < ApplicationController
   end
 
   def show
+    @public_user = PublicUser.find(params[:id])
   end
 
   def edit

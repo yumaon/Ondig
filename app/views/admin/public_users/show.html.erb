@@ -1,2 +1,74 @@
-<h1>Admin::PublicUsers#show</h1>
-<p>Find me in app/views/admin/public_users/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 mx-auto mt-4 d-flex align-items-center">
+      <!--一般会員のプロフィールイメージと、氏名を表示-->
+      <%= image_tag @public_user.get_profile_image, class: "dedail-page-profile-image" %>
+      <span class="text-white h4 ml-3"><%= @public_user.name_display %>さんの会員詳細</span>
+    </div>
+
+    <div class="col-md-10 mt-3 mx-auto box p-4">
+      <div class="row text-white">
+        <!--会員のIDを表示-->
+        <div class="col-md-3">
+          <p>会員ID</p>
+        </div>
+        <div class="col-md-9">
+          <%= @public_user.id %>
+        </div>
+
+        <!--氏名の表示-->
+        <div class="col-md-3">
+          <p>氏名</p>
+        </div>
+        <div class="col-md-9">
+          <%= @public_user.last_name %> <%= @public_user.first_name %>
+        </div>
+
+        <!--フリガナの表示-->
+        <div class="col-md-3">
+          <p>フリガナ</p>
+        </div>
+        <div class="col-md-9">
+          <%= @public_user.last_name_kana %> <%= @public_user.first_name_kana %>
+        </div>
+
+        <!--ニックネームの表示-->
+        <div class="col-md-3">
+          <p>ニックネーム</p>
+        </div>
+        <div class="col-md-9">
+          <%= @public_user.nickname %>
+        </div>
+
+        <!--メールアドレスの表示-->
+        <div class="col-md-3">
+          <p>メールアドレス</p>
+        </div>
+        <div class="col-md-9">
+          <%= @public_user.email %>
+        </div>
+
+        <!--会員ステータスの表示-->
+        <div class="col-md-3">
+          <p>会員ステータス</p>
+        </div>
+        <div class="col-md-9">
+          <% if @public_user.is_deleted == false %>
+          <!--退会していなければ"有効"と表示-->
+          <span class="text-success"><strong>有効</strong></span>
+          <% else %>
+          <!--退会していれば"退会"と表示-->
+          <span class="text-black-50"><strong>退会</strong></span>
+          <% end %>
+        </div>
+        <div class="col-md-3 col-form-label">
+        </div>
+
+        <!--会員情報編集ページへのボタンを設置-->
+        <div class="col-md-9 col-form-label">
+          <%= link_to "編集する", edit_admin_public_user_path(@public_user.id), class: "btn btn-success btn-follow col-md-3" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
