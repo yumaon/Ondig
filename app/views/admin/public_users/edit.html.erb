@@ -1,2 +1,90 @@
-<h1>Admin::PublicUsers#edit</h1>
-<p>Find me in app/views/admin/public_users/edit.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 mx-auto mt-4 d-flex align-items-center">
+      <!--一般会員のプロフィールイメージと、氏名を表示-->
+      <%= image_tag @public_user.get_profile_image, class: "dedail-page-profile-image" %>
+      <span class="text-white h4 ml-3"><%= @public_user.name_display %>さんの会員情報編集</span>
+    </div>
+
+    <div class="col-md-10 mt-3 mx-auto box p-4">
+      <div class="row text-white">
+        <!--会員のIDを表示-->
+        <div class="col-md-3">
+          <p>会員ID</p>
+        </div>
+        <div class="col-md-9">
+          <%= @public_user.id %>
+        </div>
+      </div>
+
+      <!--編集フォーム-->
+      <%= form_with model: @public_user, url: admin_public_user_path do |f| %>
+      <div class="form-group row">
+        <!--氏名のフォーム-->
+        <div class="col-md-3">
+          <p class="col-form-label text-white">氏名</p>
+        </div>
+        <div class="col-md-9 d-flex">
+          <%= f.text_field :last_name, placeholder: "性", class: "mr-4 form-control col-4" %>
+          <%= f.text_field :first_name, placeholder: "名", class: "form-control col-4" %>
+        </div>
+      </div>
+
+      <!--フリガナのフォーム-->
+      <div class="form-group row">
+        <div class="col-md-3">
+          <p class="col-form-label text-white">フリガナ</p>
+        </div>
+        <div class="col-md-9 d-flex">
+          <%= f.text_field :last_name_kana, class: "mr-4 form-control col-4" %>
+          <%= f.text_field :first_name_kana, class: "form-control col-4" %>
+        </div>
+      </div>
+
+      <!--ニックネームのフォーム-->
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :nickname, "ニックネーム", class: "col-form-label text-white" %>
+        </div>
+        <div class="col-md-9">
+          <%= f.text_field :nickname, class: "form-control col-6" %>
+        </div>
+      </div>
+
+      <!--メールアドレスのフォーム-->
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :email, "メールアドレス", class: "col-form-label text-white" %>
+        </div>
+        <div class="col-md-9">
+          <%= f.email_field :email, autocomplete: "email", class: "form-control col-6" %>
+        </div>
+      </div>
+
+      <!--会員ステータスの切り替えラジオボタンの設置-->
+      <div class="form-group row">
+        <div class="col-md-3 col-form-label">
+          <p class="text-white">会員ステータス</p>
+        </div>
+        <div class="col-md-9 d-flex mt-2">
+          <div class="form-check">
+            <%= f.radio_button :is_deleted, :false, class: "form-check-input" %>
+            <%= f.label :is_deleted_false, "有効", class: "mr-4 form-check-label" %>
+          </div>
+          <div class="form-check">
+            <%= f.radio_button :is_deleted, :true, class: "form-check-input" %>
+            <%= f.label :is_deleted_true, "退会", class: "form-check-label" %>
+          </div>
+        </div>
+      </div>
+
+      <!--変更保存ボタン-->
+      <div class="form-group row">
+        <div class="col-md-3 text-center"></div>
+        <div class="col-md-9">
+          <%= f.submit "変更を保存", class: "btn btn-success btn-follow col-4" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
