@@ -53,6 +53,9 @@
               </li>
               <% elsif admin_signed_in? %>
               <li class="nav-item">
+                <%= link_to "Topics一覧", admin_topics_path, class: 'nav-link text-white' %>
+              </li>
+              <li class="nav-item">
                 <%= link_to "Artist会員一覧", admin_artist_users_path, class: 'nav-link text-white' %>
               </li>
               <li class="nav-item">

@@ -45,6 +45,7 @@ body {
 
   position: relative;
   bottom: 56px;
+  backdrop-filter: blur(0px);
 }
 
 /*ログイン画面用CSS*/
