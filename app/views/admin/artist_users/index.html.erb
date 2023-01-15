@@ -13,7 +13,8 @@
             <th>代表者氏名</th>
             <th>ジャンル</th>
             <th>メールアドレス</th>
-            <th>ステータス</th>
+            <th class="text-right">Topics</th>
+            <th class="text-center">ステータス</th>
           </tr>
         </thead>
         <tbody>
@@ -34,7 +35,11 @@
             <td>
               <span class="text-white"><%= artist_user.email %></span>
             </td>
-            <td>
+            <!-- Topicsの投稿数を表示させ、クリックでアーティストを指定したTopics一覧を表示できるようリンクを設置-->
+            <%= form_tag admin_topics_path, method: :get do %>
+              <td class="text-right"><%= link_to artist_user.topics.count, admin_topics_path(artist_id: artist_user.id), class: "text-white" %></td>
+            <% end %>
+            <td class="text-center">
               <% if artist_user.is_deleted == false %>
               <span class="text-success"><strong>有効</strong></span>
               <% else %>

@@ -1,8 +1,17 @@
 class Admin::TopicsController < ApplicationController
   # Topics一覧
   def index
-    @topics = Topic.all
-    @tag_lists = Tag.all
+    # Artistを指定してindexページを表示させる場合
+    if params[:artist_id].present?
+      @artist_user = ArtistUser.find(params[:artist_id])
+      @topics = ArtistUser.find(params[:artist_id]).topics
+      @tag_lists = Tag.all
+
+    # Artistは指定せず、indexページを表示させる場合
+    else
+      @topics = Topic.all
+      @tag_lists = Tag.all
+    end
   end
 
   def show

@@ -1,33 +1,44 @@
 <div class="container">
   <div class="row">
     <div class="col-md-10 mx-auto mt-4">
-      <div>
-        <h4 class="text-white">Topics一覧</h4>
-      </div>
+      <% if params[:artist_id].present? %>
+      <!--アーティストを指定し、Topics一覧を表示させる場合-->
+        <div>
+          <p class="text-white"><span class="h4"><%= @artist_user.artist_name %></span> さんのTopics一覧</p>
+        </div>
+      <% else %>
+      <!--アーティストは指定せず、全てのTopicsを表示させる場合-->
+        <div>
+          <h4 class="text-white">Topics一覧</h4>
+        </div>
+      <% end %>
 
-      <!--全てのタグを表示-->
-      <div class="d-flex justify-content-center">
-        <div class="col-md-8 tag-list-box mt-3 p-2 d-flex flex-wrap">
-          <% @tag_lists.each do |tag_list| %>
-            <!--タグ検索をできるようにリンクを設置-->
-            <%= link_to admin_tag_topics_path(tag_list.id) do %>
-              <div class="tags px-2 m-1">
-                <p class="text-white"><%= tag_list.name %><%="(#{tag_list.topics.count})" %></p>
-              </div>
+      <!--アーティスト個別のTopics一覧を表示する際は、タグ一覧と検索フォームは表示させない-->
+      <% unless params[:artist_id].present? %>
+        <!--全てのタグを表示-->
+        <div class="d-flex justify-content-center">
+          <div class="col-md-8 tag-list-box mt-3 p-2 d-flex flex-wrap">
+            <% @tag_lists.each do |tag_list| %>
+              <!--タグ検索をできるようにリンクを設置-->
+              <%= link_to admin_tag_topics_path(tag_list.id) do %>
+                <div class="tags px-2 m-1">
+                  <p class="text-white"><%= tag_list.name %><%="(#{tag_list.topics.count})" %></p>
+                </div>
+              <% end %>
             <% end %>
+          </div>
+        </div>
+
+        <!--キーワード検索フォーム-->
+        <div class="mt-3">
+          <%= form_with url: search_admin_topics_path, method: :get do |f| %>
+          <div class="d-flex">
+            <%= f.text_field :keyword, value: @keyword, placeholder: 'Search', class: "col-4"%>
+            <%= f.submit "検索", class: "btn btn-primary btn-green ml-2"%>
+          </div>
           <% end %>
         </div>
-      </div>
-
-      <!--キーワード検索フォーム-->
-      <div class="mt-3">
-        <%= form_with url: search_admin_topics_path, method: :get do |f| %>
-        <div class="d-flex">
-          <%= f.text_field :keyword, value: @keyword, placeholder: 'Search', class: "col-4"%>
-          <%= f.submit "検索", class: "btn btn-primary btn-green ml-2"%>
-        </div>
-        <% end %>
-      </div>
+      <% end %>
 
       <!--キーワード検索の際に、入力されたキーワードを表示させる-->
       <% if @keyword.present? %>
@@ -53,8 +64,13 @@
         <div class="mini-topic-box">
           <div class="d-flex mt-3 px-3 pt-3">
             <div class="ml-2">
-              <%= image_tag topic.artist_user.profile_image, class: "mini-topic-profile-image" %><br>
-              <p class="text-center text-white mini-artist-name mt-2"><%= topic.artist_user.artist_name %></p>
+              <!--取得したアーティストの画像と名前でタグ検索(指定したアーティストのTopics一覧を表示)できるようリンクを設置-->
+              <%= form_tag admin_topics_path do %>
+                <%= link_to admin_topics_path(artist_id: topic.artist_user_id) do %>
+                  <%= image_tag topic.artist_user.profile_image, class: "mini-topic-profile-image" %><br>
+                  <p class="text-center text-white mini-artist-name mt-2"><%= topic.artist_user.artist_name %></p>
+                <% end %>
+              <% end %>
             </div>
             <div class="ml-5 d-flex align-items-center flex-fill">
               <!--トピックス詳細ページへのリンク-->
