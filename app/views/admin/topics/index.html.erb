@@ -1,96 +1,109 @@
 <div class="container">
   <div class="row">
+    <div class="col-md-10 mx-auto mt-4">
+      <div>
+        <h4 class="text-white">Topics一覧</h4>
+      </div>
 
-    <div class="col-md-10 mx-auto mt-2">
-
-
-
-    <!--タグ検索の際に、何のタグで検索したかを表示させる-->
-    <!--% if search_display.present? %>-->
-    <!--<div class="d-flex mt-3">-->
-    <!--  <div class="tags px-2">-->
-    <!--    <span class="text-white">%= search_display %></span>-->
-    <!--  </div>-->
-    <!--  <span class="text-white ml-2">の関連Topics</span>-->
-    <!--</div>-->
-    <!--% end %>-->
-
-    <!--トピックス一覧の表示-->
-    <% @topics.each do |topic| %>
-      <div class="mini-topic-box">
-        <div class="d-flex mt-3 px-3 pt-3">
-          <div class="ml-2">
-            <%= image_tag topic.artist_user.profile_image, class: "mini-topic-profile-image" %><br>
-            <p class="text-center text-white mini-artist-name mt-2"><%= topic.artist_user.artist_name %></p>
-          </div>
-          <div class="ml-5 d-flex align-items-center flex-fill">
-            <!--トピックス詳細ページへのリンク-->
-            <%= link_to admin_topic_path(topic) do %>
-              <%= simple_format topic.body, class: "text-white" %>
-            <% end %>
-          </div>
-        </div>
-
-        <!--トピックスに紐づいているタグを表示-->
-        <% if topic.tags.present? %>
-        <div class="col-md-10 mx-auto d-flex flex-wrap">
-          <% topic.tags.each do |tag| %>
-            <% if artist_user_signed_in? %>
-              <!--取得したタグでタグ検索をできるようリンクを設置(ArtistUser用)-->
-              <%= link_to artist_tag_topics_path(tag.id) do %>
+      <!--全てのタグを表示-->
+      <div class="d-flex justify-content-center">
+        <div class="col-md-8 tag-list-box mt-3 p-2 d-flex flex-wrap">
+          <% @tag_lists.each do |tag_list| %>
+            <!--タグ検索をできるようにリンクを設置-->
+            <%= link_to admin_tag_topics_path(tag_list.id) do %>
               <div class="tags px-2 m-1">
-                <p class="text-white"><%= tag.name %></p>
+                <p class="text-white"><%= tag_list.name %><%="(#{tag_list.topics.count})" %></p>
               </div>
-              <% end %>
-            <% else %>
-              <!--取得したタグでタグ検索をできるようリンクを設置(PublicUser用)-->
-              <%= link_to public_tag_topics_path(tag.id) do %>
-              <div class="tags px-2 m-1">
-                <p class="text-white"><%= tag.name %></p>
-              </div>
-              <% end %>
             <% end %>
           <% end %>
         </div>
+      </div>
+
+      <!--キーワード検索フォーム-->
+      <div class="mt-3">
+        <%= form_with url: search_admin_topics_path, method: :get do |f| %>
+        <div class="d-flex">
+          <%= f.text_field :keyword, value: @keyword, placeholder: 'Search', class: "col-4"%>
+          <%= f.submit "検索", class: "btn btn-primary btn-green ml-2"%>
+        </div>
         <% end %>
+      </div>
 
-        <div class="col-md-10 mx-auto pb-1 d-flex justify-content-between">
-          <!--トピックスの投稿日を表示-->
-          <p class="text-white"><%= topic.created_at.strftime('%Y/%m/%d') %></p>
+      <!--キーワード検索の際に、入力されたキーワードを表示させる-->
+      <% if @keyword.present? %>
+      <div class="mt-3">
+        <div class="">
+          <span class="text-white">"<%= @keyword %>"の検索結果</span>
+        </div>
+      </div>
+      <% end %>
 
-          <div class="d-flex">
-            <!--トピックスに画像が投稿されていた場合のアイコン表示-->
-            <% if topic.topic_image.present? %>
-            <p class="text-white mr-5"><i class="far fa-image"></i></p>
+      <!--タグ検索の際に、何のタグで検索したかを表示させる-->
+      <% if @search_display.present? %>
+      <div class="d-flex mt-3">
+        <div class="tags px-2">
+          <span class="text-white"><%= @search_display %></span>
+        </div>
+        <span class="text-white ml-2">の関連Topics</span>
+      </div>
+      <% end %>
+
+      <!--トピックス一覧の表示-->
+      <% @topics.each do |topic| %>
+        <div class="mini-topic-box">
+          <div class="d-flex mt-3 px-3 pt-3">
+            <div class="ml-2">
+              <%= image_tag topic.artist_user.profile_image, class: "mini-topic-profile-image" %><br>
+              <p class="text-center text-white mini-artist-name mt-2"><%= topic.artist_user.artist_name %></p>
+            </div>
+            <div class="ml-5 d-flex align-items-center flex-fill">
+              <!--トピックス詳細ページへのリンク-->
+              <%= link_to admin_topic_path(topic) do %>
+                <%= simple_format topic.body, class: "text-white" %>
+              <% end %>
+            </div>
+          </div>
+
+          <!--トピックスに紐づいているタグを表示-->
+          <% if topic.tags.present? %>
+          <div class="col-md-10 mx-auto d-flex flex-wrap">
+            <% topic.tags.each do |tag| %>
+              <!--取得したタグでタグ検索をできるようリンクを設置-->
+              <%= link_to admin_tag_topics_path(tag.id) do %>
+              <div class="tags px-2 m-1">
+                <p class="text-white"><%= tag.name %></p>
+              </div>
+              <% end %>
             <% end %>
+          </div>
+          <% end %>
 
-            <!--トピックスにyoutubeのリンクが投稿されていた場合のアイコン表示-->
-            <% if topic.youtube_url.present? %>
-            <p class="text-white mr-5"><i class="fab fa-youtube"></i></p>
-            <% end %>
+          <div class="col-md-10 mx-auto pb-1 d-flex justify-content-between">
+            <!--トピックスの投稿日を表示-->
+            <p class="text-white"><%= topic.created_at.strftime('%Y/%m/%d') %></p>
 
-            <!--いいね数の表示)-->
+            <div class="d-flex">
+              <!--トピックスに画像が投稿されていた場合のアイコン表示-->
+              <% if topic.topic_image.present? %>
+              <p class="text-white mr-5"><i class="far fa-image"></i></p>
+              <% end %>
 
-            <p class="text-white ml-2"><i class="far fa-heart"></i> <%= topic.favorites.count %></p>
+              <!--トピックスにyoutubeのリンクが投稿されていた場合のアイコン表示-->
+              <% if topic.youtube_url.present? %>
+              <p class="text-white mr-5"><i class="fab fa-youtube"></i></p>
+              <% end %>
 
-            <div class="ml-5">
-              <!--トピックスに紐づいているコメントの数を表示-->
-              <p class="text-white"><i class="far fa-comment-dots"></i> <%= topic.topic_comments.count %></p>
+              <!--いいね数の表示)-->
+              <p class="text-white ml-2"><i class="far fa-heart"></i> <%= topic.favorites.count %></p>
+
+              <div class="ml-5">
+                <!--トピックスに紐づいているコメントの数を表示-->
+                <p class="text-white"><i class="far fa-comment-dots"></i> <%= topic.topic_comments.count %></p>
+              </div>
             </div>
           </div>
         </div>
-
-        <!--アーティストユーザーがログインしていて、かつ、投稿者本人の場合に、編集・削除ボタンを表示-->
-        <% if artist_user_signed_in? && topic.artist_user_id == current_artist_user.id %>
-          <div class="col-md-10 flex-fill text-right mx-auto pb-2">
-            <%= link_to "編集", edit_artist_topic_path(topic), class: "btn btn-follow btn-success mr-3" %>
-            <%= link_to "削除", artist_topic_path(topic), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-red btn-danger" %>
-          </div>
-        <% end %>
-
-      </div>
-    <% end %>
-
+      <% end %>
     </div>
   </div>
 </div>
