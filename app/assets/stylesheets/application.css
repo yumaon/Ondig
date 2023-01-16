@@ -36,6 +36,11 @@ body {
   border-radius: 10px;
 }
 
+.box-2 {
+  background: #c85dba;
+  border-radius: 10px;
+}
+
 /*Top画面、ログイン画面用CSS*/
 .main-visual {
   background-size: cover;

@@ -88,6 +88,7 @@
 
       <div class="row mt-5">
         <div class="col-md-12 text-white">
+          <!--コメント数の表示-->
           <h5>Comments (<%= @topic.topic_comments.count %>)</h5>
         </div>
       </div>
@@ -102,40 +103,60 @@
                   <!--topic_commentに紐づいているidが一般会員の場合のコメント表示(public_user)-->
                   <% if topic_comment.public_user_id.present? %>
                     <div class="ml-2">
-                      <%= link_to admin_public_user_path(topic_comment.public_user.id) do %>
-                        <%= image_tag topic_comment.public_user.get_profile_image, class: "comment-profile-image" %>
-                        <p class="text-white"><%= topic_comment.public_user.nickname %></p>
-                      <% end %>
+                      <!--プロフィール画像を表示-->
+                      <%= image_tag topic_comment.public_user.get_profile_image, class: "comment-profile-image" %>
                     </div>
                     <div class="ml-5 flex-fill">
+                      <!--ニックネームを表示させ、一般会員詳細画面へ遷移するリンクを設置-->
+                      <%= link_to admin_public_user_path(topic_comment.public_user.id) do %>
+                        <span class="text-white mini-artist-name box p-1"><%= topic_comment.public_user.nickname %></span>
+                      <% end %>
+                      <!--コメントの本文を表示-->
                       <p><%= simple_format topic_comment.comment %></p>
 
                       <div class="d-flex justify-content-end">
+                        <!--コメント投稿日時を表示-->
                         <span class="mr-5"><%= topic_comment.created_at.strftime('%Y/%m/%d') %></span>
-                        <%= link_to "削除", admin_topic_topic_comment_path(topic_comment.topic, topic_comment), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger btn-red" %>
+                        <!--削除ボタンを設置-->
+                        <%= link_to "削除", admin_topic_topic_comment_path(topic_comment.topic, topic_comment), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger btn-red btn-sm px-3" %>
                       </div>
                     </div>
 
                   <!--topic_commentに紐づいているidがアーティスト会員の場合のコメント表示(artist_user)-->
                   <% elsif topic_comment.artist_user_id.present? %>
                     <div class="ml-2">
-                      <%= link_to admin_artist_user_path(topic_comment.artist_user.id) do %>
-                        <%= image_tag topic_comment.artist_user.get_profile_image, class: "comment-profile-image" %>
-                        <p class="text-white"><%= topic_comment.artist_user.artist_name %></p>
-                      <% end %>
+                      <!--プロフィール画像を表示-->
+                      <%= image_tag topic_comment.artist_user.get_profile_image, class: "comment-profile-image" %>
                     </div>
                     <div class="ml-5 flex-fill">
-                      <p><%= simple_format topic_comment.comment %></p>
+                      <!--トピック投稿者本人の場合のコメント表示-->
+                      <% if topic_comment.artist_user_id == @topic.artist_user_id %>
+                        <!--アーティスト名を表示させ、Artist会員詳細画面へ遷移するリンクを設置-->
+                        <%= link_to admin_artist_user_path(topic_comment.artist_user.id) do %>
+                          <span class="text-white mini-artist-name box-2 p-1"><%= topic_comment.artist_user.artist_name %> <i class="fas fa-music"></i></span>
+                        <% end %>
+                        <span class="text-white-50 mini-artist-name">(投稿者)</span>
+                      <% else %>
+                        <!--アーティスト名を表示させ、Artist会員詳細画面へ遷移するリンクを設置-->
+                        <%= link_to admin_artist_user_path(topic_comment.artist_user.id) do %>
+                          <span class="text-white mini-artist-name box p-1"><%= topic_comment.artist_user.artist_name %> <i class="fas fa-music"></i></span>
+                        <% end %>
+                      <% end %>
+                      <!--コメント本文の表示-->
+                      <p class="mt-2"><%= simple_format topic_comment.comment %></p>
 
                       <div class="d-flex justify-content-end">
+                        <!--コメント投稿日時を表示-->
                         <span class="mr-5"><%= topic_comment.created_at.strftime('%Y/%m/%d') %></span>
-                        <%= link_to "削除", admin_topic_topic_comment_path(topic_comment.topic, topic_comment), method: :delete, class: "btn btn-danger btn-red" %>
+                        <!--削除ボタンを設置-->
+                        <%= link_to "削除", admin_topic_topic_comment_path(topic_comment.topic, topic_comment), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger btn-red btn-sm px-3" %>
                       </div>
                     </div>
                   <% end %>
                 </div>
               </div>
             <% end %>
+          <!--コメントが投稿されていない場合の表示-->
           <% else %>
             <div class="mt-3 text-center">
               <span class="text-white">コメントは投稿されていません。</span>
