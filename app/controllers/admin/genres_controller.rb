@@ -28,7 +28,14 @@ class Admin::GenresController < ApplicationController
   # ジャンル情報の削除
   def destroy
     genre = Genre.find(params[:id])
-    genre.destroy
+    # ジャンル削除の際、削除対象のジャンルを登録しているArtistUserを取り出し、そのArtistUserのgenre_idをnilにする。
+    # （genre.rbのアソシエーションでdependent: :destroyを設定していないため）
+    if genre.destroy
+      genre.artist_users.each do |artist_user|
+        artist_user.genre_id = nil
+        artist_user.save
+      end
+    end
     redirect_to admin_genres_path
   end
 
