@@ -64,12 +64,10 @@
         <div class="mini-topic-box">
           <div class="d-flex mt-3 px-3 pt-3">
             <div class="ml-2">
-              <!--取得したアーティストの画像と名前でタグ検索(指定したアーティストのTopics一覧を表示)できるようリンクを設置-->
-              <%= form_tag admin_topics_path do %>
-                <%= link_to admin_topics_path(artist_id: topic.artist_user_id) do %>
-                  <%= image_tag topic.artist_user.profile_image, class: "mini-topic-profile-image" %><br>
-                  <p class="text-center text-white mini-artist-name mt-2"><%= topic.artist_user.artist_name %></p>
-                <% end %>
+              <!--取得したアーティストの画像と名前を表示させ、アーティスト詳細画面へ遷移するリンクを設置-->
+              <%= link_to admin_artist_user_path(topic.artist_user_id) do %>
+                <%= image_tag topic.artist_user.profile_image, class: "mini-topic-profile-image" %><br>
+                <p class="text-center text-white mini-artist-name mt-2"><%= topic.artist_user.artist_name %></p>
               <% end %>
             </div>
             <div class="ml-5 d-flex align-items-center flex-fill">
@@ -109,7 +107,7 @@
               <p class="text-white mr-5"><i class="fab fa-youtube"></i></p>
               <% end %>
 
-              <!--いいね数の表示)-->
+              <!--いいね数の表示-->
               <p class="text-white ml-2"><i class="far fa-heart"></i> <%= topic.favorites.count %></p>
 
               <div class="ml-5">

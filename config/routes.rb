@@ -107,6 +107,7 @@ Rails.application.routes.draw do
     resources :public_users, only:[:index, :show, :edit, :update]
     resources :artist_users, only:[:index, :show, :edit, :update]
     resources :topics, only:[:index, :show, :destroy] do
+      resources :topic_comments, only:[:destroy]
       collection do
         get 'search' => 'topics#search'
       end

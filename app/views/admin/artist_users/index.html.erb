@@ -24,7 +24,7 @@
               <span class="text-white"><%= artist_user.id %></span>
             </td>
             <td>
-              <%= link_to artist_user.artist_name, admin_artist_user_path(artist_user.id), class: "text-white" %>
+              <%= link_to artist_user.artist_name, admin_artist_user_path(artist_user.id), class: "text-white border-bottom" %>
             </td>
             <td>
               <span class="text-white"><%= artist_user.rep_name %></span>
@@ -37,7 +37,7 @@
             </td>
             <!-- Topicsの投稿数を表示させ、クリックでアーティストを指定したTopics一覧を表示できるようリンクを設置-->
             <%= form_tag admin_topics_path, method: :get do %>
-              <td class="text-right"><%= link_to artist_user.topics.count, admin_topics_path(artist_id: artist_user.id), class: "text-white" %></td>
+              <td class="text-right"><%= link_to artist_user.topics.count, admin_topics_path(artist_id: artist_user.id), class: "text-white border-bottom" %></td>
             <% end %>
             <td class="text-center">
               <% if artist_user.is_deleted == false %>

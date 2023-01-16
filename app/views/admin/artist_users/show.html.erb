@@ -72,6 +72,18 @@
           <%= @artist_user.youtube_url %>
         </div>
 
+        <!--トピックスの投稿数を表示させ、トピックス一覧画面へ遷移するリンクを設置-->
+        <div class="col-md-3">
+          <p>Topics 投稿数</p>
+        </div>
+        <div class="col-md-9">
+          <%= form_tag admin_topics_path do %>
+            <%= link_to admin_topics_path(artist_id: @artist_user.id), class: "text-white border-bottom" do %>
+              <%= @artist_user.topics.count %>
+            <% end %>
+          <% end %>
+        </div>
+
         <!--会員ステータスの表示-->
         <div class="col-md-3">
           <p>会員ステータス</p>
