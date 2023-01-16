@@ -13,9 +13,19 @@ class Admin::GenresController < ApplicationController
     redirect_to admin_genres_path
   end
 
+  # ジャンル名編集画面
   def edit
+    @genre = Genre.find(params[:id])
   end
 
+  # ジャンル情報更新
+  def update
+    @genre = Genre.find(params[:id])
+    @genre.update(genre_params)
+    redirect_to admin_genres_path
+  end
+
+  # ジャンル情報の削除
   def destroy
     genre = Genre.find(params[:id])
     genre.destroy
