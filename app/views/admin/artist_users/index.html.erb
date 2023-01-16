@@ -3,6 +3,18 @@
     <div class="col-md-10 mx-auto mt-4">
       <h4 class="text-white">Artist会員 一覧</h4>
     </div>
+    <!--ジャンルを指定した場合のテキスト表示-->
+    <% if params[:genre_id].present? %>
+      <div class="col-md-10 mx-auto mt-4">
+        <p class="text-white">ジャンル指定 <span class="h4">"<%= @genre.name %>"</span></p>
+      </div>
+
+    <!--ジャンル設定が未設定のArtistUserを指定し、表示させる場合のテキスト表示-->
+    <% elsif params[:genre_nil].present? %>
+      <div class="col-md-10 mx-auto mt-4">
+        <p class="text-white">ジャンル登録が " <%= @search_display %> " のArtist会員</p>
+      </div>
+    <% end %>
     <div class="col-md-10 mt-3 mx-auto">
       <!--Artist会員の一覧をテーブルで表示-->
       <table class="table table-hover table-borderless text-white">
@@ -30,10 +42,23 @@
               <span class="text-white"><%= artist_user.rep_name %></span>
             </td>
             <td>
+              <!--取得したArtistUserがジャンルを登録していた場合の表示-->
               <% if artist_user.genre.present? %>
-                <span class="text-white"><%= artist_user.genre.name %></span>
+                <!--取得したジャンルでArtistUserを検索できるようリンクを設置-->
+                <%= form_tag admin_artist_users_path do %>
+                  <%= link_to admin_artist_users_path(genre_id: artist_user.genre.id), class: "border-bottom" do %>
+                    <span class="text-white"><%= artist_user.genre.name %></span>
+                  <% end %>
+                <% end %>
+
+              <!--取得したArtistUserがジャンル登録をしていない場合の表示-->
               <% else %>
-                <span class="text-white-50">未設定</span>
+                <!--ジャンル設定が未設定(genre_id = nil)のArtistUserを検索できるようリンクを設置-->
+                <%= form_tag admin_artist_users_path do %>
+                  <%= link_to admin_artist_users_path(genre_nil: 0), class: "border-bottom" do %>
+                    <span class="text-white-50">未設定</span>
+                  <% end %>
+                <% end %>
               <% end %>
             </td>
             <td>
@@ -56,4 +81,4 @@
       </table>
     </div>
   </div>
-</div>
+</div>div>
