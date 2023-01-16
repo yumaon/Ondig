@@ -4,37 +4,37 @@
   <%= render "artist/shared/error_messages", resource: resource %>
 
   <div class="field">
-    <%= f.label :artist_name %><br>
+    <%= f.label :artist_name, class: "text-white" %><br>
     <%= f.text_field :artist_name %>
   </div>
 
   <div class="field">
-    <%= f.label :genre_id, "ジャンル" %><br>
+    <%= f.label :genre_id, "ジャンル", class: "text-white" %><br>
     <%= f.collection_select :genre_id, Genre.all, :id, :name, include_blank: '--選択してください--' %>
   </div>
 
   <div class="field">
-    <%= f.label :rep_name %><br>
+    <%= f.label :rep_name, class: "text-white" %><br>
     <%= f.text_field :rep_name %>
   </div>
 
   <div class="field">
-    <%= f.label :rep_name_kana %><br>
+    <%= f.label :rep_name_kana, class: "text-white" %><br>
     <%= f.text_field :rep_name_kana %>
   </div>
 
   <div class="field">
-    <%= f.label :activity_location %><br>
+    <%= f.label :activity_location, class: "text-white" %><br>
     <%= f.select :activity_location, ArtistUser.activity_locations_i18n.invert, {prompt: '選択してください'} %>
   </div>
 
   <div class="field">
-    <%= f.label :email %><br />
+    <%= f.label :email, class: "text-white" %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
   <div class="field">
-    <%= f.label :password %>
+    <%= f.label :password, class: "text-white" %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
@@ -42,7 +42,7 @@
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
+    <%= f.label :password_confirmation, class: "text-white" %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 

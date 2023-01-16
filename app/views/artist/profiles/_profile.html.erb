@@ -11,7 +11,11 @@
       <span class="text-white">From: <%= artist_user.activity_location_i18n %></span>
     </div>
     <div class="col-lg-12">
-      <span class="text-white">Genre: <%= artist_user.genre.name %></span>
+      <% if artist_user.genre.present? %>
+        <span class="text-white">Genre: <%= artist_user.genre.name %></span>
+      <% else %>
+        <span class="text-white">Genre: 未設定</span>
+      <% end %>
     </div>
     <div class="col-lg-12 mt-3">
       <span class="text-white"><%= simple_format artist_user.introduction %></span>

@@ -30,7 +30,11 @@
               <span class="text-white"><%= artist_user.rep_name %></span>
             </td>
             <td>
-              <span class="text-white"><%= artist_user.genre.name %></span>
+              <% if artist_user.genre.present? %>
+                <span class="text-white"><%= artist_user.genre.name %></span>
+              <% else %>
+                <span class="text-white-50">未設定</span>
+              <% end %>
             </td>
             <td>
               <span class="text-white"><%= artist_user.email %></span>

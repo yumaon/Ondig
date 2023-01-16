@@ -69,7 +69,11 @@
                 </div>
               <% end %>
               <div class="col-md-12 text-center">
-                <span class="text-white">Genre: <%= artist.genre.name %></span><br>
+                <% if artist.genre.present? %>
+                  <span class="text-white">Genre: <%= artist.genre.name %></span><br>
+                <% else %>
+                  <span class="text-white">Genre: 未設定</span><br>
+                <% end %>
                 <span class="text-white"><%= artist.activity_location_i18n %></span>
               </div>
               <div class="col-md-12 text-center text-white introduction-box">

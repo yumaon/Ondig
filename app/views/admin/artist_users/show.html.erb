@@ -45,7 +45,11 @@
           <p>ジャンル名</p>
         </div>
         <div class="col-md-9">
-          <%= @artist_user.genre.name %>
+          <% if @artist_user.genre.present? %>
+            <%= @artist_user.genre.name %>
+          <% else %>
+            <span class="text-white-50">未設定</span>
+          <% end %>
         </div>
 
         <!--出身地の表示-->

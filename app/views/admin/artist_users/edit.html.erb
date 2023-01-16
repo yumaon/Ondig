@@ -55,7 +55,7 @@
           <%= f.label :genre_id, "ジャンル", class: "col-form-label text-white" %>
         </div>
         <div class="col-md-9">
-          <%= f.collection_select :genre_id, Genre.all, :id, :name, { prompt: false }, class: "form-control col-4" %>
+          <%= f.collection_select :genre_id, Genre.all, :id, :name, {prompt: true}, class: "form-control col-4" %>
         </div>
       </div>
 

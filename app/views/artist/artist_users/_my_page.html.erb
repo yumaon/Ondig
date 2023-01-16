@@ -6,7 +6,11 @@
     <div class="text-white mt-3 border-bottom">
       <h4><%= artist_user.artist_name %></h4>
       <div>
-        Genre: <%= artist_user.genre.name %>
+        <% if artist_user.genre.present? %>
+          Genre: <%= artist_user.genre.name %>
+        <% else %>
+          Genre: 未設定
+        <% end %>
         <%= link_to "変更", artist_genres_path, class: "btn btn-success btn-follow btn-sm ml-3" %>
       </div>
     </div>

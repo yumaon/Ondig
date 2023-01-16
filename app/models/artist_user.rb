@@ -4,7 +4,7 @@ class ArtistUser < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  belongs_to :genre
+  belongs_to :genre, optional: true
   has_many :live_schedules, dependent: :destroy
   has_many :items, dependent: :destroy
   has_many :topics, dependent: :destroy

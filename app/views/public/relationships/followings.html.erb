@@ -29,7 +29,11 @@
                       <% end %>
                     </div>
                     <div class="col-md-12 text-center">
-                      <span class="text-white">Genre: <%= following.artist_followed.genre.name %></span>
+                      <% if following.artist_followed.genre.present? %>
+                        <span class="text-white">Genre: <%= following.artist_followed.genre.name %></span>
+                      <% else %>
+                        <span class="text-white">Genre: 未設定</span>
+                      <% end %>
                     </div>
                     <div class="col-md-12 text-center text-white introduction-box">
                       <% if following.artist_followed.introduction.present? %>
