@@ -6,13 +6,13 @@
     <!--ジャンルを指定した場合のテキスト表示-->
     <% if params[:genre_id].present? %>
       <div class="col-md-10 mx-auto mt-4">
-        <p class="text-white">ジャンル指定 <span class="h4">"<%= @genre.name %>"</span></p>
+        <p class="text-info">ジャンル "<%= @genre.name %>" を設定しているArtist会員</p>
       </div>
 
     <!--ジャンル設定が未設定のArtistUserを指定し、表示させる場合のテキスト表示-->
     <% elsif params[:genre_nil].present? %>
       <div class="col-md-10 mx-auto mt-4">
-        <p class="text-white">ジャンル登録が " <%= @search_display %> " のArtist会員</p>
+        <p class="text-info">ジャンル登録が " <%= @search_display %> " のArtist会員</p>
       </div>
     <% end %>
     <div class="col-md-10 mt-3 mx-auto">

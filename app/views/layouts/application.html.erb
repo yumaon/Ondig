@@ -19,7 +19,11 @@
     <header>
       <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-          <a class="navbar-brand mb-0 text-light" href="/">Ondig</a>
+          <% if admin_signed_in? %>
+            <a class="navbar-brand mb-0 text-light" href="/admin">Ondig</a>
+          <% else %>
+            <a class="navbar-brand mb-0 text-light" href="/">Ondig</a>
+          <% end %>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>

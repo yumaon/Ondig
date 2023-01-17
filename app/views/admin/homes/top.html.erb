@@ -1,0 +1,109 @@
+<div class="container-fluid main-visual" style="background-image: url('<%= asset_path("main-visual-image.jpg") %>');">
+  <div class="row">
+    <div class="col-md-7 top-menu text-white p-3">
+      <div class="row">
+        <div class="col-md-5 mx-auto mt-3 box p-3">
+          <div class="text-center">
+            <span class="text-white h5 border-bottom">Artist会員 管理</span>
+          </div>
+
+          <div class="row mt-4 text-center">
+            <div class="col-md-7">
+              <span class="text-white">登録アカウント数</span>
+            </div>
+            <div class="col-md-3">
+              <span class="text-white"><%= @artist_users.count %></span>
+            </div>
+            <div class="col-md-7 mt-2">
+              <span class="text-warning">ジャンル未設定者</span>
+            </div>
+            <div class="col-md-3 mt-2">
+              <%= form_tag admin_artist_users_path do %>
+                <%= link_to admin_artist_users_path(genre_nil: 0), class: "border-warning border-bottom" do %>
+                  <span class="text-warning"><%= @genre_nil_artsit_users.count %></span>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+          <div class="text-center mt-4">
+            <%= link_to "管理画面", admin_artist_users_path, class: "btn btn-green btn-primary" %>
+          </div>
+        </div>
+
+        <div class="col-md-5 mx-auto mt-3 box p-3">
+          <div class="text-center">
+            <span class="text-white h5 border-bottom">一般会員 管理</span>
+          </div>
+          <div class="row mt-4 text-center">
+            <div class="col-md-7">
+              <span class="text-white">登録アカウント数</span>
+            </div>
+            <div class="col-md-3">
+              <span class="text-white"><%= @public_users.count %></span>
+            </div>
+            <div class="col-md-7 mt-2">
+              <span></span>
+            </div>
+            <div class="col-md-3 mt-2">
+              <span></span>
+            </div>
+          </div>
+          <div class="text-center mt-5">
+            <%= link_to "管理画面", admin_public_users_path, class: "btn btn-green btn-primary" %>
+          </div>
+        </div>
+
+        <div class="col-md-5 mx-auto mt-5 mb-3 box p-3">
+          <div class="text-center">
+            <span class="text-white h5 border-bottom">Topics 管理</span>
+          </div>
+          <div class="row mt-4 text-center">
+            <div class="col-md-7">
+              <span class="text-white">Topics 投稿数</span>
+            </div>
+            <div class="col-md-3">
+              <span class="text-white"><%= @topics.count %></span>
+            </div>
+            <div class="col-md-7 mt-2">
+              <span class="text-white">タグ数</span>
+            </div>
+            <div class="col-md-3 mt-2">
+              <span class="text-white"><%= @tags.count %></span>
+            </div>
+          </div>
+          <div class="text-center mt-4">
+            <%= link_to "管理画面", admin_topics_path, class: "btn btn-green btn-primary" %>
+          </div>
+        </div>
+
+        <div class="col-md-5 mx-auto mt-5 mb-3 box p-3">
+          <div class="text-center">
+            <span class="text-white h5 border-bottom">Genres 管理</span>
+          </div>
+          <div class="row mt-4 text-center">
+            <div class="col-md-7">
+              <span class="text-white">Genre数</span>
+            </div>
+            <div class="col-md-3">
+              <span class="text-white"><%= @genres.count %></span>
+            </div>
+            <div class="col-md-7 mt-2">
+              <span class="text-warning">登録Artistが 0 のGenre</span>
+            </div>
+            <div class="col-md-3 mt-2">
+              <%= form_tag admin_genres_path do %>
+                <%= link_to admin_genres_path(genre_artist_nil: 0), class: "border-warning border-bottom" do %>
+                  <span class="text-warning"><%= @no_artist_genres.count %></span>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+          <div class="text-center mt-4">
+            <%= link_to "管理画面", admin_genres_path, class: "btn btn-green btn-primary" %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

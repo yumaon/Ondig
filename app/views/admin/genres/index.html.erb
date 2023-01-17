@@ -15,6 +15,12 @@
         <% end %>
       </div>
 
+      <% if params[:genre_artist_nil].present? %>
+        <div class="mt-2">
+          <span class="text-info">登録Artist数が "0" のGenreを表示</span>
+        </div>
+      <% end %>
+
       <div class="mt-3">
         <table class="table table-borderless table-hover text-white">
           <thead class="border-bottom">
@@ -28,7 +34,7 @@
           <tbody>
             <tr>
               <td>
-                <span class="text-white">0</span>
+                <span class="text-white-50">0</span>
               </td>
               <td>
                 <span class="text-white-50">未設定</span>
