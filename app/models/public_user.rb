@@ -47,6 +47,11 @@ class PublicUser < ApplicationRecord
     public_followings.include?(public_user)
   end
 
+  # キーワード検索の処理(苗字、氏名、ニックネームで検索できるよう記述)
+  def self.search(keyword)
+    PublicUser.where(["last_name LIKE? OR first_name LIKE? OR nickname LIKE?","%#{keyword}","%#{keyword}","%#{keyword}"])
+  end
+
   def get_profile_image
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/profile_no_image.png')

@@ -3,6 +3,17 @@
     <div class="col-md-10 mx-auto mt-4">
       <h4 class="text-white">一般会員 一覧</h4>
     </div>
+
+    <!--キーワード検索フォーム-->
+    <div class="col-md-10 mx-auto mt-3">
+      <%= form_with url: search_admin_public_users_path, method: :get do |f| %>
+      <div class="d-flex">
+        <%= f.text_field :keyword, value: @keyword, placeholder: 'Search', class: "col-4"%>
+        <%= f.submit "検索する", class: "btn btn-success btn-green ml-2"%>
+      </div>
+      <% end %>
+    </div>
+
     <div class="col-md-10 mt-3 mx-auto">
       <!--一般会員の一覧をテーブルで表示-->
       <table class="table table-hover table-borderless text-white">

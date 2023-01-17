@@ -105,8 +105,16 @@ Rails.application.routes.draw do
   # 管理者用
   namespace :admin do
     get '/' => 'homes#top'
-    resources :public_users, only:[:index, :show, :edit, :update]
-    resources :artist_users, only:[:index, :show, :edit, :update]
+    resources :public_users, only:[:index, :show, :edit, :update] do
+      collection do
+        get 'search' => 'public_users#search'
+      end
+    end
+    resources :artist_users, only:[:index, :show, :edit, :update] do
+      collection do
+        get 'search' => 'artist_users#search'
+      end
+    end
     resources :genres, only:[:index, :edit, :create, :update, :destroy]
     resources :topics, only:[:index, :show, :destroy] do
       resources :topic_comments, only:[:destroy]

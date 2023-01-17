@@ -34,7 +34,7 @@
           <%= form_with url: search_admin_topics_path, method: :get do |f| %>
           <div class="d-flex">
             <%= f.text_field :keyword, value: @keyword, placeholder: 'Search', class: "col-4"%>
-            <%= f.submit "検索", class: "btn btn-primary btn-green ml-2"%>
+            <%= f.submit "検索する", class: "btn btn-success btn-green ml-2"%>
           </div>
           <% end %>
         </div>
