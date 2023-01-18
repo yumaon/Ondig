@@ -119,6 +119,7 @@ Rails.application.routes.draw do
     resources :topics, only:[:index, :show, :destroy] do
       resources :topic_comments, only:[:destroy]
       collection do
+        resources :tags, only:[:index, :destroy]
         get 'search' => 'topics#search'
       end
     end

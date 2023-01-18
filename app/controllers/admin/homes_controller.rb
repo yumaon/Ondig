@@ -10,10 +10,23 @@ class Admin::HomesController < ApplicationController
     @public_users = PublicUser.all
 
     # 全てのトピックスを取得
-    @topics = Topic.all
+    @topics = Topic.includes(:tags)
 
     # 全てのタグを取得
     @tags = Tag.all
+
+    # 関連トピックスが無いタグの取得
+    true_topics_tags = []
+    @topics.each do |topic|
+      # 取得した全てのtopicsを展開し、タグが存在する際には、そのtag.idをtrue_topics_tagsに格納する
+      if topic.tags.present?
+        topic.tags.each do |tag|
+          true_topics_tags << tag.id
+        end
+      end
+    end
+    # 上記で格納したtag.idは関連トピックスが存在するので、それ以外(関連トピックス無し)のTagを取得
+    @no_topics_tags = Tag.where.not(id: true_topics_tags)
 
     # 全てのジャンルを取得
     @genres = Genre.all

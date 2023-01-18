@@ -26,7 +26,7 @@
             </div>
           </div>
           <div class="text-center mt-4">
-            <%= link_to "管理画面", admin_artist_users_path, class: "btn btn-green btn-primary" %>
+            <%= link_to "管理画面", admin_artist_users_path, class: "btn btn-follow btn-success" %>
           </div>
         </div>
 
@@ -49,7 +49,7 @@
             </div>
           </div>
           <div class="text-center mt-5">
-            <%= link_to "管理画面", admin_public_users_path, class: "btn btn-green btn-primary" %>
+            <%= link_to "管理画面", admin_public_users_path, class: "btn btn-follow btn-success" %>
           </div>
         </div>
 
@@ -70,9 +70,20 @@
             <div class="col-md-3 mt-2">
               <span class="text-white"><%= @tags.count %></span>
             </div>
+            <div class="col-md-7 mt-2">
+              <span class="text-warning">関連Topics無しのタグ数</span>
+            </div>
+            <div class="col-md-3 mt-2">
+              <%= form_tag admin_tags_path do %>
+                <%= link_to admin_tags_path(topics_nil: 0), class: "border-warning border-bottom" do %>
+                  <span class="text-warning"><%= @no_topics_tags.count %></span>
+                <% end %>
+              <% end %>
+            </div>
           </div>
           <div class="text-center mt-4">
-            <%= link_to "管理画面", admin_topics_path, class: "btn btn-green btn-primary" %>
+            <%= link_to "Topics管理画面", admin_topics_path, class: "btn btn-follow btn-success mr-3" %>
+            <%= link_to "Tags管理画面", admin_tags_path, class: "btn btn-follow btn-success" %>
           </div>
         </div>
 
@@ -99,7 +110,7 @@
             </div>
           </div>
           <div class="text-center mt-4">
-            <%= link_to "管理画面", admin_genres_path, class: "btn btn-green btn-primary" %>
+            <%= link_to "管理画面", admin_genres_path, class: "btn btn-follow btn-success" %>
           </div>
         </div>
 
