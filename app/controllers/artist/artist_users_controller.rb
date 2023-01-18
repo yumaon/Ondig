@@ -1,4 +1,5 @@
 class Artist::ArtistUsersController < ApplicationController
+  # Artist一覧画面
   def index
     @genres = Genre.all
     @artist_user = current_artist_user
@@ -21,6 +22,7 @@ class Artist::ArtistUsersController < ApplicationController
     render "index"
   end
 
+  # My page
   def show
     @artist_user = current_artist_user
     # TimeLineを表示するため、自身のtopicsとfollowしているユーザーのtopicsを取得
@@ -40,17 +42,29 @@ class Artist::ArtistUsersController < ApplicationController
     redirect_to request.referer
   end
 
+  # 登録情報編集画面
   def edit
     @artist_user = current_artist_user
   end
 
+  # 登録情報更新
   def update
     @artist_user = current_artist_user
     @artist_user.update(artist_user_params)
     redirect_to my_page_artist_artist_users_path
   end
 
+  # 退会確認画面
   def unsubscribe
+    @artist_user = current_artist_user
+  end
+
+  # 退会処理(論理削除)
+  def hide
+    @artist_user = current_artist_user
+    @artist_user.update(is_deleted: true)
+    reset_session
+    redirect_to root_path
   end
 
   private

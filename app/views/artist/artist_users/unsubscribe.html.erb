@@ -1,2 +1,16 @@
-<h1>Artist::ArtistUsers#unsubscribe</h1>
-<p>Find me in app/views/artist/artist_users/unsubscribe.html.erb</p>
+<div class="container">
+  <div class="col-md-6 mx-auto box p-5" style="margin-top: 100px;">
+    <div class="text-center">
+      <h4 class="text-white"><strong>本当に退会しますか？</strong></h4>
+    </div>
+    <div class="text-center" style="margin-top: 40px;">
+      <p class="text-white">退会すると、会員登録情報や、投稿したTopics、<br>
+      フォローしているArtist情報などを閲覧することができません。<br>
+      退会する場合は、「退会する」をクリックしてください。</p>
+    </div>
+    <div class="text-center" style="margin-top: 40px;">
+      <%= link_to "退会しない", my_page_artist_artist_users_path(@artist_user), class: "btn btn-primary btn-green mr-3 px-3" %>
+      <%= link_to "退会する", hide_artist_artist_users_path(@artist_user), method: :patch, "data-confirm" => "本当によろしいですか？", class: "btn btn-danger btn-red px-4" %>
+    </div>
+  </div>
+</div>

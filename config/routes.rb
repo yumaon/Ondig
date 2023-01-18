@@ -15,6 +15,7 @@ Rails.application.routes.draw do
         get 'information/edit' => 'artist_users#edit'
         patch 'information' => 'artist_users#update'
         get 'unsubscribe' => 'artist_users#unsubscribe'
+        patch 'hide' => 'artist_users#hide'
         post 'rooms' => 'rooms#create', as: 'rooms_create'
         get 'rooms/:id' => 'rooms#show', as: 'rooms'
         post 'messages' => 'messages#create'
