@@ -5,6 +5,12 @@
         <p class="text-white h4">タグ管理</p>
       </div>
 
+      <% if params[:topics_nil].present? %>
+      <div class="mt-3">
+        <p class="text-info">関連Topics無しのタグを表示</p>
+      </div>
+      <% end %>
+
       <div class="mt-3">
         <table class="table table-sm table-borderless table-hover text-white">
           <thead class="border-bottom">
@@ -37,3 +43,6 @@
           </tbody>
         </table>
       </div>
+    </div>
+  </div>
+</div>
