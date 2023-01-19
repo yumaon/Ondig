@@ -120,7 +120,7 @@
 
           <!--Topicに紐づくコメントの数を表示-->
           <div class="ml-5">
-            <p class="text-white"><i class="far fa-comment-dots"></i> <%= topic.topic_comments.count %></p>
+            <p class="text-white"><i class="far fa-comment-dots"></i> <%= topic.topic_comments.comments_count %></p>
           </div>
         </div>
       </div>
@@ -137,7 +137,7 @@
 
   <div class="row mt-5">
     <div class="col-md-12 text-white">
-      <h5>Comments (<%= topic.topic_comments.count %>)</h5>
+      <h5>Comments (<%= topic.topic_comments.comments_count %>)</h5>
     </div>
   </div>
 
@@ -145,26 +145,29 @@
   <div class="row">
     <div class="col-md-12 topic-comment-box pb-3">
       <% topic.topic_comments.each do |topic_comment| %>
+        <!--topic_commentに紐づいているidが一般会員の場合のコメント表示(public_user)、かつ、退会していないユーザー-->
+        <% if topic_comment.public_user_id.present? && topic_comment.public_user.is_deleted == false %>
         <div class="text-white border-bottom">
           <div class="d-flex pt-3 pl-3 pr-3">
-            <!--topic_commentに紐づいているidが一般会員の場合のコメント表示(public_user)-->
-            <% if topic_comment.public_user_id.present? %>
-              <div class="ml-2">
-                <%= image_tag topic_comment.public_user.get_profile_image, class: "comment-profile-image" %>
-                <p><%= topic_comment.public_user.nickname %></p>
-              </div>
-              <div class="ml-5 flex-fill">
-                <p><%= simple_format topic_comment.comment %></p>
-                <p class="text-right"><%= topic_comment.created_at.strftime('%Y/%m/%d') %></p>
-                <% if topic_comment.public_user == current_public_user %>
-                  <div class="text-right">
-                    <%= link_to "削除", public_topic_topic_comment_path(topic_comment.topic, topic_comment), method: :delete, class: "btn btn-danger btn-red" %>
-                  </div>
-                <% end %>
-              </div>
-
-            <!--topic_commentに紐づいているidがアーティスト会員の場合のコメント表示(artist_user)-->
-            <% elsif topic_comment.artist_user_id.present? %>
+            <div class="ml-2">
+              <%= image_tag topic_comment.public_user.get_profile_image, class: "comment-profile-image" %>
+              <p><%= topic_comment.public_user.nickname %></p>
+            </div>
+            <div class="ml-5 flex-fill">
+              <p><%= simple_format topic_comment.comment %></p>
+              <p class="text-right"><%= topic_comment.created_at.strftime('%Y/%m/%d') %></p>
+              <% if topic_comment.public_user == current_public_user %>
+                <div class="text-right">
+                  <%= link_to "削除", public_topic_topic_comment_path(topic_comment.topic, topic_comment), method: :delete, class: "btn btn-danger btn-red" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <!--topic_commentに紐づいているidがアーティスト会員の場合のコメント表示(artist_user)、かつ、退会していないユーザー-->
+        <% elsif topic_comment.artist_user_id.present? && topic_comment.artist_user.is_deleted == false %>
+        <div class="text-white border-bottom">
+          <div class="d-flex pt-3 pl-3 pr-3">
               <div class="ml-2">
                 <%= image_tag topic_comment.artist_user.get_profile_image, class: "comment-profile-image" %>
                 <% if artist_user_signed_in? %>
@@ -186,9 +189,9 @@
                   </div>
                 <% end %>
               </div>
-            <% end %>
           </div>
         </div>
+        <% end %>
       <% end %>
     </div>
   </div>

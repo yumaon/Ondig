@@ -20,6 +20,12 @@ class PublicUser < ApplicationRecord
 
   has_one_attached :profile_image
 
+  # 退会していないユーザーを取得するための記述
+  scope :active, -> { where(is_deleted: false) }
+
+  # 退会しているユーザーを取得するための記述
+  scope :deleted, -> { where(is_deleted: true) }
+
   # followをしたときの処理
   def follow_an_artist(artist_user_id)
     public_relationships.create(artist_followed_id: artist_user_id)
