@@ -7,9 +7,9 @@ class Artist::ArtistUsersController < ApplicationController
 
     # サイドバーのジャンル検索ボタンを押された時の処理
     if params[:name].present?
-      @artist_users = Genre.find(params[:name]).artist_users
+      @artist_users = Genre.find(params[:name]).artist_users.active
     else
-      @artist_users = ArtistUser.all
+      @artist_users = ArtistUser.active
     end
   end
 
@@ -18,7 +18,7 @@ class Artist::ArtistUsersController < ApplicationController
     @artist_user = current_artist_user
     @genres = Genre.all
     @search_params = artist_user_search_params
-    @artist_users = ArtistUser.search(@search_params).includes(:genre)
+    @artist_users = ArtistUser.active.search(@search_params).includes(:genre)
     render "index"
   end
 

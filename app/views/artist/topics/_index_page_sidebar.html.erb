@@ -51,13 +51,13 @@
         <% if artist_user_signed_in? %>
           <%= link_to artist_tag_topics_path(tag_list.id) do %>
             <div class="tags px-2 m-1">
-              <p class="text-white"><%= tag_list.name %><%="(#{tag_list.topics.count})" %></p>
+              <p class="text-white"><%= tag_list.name %>(<%= tag_list.topics.active_topics.count %>)</p>
             </div>
           <% end %>
         <% else %>
           <%= link_to public_tag_topics_path(tag_list.id) do %>
             <div class="tags px-2 m-1">
-              <p class="text-white"><%= tag_list.name %><%="(#{tag_list.topics.count})" %></p>
+              <p class="text-white"><%= tag_list.name %>(<%= tag_list.topics.active_topics.count %>)</p>
             </div>
           <% end %>
         <% end %>

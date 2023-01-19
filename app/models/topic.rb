@@ -10,6 +10,11 @@ class Topic < ApplicationRecord
 
   has_one_attached :topic_image
 
+  # 退会していないユーザーだけのトピックスを表示させるための記述
+  scope :active_topics, -> { where(artist_user_id: ArtistUser.active) }
+  # 退会しているユーザーだけのトピックスを表示させるための記述
+  scope :not_active_topics, -> { where(artist_user_id: ArtistUser.deleted) }
+
   def save_tag(sent_tags)
     # タグが存在していれば、タグ名を配列としてすべて取得
     current_tags = self.tags.pluck(:name) unless self.tags.nil?

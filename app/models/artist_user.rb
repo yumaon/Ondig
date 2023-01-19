@@ -26,6 +26,12 @@ class ArtistUser < ApplicationRecord
   has_one_attached :profile_image
   has_one_attached :header_image
 
+  # 退会していないユーザーを取得するための記述
+  scope :active, -> { where(is_deleted: false) }
+
+  # 退会しているユーザーを取得するための記述
+  scope :deleted, -> { where(is_deleted: true) }
+
   # Artistの検索機能（絞り込み検索）
   scope :search, -> (search_params) do
     return if search_params.blank?
