@@ -193,6 +193,12 @@
         </div>
         <% end %>
       <% end %>
+      <!--コメントが投稿されていない場合の表示-->
+      <% if topic.topic_comments.comments_count == 0 %>
+        <div class="mt-3 text-center">
+          <span class="text-white">コメントは投稿されていません。</span>
+        </div>
+      <% end %>
     </div>
   </div>
 
