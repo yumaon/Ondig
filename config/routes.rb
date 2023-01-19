@@ -66,6 +66,7 @@ Rails.application.routes.draw do
         get 'information/edit' => 'public_users#edit'
         patch 'information' => 'public_users#update'
         get 'unsubscribe' => 'public_users#unsubscribe'
+        patch 'hide' => 'public_users#hide'
         post 'rooms' => 'rooms#create', as: 'rooms_create'
         get 'rooms/:id' => 'rooms#show', as: 'rooms'
         post 'messages' => 'messages#create'

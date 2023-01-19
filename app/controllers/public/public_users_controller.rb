@@ -1,10 +1,12 @@
 class Public::PublicUsersController < ApplicationController
+  # Mypage
   def show
     @public_user = current_public_user
     # TimeLineを表示するため、followしているユーザーのtopicsを取得
     @tl_topics = Topic.where(artist_user_id: current_public_user.artist_following_ids).order(created_at: :desc)
   end
 
+  # 一般会員プロフィール画面
   def public_profile
     @public_user = PublicUser.find(params[:public_user_id])
 
@@ -27,17 +29,29 @@ class Public::PublicUsersController < ApplicationController
     end
   end
 
+  # 登録情報編集画面
   def edit
     @public_user = current_public_user
   end
 
+  # 登録情報更新
   def update
     public_user = current_public_user
     public_user.update(public_user_params)
     redirect_to my_page_public_public_users_path
   end
 
+  # 退会確認画面
   def unsubscribe
+    @public_user = current_public_user
+  end
+
+  # 退会処理(論理削除)
+  def hide
+    @public_user = current_public_user
+    @public_user.update(is_deleted: true)
+    reset_session
+    redirect_to root_path
   end
 
   private
