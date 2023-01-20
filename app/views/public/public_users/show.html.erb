@@ -5,7 +5,11 @@
     </div>
 
      <div class="col-lg-9">
-       <%= render 'artist/artist_users/time_line', tl_topics: @tl_topics %>
+       <div class="flex-fill">
+         <h3 class="text-white">Time Line</h3>
+       </div>
+       <!--自身がフォローをしているアーティストユーザーのトピックス一覧を表示させる-->
+       <%= render 'artist/topics/topic_list', topics: @topics %>
      </div>
   </div>
 </div>

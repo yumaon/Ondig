@@ -5,7 +5,13 @@
     </div>
 
     <div class="col-lg-9">
-      <%= render 'artist/topics/topic_list', topics: @topics, keyword: @keyword, search_display: @search_display %>
+      <div class="flex-fill">
+        <h3 class="text-white">Topics</h3>
+      </div>
+      <!--トピックス検索フォームの設置-->
+      <%= render 'artist/topics/topics_search_form', keyword: @keyword, search_display: @search_display %>
+      <!--トピックス一覧の表示-->
+      <%= render 'artist/topics/topic_list', topics: @topics %>
     </div>
   </div>
 </div>

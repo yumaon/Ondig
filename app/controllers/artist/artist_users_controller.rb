@@ -7,8 +7,10 @@ class Artist::ArtistUsersController < ApplicationController
 
     # サイドバーのジャンル検索ボタンを押された時の処理
     if params[:name].present?
+      # 指定されたジャンルに紐づいている、退会していないArtistUserを取得
       @artist_users = Genre.find(params[:name]).artist_users.active
     else
+      # 退会していないArtistUserを取得
       @artist_users = ArtistUser.active
     end
   end
@@ -25,21 +27,14 @@ class Artist::ArtistUsersController < ApplicationController
   # My page
   def show
     @artist_user = current_artist_user
-    # TimeLineを表示するため、自身のtopicsとfollowしているユーザーのtopicsを取得
-    @tl_topics = Topic.where(artist_user_id: [current_artist_user.id, *current_artist_user.artist_following_ids]).order(created_at: :desc)
+    # TimeLineを表示するため、自身のtopicsとfollowしている退会していないユーザーのtopicsを取得
+    @topics = Topic.active_topics.where(artist_user_id: [current_artist_user.id, *current_artist_user.artist_following_ids]).order(created_at: :desc)
   end
 
   # My pageで自身が投稿したtopic一覧を表示するためのアクション
   def my_topics
     @artist_user = current_artist_user
     @topics = @artist_user.topics
-  end
-
-  # My page の My TopicsページとFavorite Topicsページで削除ボタンを実行したとき用のアクション
-  def destroy
-    topic = Topic.find(params[:id])
-    topic.destroy
-    redirect_to request.referer
   end
 
   # 登録情報編集画面

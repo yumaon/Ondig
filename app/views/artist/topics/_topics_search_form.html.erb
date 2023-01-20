@@ -1,0 +1,45 @@
+<div class="col-md-12 mt-2">
+  <div class="row">
+    <% if artist_user_signed_in? %>
+    <!--アーティストユーザー用検索フォームの設置-->
+    <div class="col-md-12">
+      <%= form_with url: search_artist_topics_path, method: :get do |f| %>
+      <div class="d-flex justify-content-end">
+        <%= f.text_field :keyword, value: keyword, placeholder: 'Search', class: "col-5"%>
+        <%= f.submit "検索", class: "btn btn-primary btn-green ml-2"%>
+      </div>
+      <% end %>
+    </div>
+
+    <!--一般ユーザー用検索フォームの設置-->
+    <% else %>
+    <div class="col-md-12">
+      <%= form_with url: search_public_topics_path, method: :get do |f| %>
+      <div class="d-flex justify-content-end">
+        <%= f.text_field :keyword, value: keyword, placeholder: 'Search', class: "col-4"%>
+        <%= f.submit "検索", class: "btn btn-primary btn-green ml-2"%>
+      </div>
+      <% end %>
+    </div>
+    <% end %>
+  </div>
+</div>
+
+<!--キーワード検索の際に、入力されたキーワードを表示させる-->
+<% if keyword.present? %>
+<div class="mt-3">
+  <div class="">
+    <span class="text-white">"<%= keyword %>"の検索結果</span>
+  </div>
+</div>
+<% end %>
+
+<!--タグ検索の際に、何のタグで検索したかを表示させる-->
+<% if search_display.present? %>
+<div class="d-flex mt-3">
+  <div class="tags px-2">
+    <span class="text-white"><%= search_display %></span>
+  </div>
+  <span class="text-white ml-2">の関連Topics</span>
+</div>
+<% end %>

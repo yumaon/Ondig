@@ -1,4 +1,5 @@
 class Public::ArtistUsersController < ApplicationController
+  # アーティスト一覧画面
   def index
     @genres = Genre.all
     @public_user = current_public_user
@@ -6,9 +7,11 @@ class Public::ArtistUsersController < ApplicationController
 
     # サイドバーのジャンル検索ボタンを押された時の処理
     if params[:name].present?
-      @artist_users = Genre.find(params[:name]).artist_users
+      # 指定されたジャンルに紐づいている、退会していないArtistUserを取得
+      @artist_users = Genre.find(params[:name]).artist_users.active
     else
-      @artist_users = ArtistUser.all
+      # 退会していないArtistUserを取得
+      @artist_users = ArtistUser.active
     end
   end
 
@@ -17,7 +20,7 @@ class Public::ArtistUsersController < ApplicationController
     @public_user = current_public_user
     @genres = Genre.all
     @search_params = artist_user_search_params
-    @artist_users = ArtistUser.search(@search_params).includes(:genre)
+    @artist_users = ArtistUser.active.search(@search_params).includes(:genre)
     render "index"
   end
 

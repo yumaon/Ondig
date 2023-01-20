@@ -1,8 +1,10 @@
 class Artist::TopicsController < ApplicationController
+  # トピックス新規投稿画面
   def new
     @topic =Topic.new
   end
 
+  # トピックス新規作成アクション
   def create
     topic = current_artist_user.topics.new(topic_params)
 
@@ -25,16 +27,19 @@ class Artist::TopicsController < ApplicationController
     @tag_lists = Tag.active_tags
   end
 
+  # トピックス詳細画面
   def show
     @topic = Topic.find(params[:id])
     @topic_comment = TopicComment.new
   end
 
+  # トピックス編集画面
   def edit
     @topic = Topic.find(params[:id])
     @tag_list = @topic.tags.pluck(:name).join('　')
   end
 
+  # トピックス情報更新
   def update
     topic = Topic.find(params[:id])
     tag_list = params[:topic][:name].split(/[ |　]/)
@@ -47,12 +52,21 @@ class Artist::TopicsController < ApplicationController
     end
   end
 
+  # トピックス情報削除(詳細画面からの削除ボタンクリック時)
   def destroy
     topic = Topic.find(params[:id])
     topic.destroy
     redirect_to artist_topics_path
   end
 
+  # トピックス情報削除(トピックス一覧画面からの削除ボタンクリック時)
+  def from_index_destroy
+    topic = Topic.find(params[:id])
+    topic.destroy
+    redirect_to request.referer
+  end
+
+  # トピックス検索アクション
   def search
     @artist_user = current_artist_user
     @tag_lists = Tag.active_tags
@@ -61,6 +75,7 @@ class Artist::TopicsController < ApplicationController
     render "index"
   end
 
+  # タグ検索アクション
   def tag_search
     @artist_user = current_artist_user
     @tag_lists = Tag.active_tags

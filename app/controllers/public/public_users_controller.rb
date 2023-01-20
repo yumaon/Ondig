@@ -2,8 +2,8 @@ class Public::PublicUsersController < ApplicationController
   # Mypage
   def show
     @public_user = current_public_user
-    # TimeLineを表示するため、followしているユーザーのtopicsを取得
-    @tl_topics = Topic.where(artist_user_id: current_public_user.artist_following_ids).order(created_at: :desc)
+    # TimeLineを表示するため、followしている退会していないユーザーのtopicsを取得
+    @topics = Topic.active_topics.where(artist_user_id: current_public_user.artist_following_ids).order(created_at: :desc)
   end
 
   # 一般会員プロフィール画面

@@ -1,28 +1,34 @@
 class Public::TopicsController < ApplicationController
+  # トピックス一覧画面
   def index
     @public_user = current_public_user
-    @topics = Topic.all
-    @tag_lists = Tag.all
+    # 退会していないユーザーのトピックスを取得
+    @topics = Topic.active_topics
+    # 退会していないユーザーのトピックスに紐づくすべてのタグを取得
+    @tag_lists = Tag.active_tags
   end
 
+  # トピックス詳細画面
   def show
     @topic = Topic.find(params[:id])
     @topic_comment = TopicComment.new
   end
 
+  # トピックス検索アクション
   def search
     @public_user = current_public_user
-    @tag_lists = Tag.all
-    @topics = Topic.search(params[:keyword])
+    @tag_lists = Tag.active_tags
+    @topics = Topic.active_topics.search(params[:keyword])
     @keyword = params[:keyword]
     render "index"
   end
 
+  # タグ検索アクション
   def tag_search
     @public_user = current_public_user
-    @tag_lists = Tag.all
+    @tag_lists = Tag.active_tags
     @tag = Tag.find(params[:tag_id])
-    @topics = @tag.topics.all
+    @topics = @tag.topics.active_topics
     @search_display = @tag.name
     render "index"
   end

@@ -5,7 +5,11 @@
     </div>
 
     <div class="col-lg-9">
-      <%= render 'artist/favorites/favorite', favorites: @favorites %>
+      <div>
+        <h3 class="text-white">Favorite Topics</h3>
+      </div>
+      <!--自身がいいねをしたトピックス一覧の表示-->
+      <%= render 'artist/topics/topic_list', topics: @topics %>
     </div>
   </div>
 </div>

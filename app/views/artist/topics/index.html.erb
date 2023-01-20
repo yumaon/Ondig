@@ -5,7 +5,19 @@
     </div>
 
     <div class="col-lg-9">
-      <%= render 'topic_list', topics: @topics, keyword: @keyword, search_display: @search_display %>
+      <div class="d-flex flex-fill">
+        <div class="flex-fill">
+          <h3 class="text-white">Topics</h3>
+        </div>
+        <div class="flex-fill text-right">
+          <!--トピックス投稿ボタンの設置-->
+          <%= render 'topic_create_button' %>
+        </div>
+      </div>
+      <!--トピックス検索フォームの設置-->
+      <%= render 'topics_search_form', keyword: @keyword, search_display: @search_display %>
+      <!--トピックス一覧の表示-->
+      <%= render 'topic_list', topics: @topics %>
     </div>
   </div>
 </div>
