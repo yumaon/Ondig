@@ -14,6 +14,18 @@
             <div class="col-md-3">
               <span class="text-white"><%= @artist_users.count %></span>
             </div>
+
+            <div class="col-md-7 mt-2">
+              <span class="text-warning">退会済みアカウント</span>
+            </div>
+            <div class="col-md-3 mt-2">
+              <%= form_tag admin_artist_users_path do %>
+                <%= link_to admin_artist_users_path(no_active: 0), class: "border-warning border-bottom" do %>
+                  <span class="text-warning"><%= @no_active_artist_users.count %></span>
+                <% end %>
+              <% end %>
+            </div>
+
             <div class="col-md-7 mt-2">
               <span class="text-warning">ジャンル未設定者</span>
             </div>
@@ -42,10 +54,14 @@
               <span class="text-white"><%= @public_users.count %></span>
             </div>
             <div class="col-md-7 mt-2">
-              <span></span>
+              <span class="text-warning">退会済みアカウント</span>
             </div>
             <div class="col-md-3 mt-2">
-              <span></span>
+              <%= form_tag admin_public_users_path do %>
+                <%= link_to admin_public_users_path(no_active: 0), class: "border-warning border-bottom" do %>
+                  <span class="text-warning"><%= @no_active_public_users.count %></span>
+                <% end %>
+              <% end %>
             </div>
           </div>
           <div class="text-center mt-5">

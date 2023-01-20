@@ -3,11 +3,17 @@ class Admin::HomesController < ApplicationController
     # 全てのArtist会員を取得
     @artist_users = ArtistUser.all
 
+    # 退会しているArtist会員を取得
+    @no_active_artist_users = ArtistUser.deleted
+
     # ジャンル設定をしていないArtist会員の取得
     @genre_nil_artsit_users = ArtistUser.where(genre_id: nil).all
 
     # 全ての一般会員を取得
     @public_users = PublicUser.all
+
+    # 退会している一般会員を取得
+    @no_active_public_users = PublicUser.deleted
 
     # 全てのトピックスを取得
     @topics = Topic.includes(:tags)

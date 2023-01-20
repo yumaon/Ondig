@@ -14,6 +14,13 @@
       <% end %>
     </div>
 
+    <!--退会済みのArtistUserを指定し、表示させる場合のテキスト表示-->
+    <% if params[:no_active].present? %>
+      <div class="col-md-10 mx-auto mt-4">
+        <p class="text-info"><%= @search_display %></p>
+      </div>
+    <% end %>
+
     <div class="col-md-10 mt-3 mx-auto">
       <!--一般会員の一覧をテーブルで表示-->
       <table class="table table-hover table-borderless text-white">

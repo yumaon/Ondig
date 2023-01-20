@@ -36,6 +36,12 @@
       <div class="col-md-10 mx-auto mt-4">
         <p class="text-info">ジャンル登録が " <%= @search_display %> " のArtist会員</p>
       </div>
+
+    <!--退会済みのArtistUserを指定し、表示させる場合のテキスト表示-->
+    <% elsif params[:no_active].present? %>
+      <div class="col-md-10 mx-auto mt-4">
+        <p class="text-info"><%= @search_display %></p>
+      </div>
     <% end %>
     <div class="col-md-10 mt-3 mx-auto">
       <!--Artist会員の一覧をテーブルで表示-->

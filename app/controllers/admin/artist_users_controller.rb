@@ -13,6 +13,12 @@ class Admin::ArtistUsersController < ApplicationController
       @search_display = "未設定"
       @search_params = artist_user_search_params
 
+    # 退会しているArtistUserを指定し、indexページを表示させる
+    elsif params[:no_active].present?
+      @artist_users = ArtistUser.deleted
+      @search_display = "退会済みのアカウント"
+      @search_params = artist_user_search_params
+
     # ジャンルは指定せず、indexページを表示させる(全てのArtistUser)
     else
       @artist_users = ArtistUser.all
