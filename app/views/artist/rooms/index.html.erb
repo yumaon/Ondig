@@ -9,14 +9,16 @@
         <h3 class="text-white">Messages</h3>
       </div>
 
+      <!--やり取りしているDMルーム一覧の表示-->
       <div class="dm-index-box p-3 mt-3">
         <% @another_joins.each do |join| %>
-          <% if join.public_user.present? %>
+          <!--やり取りの相手が一般会員で、かつ、退会していないユーザーの場合の表示-->
+          <% if join.public_user.present? && join.public_user.is_deleted == false %>
             <table class="table table-borderless">
               <tr>
                 <td class="col-1"><%= image_tag join.public_user.profile_image, class: "dm-box-image" %></td>
                 <td class="align-middle col-3">
-                  <%= link_to artist_public_user_path(join.public_user.id), class: "text-white" do %>
+                  <%= link_to artist_public_user_path(join.public_user.id), class: "text-white border-bottom" do %>
                     <%= join.public_user.nickname %>
                   <% end %>
                 </td>
@@ -28,12 +30,14 @@
                 <td class="text-white text-right align-middle"><%= Message.find_by(id: join.room.message_ids.last)&.created_at.strftime("%Y-%m-%d %H:%M") %> </td>
               </tr>
             </table>
-          <% elsif join.artist_user.present? && join.artist_user != @artist_user %>
+          <!--やり取りしている相手がArtist会員で、かつ、退会していないユーザーの場合の表示-->
+          <!--|join|にはログイン中のArtist会員の情報も含まれているのでそれを除く記述-->
+          <% elsif join.artist_user.present? && join.artist_user != @artist_user && join.artist_user.is_deleted == false %>
             <table class="table table-borderless">
               <tr>
                 <td class="col-1"><%= image_tag join.artist_user.profile_image, class: "dm-box-image" %></td>
                 <td class="align-middle col-3">
-                  <%= link_to profile_artist_artist_user_path(join.artist_user.id), class: "text-white" do %>
+                  <%= link_to profile_artist_artist_user_path(join.artist_user.id), class: "text-white border-bottom" do %>
                     <%= join.artist_user.artist_name %>
                   <% end %>
                 </td>
@@ -43,6 +47,22 @@
                   <% end %>
                 </td>
                 <td class="text-white text-right align-middle"><%= Message.find_by(id: join.room.message_ids.last)&.created_at.strftime("%Y-%m-%d %H:%M") %> </td>
+              </tr>
+            </table>
+          <!--やり取りしているユーザーが退会していた場合の記述（Artist会員、一般会員の両方を含む)-->
+          <% elsif join.artist_user.present? && join.artist_user != @artist_user && join.artist_user.is_deleted == true || join.public_user.present? && join.public_user.is_deleted == true %>
+            <table class="table table-borderless">
+              <tr>
+                <td class="col-1"><%= image_tag 'profile_no_image.png', class: "dm-box-image" %></td>
+                <td class="align-middle col-3">
+                  <span class="text-white-50">退会したユーザー</span>
+                </td>
+                <td class="align-middle col-4">
+                  <%= link_to rooms_artist_artist_users_path(join.room), class: "text-white-50 dm-index-content-box" do %>
+                    <%= Message.find_by(id: join.room.message_ids.last)&.content %>
+                  <% end %>
+                </td>
+                <td class="text-white-50 text-right align-middle"><%= Message.find_by(id: join.room.message_ids.last)&.created_at.strftime("%Y-%m-%d %H:%M") %> </td>
               </tr>
             </table>
           <% end %>

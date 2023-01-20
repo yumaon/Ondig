@@ -4,75 +4,99 @@
       <%= render 'artist/artist_users/my_page', public_user: @public_user %>
     </div>
 
-     <div class="col-lg-9">
-       <div class="col-md-12">
-         <% @joins.each do |join| %>
-           <% if join.artist_user.present? %>
-             <h3 class="text-white"><%= join.artist_user.artist_name %> <span class="h6">さんとのメッセージ</span></h3>
-           <% else %>
-             <% unless join.public_user.id == current_public_user.id %>
-               <h3 class="text-white"><%= join.public_user.nickname %> <span class="h6">さんとのメッセージ</span></h3>
-             <% end %>
+    <div class="col-lg-9">
+      <div class="col-md-12">
+        <% @joins.each do |join| %>
+          <!--やり取りしているユーザーがArtist会員の場合-->
+          <% if join.artist_user.present? %>
+            <!--対象のArtist会員が退会していた場合の表示-->
+            <% if join.artist_user.is_deleted == true %>
+              <h4 class="text-white">退会したユーザーとのメッセージ</h4>
+            <% else %>
+              <h3 class="text-white"><%= join.artist_user.artist_name %> <span class="h6">さんとのメッセージ</span></h3>
             <% end %>
-         <% end %>
+          <!--やり取りしているユーザーが一般会員の場合の表示-->
+          <!--ログイン中の一般会員の情報も|join|に含まれているので、それを除くための記述-->
+          <% elsif join.public_user.present? && join.public_user.id != current_public_user.id %>
+            <!--対象の一般会員が退会していた場合の表示-->
+            <% if join.public_user.is_deleted == true %>
+              <h4 class="text-white">退会したユーザーとのメッセージ</h4>
+            <% else %>
+              <h3 class="text-white"><%= join.public_user.nickname %> <span class="h6">さんとのメッセージ</span></h3>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class=col-md-12>
+        <div class="dm-box overflow-auto mt-3 p-4">
+          <% if @messages.present? %>
+            <% @messages.each do |message| %>
+              <!--DMの送り主がArtist会員の場合の表示-->
+              <% if message.artist_user.present? %>
+                <div class="justify-content-start d-flex flex-fill">
+                  <% if message.artist_user.is_deleted == true %>
+                    <!--DMの送り主のArtist会員が退会していた場合のプロフィール画像の表示-->
+                    <div class="align-baseline pt-1"><%= image_tag 'profile_no_image', class: "dm-box-image" %></div>
+                  <% else %>
+                    <div class="align-baseline pt-1"><%= image_tag message.artist_user.get_profile_image, class: "dm-box-image" %></div>
+                  <% end %>
+                  <div class="text-white px-3 py-1 dm-content-box m-1">
+                    <p><%= simple_format message.content %></p>
+                  </div>
+                </div>
+                <div class="mt-1 ml-5 text-white dm-content-datetime">
+                  <%= message.created_at.strftime("%Y-%m-%d %H:%M") %>
+                </div>
+
+              <!--DMの送り主がPublic会員の場合の表示-->
+              <!--ログイン中のPubilcUserの情報も入ってしまってるので、それを除くための記述-->
+              <% elsif message.public_user.present? && message.public_user.id != current_public_user.id %>
+                <div class="justify-content-start d-flex flex-fill">
+                  <% if message.public_user.is_deleted == true %>
+                    <!--DMの送り主の一般会員が退会していた場合のプロフィール画像の表示-->
+                    <div class="align-baseline pt-1"><%= image_tag 'profile_no_image', class: "dm-box-image" %></div>
+                  <% else %>
+                    <div class="align-baseline pt-1"><%= image_tag message.public_user.get_profile_image, class: "dm-box-image" %></div>
+                  <% end %>
+                  <div class="text-white px-3 py-1 dm-content-box m-1">
+                    <p><%= simple_format message.content %></p>
+                  </div>
+                </div>
+                <div class="mt-1 ml-5 text-white dm-content-datetime">
+                  <%= message.created_at.strftime("%Y-%m-%d %H:%M") %>
+                </div>
+
+              <!--ログインしているPublic会員のDMの返信内容を表示させるための記述-->
+              <% else %>
+                <div class="justify-content-end d-flex flex-fill">
+                  <div class="text-white px-3 py-1 dm-content-box-sender m-1">
+                    <p><%= simple_format message.content %></p>
+                  </div>
+                </div>
+                <div class="mt-1 text-right text-white dm-content-datetime">
+                  <%= message.created_at.strftime("%Y-%m-%d %H:%M") %>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
         </div>
+      </div>
 
-
-
-       <div class=col-md-12>
-         <div class="dm-box overflow-auto mt-3 p-4">
-           <% if @messages.present? %>
-             <% @messages.each do |message| %>
-               <!--DMの送り主がArtist会員の場合の表示-->
-               <% if message.artist_user.present? %>
-                 <div class="justify-content-start d-flex flex-fill">
-                   <div class="align-baseline pt-1"><%= image_tag message.artist_user.get_profile_image, class: "dm-box-image" %></div>
-                   <div class="text-white px-3 py-1 dm-content-box m-1">
-                     <p><%= simple_format message.content %></p>
-                   </div>
-                 </div>
-                 <div class="mt-1 ml-5 text-white dm-content-datetime">
-                   <%= message.created_at.strftime("%Y-%m-%d %H:%M") %>
-                 </div>
-
-               <!--DMの送り主がPublic会員の場合の表示-->
-               <!--ログイン中のPubilcUserの情報も入ってしまってるので、それを除くための記述-->
-               <% elsif message.public_user.present? && message.public_user.id != current_public_user.id %>
-                 <div class="justify-content-start d-flex flex-fill">
-                   <div class="align-baseline pt-1"><%= image_tag message.public_user.get_profile_image, class: "dm-box-image" %></div>
-                   <div class="text-white px-3 py-1 dm-content-box m-1">
-                     <p><%= simple_format message.content %></p>
-                   </div>
-                 </div>
-                 <div class="mt-1 ml-5 text-white dm-content-datetime">
-                   <%= message.created_at.strftime("%Y-%m-%d %H:%M") %>
-                 </div>
-
-               <!--ログインしているPublic会員のDMの返信内容を表示させるための記述-->
-               <% else %>
-                 <div class="justify-content-end d-flex flex-fill">
-                   <div class="text-white px-3 py-1 dm-content-box-sender m-1">
-                     <p><%= simple_format message.content %></p>
-                   </div>
-                 </div>
-                 <div class="mt-1 text-right text-white dm-content-datetime">
-                   <%= message.created_at.strftime("%Y-%m-%d %H:%M") %>
-                 </div>
-               <% end %>
+      <!--やり取りしている相手（Artist会員、一般会員の両方を含む）が退会している場合に、メッセージを送るフォームを表示させない-->
+      <% @joins.each do |join| %>
+        <% if join.artist_user.present? && join.artist_user.is_deleted == false || join.public_user.present? && join.public_user.id != current_public_user.id && join.public_user.is_deleted == false %>
+        <div class="col-md-12 text-center mt-3">
+          <div class="dm-form">
+             <%= form_with model: @message, url: messages_public_public_users_path, method: :post do |f| %>
+               <%= f.text_area :content, placeholder: "メッセージを入力して下さい", class: "col-5" %>
+               <%= f.hidden_field :room_id, value: @room.id %><br>
+               <%= f.submit "送信する", class: "btn btn-primary btn-green col-3" %>
              <% end %>
-           <% end %>
-         </div>
-       </div>
-
-       <div class="col-md-12 text-center mt-3">
-         <div class="dm-form">
-           <%= form_with model: @message, url: messages_public_public_users_path, method: :post do |f| %>
-             <%= f.text_area :content, placeholder: "メッセージを入力して下さい", class: "col-5" %>
-             <%= f.hidden_field :room_id, value: @room.id %><br>
-             <%= f.submit "送信する", class: "btn btn-primary btn-green col-3" %>
-           <% end %>
-         </div>
-       </div>
-     </div>
+           </div>
+        </div>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 </div>
