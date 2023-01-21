@@ -3,7 +3,7 @@
     <div>
       <%= image_tag artist_user.get_profile_image, class: "my-page-box-image" %>
     </div>
-    <div class="text-white mt-3 border-bottom">
+    <div class="text-white mt-3 pb-2 border-bottom">
       <h4><%= artist_user.artist_name %></h4>
       <div>
         <% if artist_user.genre.present? %>
@@ -11,39 +11,65 @@
         <% else %>
           Genre: 未設定
         <% end %>
-        <%= link_to "変更", artist_genres_path, class: "btn btn-success btn-follow btn-sm ml-3" %>
       </div>
+      <%= link_to "ジャンル設定", artist_genres_path, class: "btn btn-success btn-follow btn-sm px-3 mt-2" %>
+      <%= link_to "登録情報編集", information_edit_artist_artist_users_path, class: "btn btn-sm btn-follow btn-success mt-2" %>
+
+      <div class="d-flex align-items-center justify-content-center follow-detail-display mt-2">
+        <p class="mr-3">フォロー中</p>
+        <%= link_to artist_artist_user_followings_path(artist_user), class: "text-white" do %>
+          <%= artist_user.artist_relationships.following_count %>
+        <% end %>
+      </div>
+      <div class="d-flex align-items-center justify-content-center follow-detail-display">
+        <p class="mr-3">フォロワー</p>
+        <%= link_to artist_artist_user_followers_path(artist_user), class: "text-white" do %>
+          <%= artist_user.artist_reverse_of_relationships.follower_count %>
+        <% end %>
+      </div>
+
     </div>
     <div class="mt-3 d-flex flex-column">
       <%= link_to "Artist Profile", profile_artist_artist_user_path(artist_user), class: "text-white" %>
       <%= link_to "Messages", artist_artist_user_rooms_path(artist_user), class: "text-white" %>
       <%= link_to "My Topics", my_page_my_topics_artist_artist_users_path, class: "text-white" %>
       <%= link_to "Favorite Topics", my_page_favorite_topics_artist_artist_users_path, class: "text-white" %>
-      <%= link_to "Followings", artist_artist_user_followings_path(artist_user), class: "text-white" %>
-      <%= link_to "Follower", artist_artist_user_followers_path(artist_user), class: "text-white" %>
-      <%= link_to "登録情報編集", information_edit_artist_artist_users_path %>
+      <%= link_to "Time Line", my_page_artist_artist_users_path, class: "text-white" %>
     </div>
+
   <% elsif public_user_signed_in? %>
     <div>
       <%= image_tag public_user.get_profile_image, class: "my-page-box-image" %>
     </div>
-    <div class="text-white mt-3 border-bottom">
+    <div class="text-white mt-3 pb-2 border-bottom">
       <h4><%= public_user.nickname %></h4>
       <div>
         <% if public_user.introduction.present? %>
-          <%= public_user.introduction %>
+          <%= simple_format public_user.introduction %>
         <% else %>
           自己紹介文は登録されてません。
         <% end %>
       </div>
+      <%= link_to "登録情報編集", information_edit_public_public_users_path, class: "btn btn-sm btn-follow btn-success mt-2" %>
+
+      <div class="d-flex align-items-center justify-content-center follow-detail-display mt-2">
+        <p class="mr-3">フォロー中</p>
+        <%= link_to public_public_user_followings_path(public_user), class: "text-white" do %>
+          <%= public_user.public_relationships.following_count %>
+        <% end %>
+      </div>
+      <div class="d-flex align-items-center justify-content-center follow-detail-display">
+        <p class="mr-3">フォロワー</p>
+        <%= link_to public_public_user_followers_path(public_user), class: "text-white" do %>
+          <%= public_user.public_reverse_of_relationships.follower_count %>
+        <% end %>
+      </div>
+
     </div>
     <div class="mt-3 d-flex flex-column">
-      <%= link_to "TimeLine", "/", class: "text-white" %>
-      <%= link_to "Favotite Topics", my_page_favorite_topics_public_public_users_path, class: "text-white" %>
-      <%= link_to "Followings", public_public_user_followings_path(public_user), class: "text-white" %>
-      <%= link_to "Follower", public_public_user_followers_path(public_user), class: "text-white" %>
-      <%= link_to "Message", public_public_user_rooms_path(public_user), class: "text-white" %>
-      <%= link_to "登録情報編集", information_edit_public_public_users_path %>
+      <%= link_to "TimeLine", my_page_public_public_users_path, class: "text-white" %>
+      <%= link_to "Favotite Topics", my_page_favorite_topics_public_public_users_path, class: "text-white mt-2" %>
+      <%= link_to "Message", public_public_user_rooms_path(public_user), class: "text-white mt-2" %>
     </div>
   <% end %>
 </div>
