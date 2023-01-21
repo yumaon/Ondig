@@ -1,12 +1,21 @@
 <div class="container-fluid">
   <div class="row">
+    <!--取得したアーティストのプロフィールを表示-->
     <%= render 'profile', artist_user: @artist_user %>
       <div class="row">
         <div class="col-lg-12 p-5">
+          <!--取得したアーティストがプロフィールにyoutubeのURLを設定していたら-->
           <% if @artist_user.youtube_url.present? %>
             <div class="profile-youtube-box">
               <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @artist_user.youtube_url.last(11) %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
+          <!--上記のyoutubeのURLが未設定である場合に、取得したアーティストの最新のTopicの詳細を表示させる-->
+          <% elsif !@artist_user.youtube_url.present? && @topic.present? %>
+            <h4 class="text-white mb-3"><%= @artist_user.artist_name %> さんの最近のTopic</h4>
+            <%= render 'artist/topics/topic_show', topic: @topic %>
+          <!--youtubeのURLが存在せず、かつ、取得したアーティストが何もTopicを投稿していなかった場合の表示-->
+          <% else %>
+            <p class="text-white">このArtistの表示できる情報はありません。</p>
           <% end %>
         </div>
       </div>

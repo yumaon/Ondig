@@ -1,7 +1,8 @@
 class Artist::ProfilesController < ApplicationController
   def show
     @artist_user = ArtistUser.find(params[:id])
-    
+    @topic = Topic.order(created_at: :desc).find_by(artist_user_id: @artist_user.id)
+
     @current_ArtistUser_join = Join.where(artist_user_id: current_artist_user.id)
     @ArtistUser_join = Join.where(artist_user_id: @artist_user.id)
     unless @artist_user.id == current_artist_user.id
