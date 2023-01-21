@@ -8,7 +8,7 @@
   <div class="row text-white">
     <div class="col-md-12 col-form-label">
       <%= f.label :item_image, "Item画像" %>
-      <%= f.file_field :item_image, class: "ml-5" %>
+      <%= f.file_field :item_image, accept: "image/*", class: "ml-5" %>
     </div>
     <div class="col-md-12 col-form-label">
       <%= f.label :name, "Item名" %>

@@ -18,7 +18,7 @@
     </div>
     <div class="col-md-12 col-form-label">
       <%= f.label :topic_image, "画像" %>
-      <%= f.file_field :topic_image %>
+      <%= f.file_field :topic_image, accept: "image/*" %>
     </div>
     <div class="col-md-12 col-form-label">
       <%= f.label :youtube_url, "youtubeリンク" %>
