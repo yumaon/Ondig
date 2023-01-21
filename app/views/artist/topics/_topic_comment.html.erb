@@ -14,17 +14,30 @@
       <div class="text-white border-bottom">
         <div class="d-flex pt-3 pl-3 pr-3">
           <div class="ml-2">
+            <!--プロフィール画像を表示-->
             <%= image_tag topic_comment.public_user.get_profile_image, class: "comment-profile-image" %>
-            <p><%= topic_comment.public_user.nickname %></p>
           </div>
           <div class="ml-5 flex-fill">
-            <p><%= simple_format topic_comment.comment %></p>
-            <p class="text-right"><%= topic_comment.created_at.strftime('%Y/%m/%d') %></p>
-            <% if topic_comment.public_user == current_public_user %>
-              <div class="text-right">
-                <%= link_to "削除", public_topic_topic_comment_path(topic_comment.topic, topic_comment), method: :delete, class: "btn btn-danger btn-red" %>
-              </div>
+            <!--ニックネームを表示させ、一般会員詳細画面へ遷移するリンクを設置-->
+            <% if artist_user_signed_in? %>
+              <%= link_to artist_public_user_path(topic_comment.public_user) do %>
+                <span class="text-white mini-artist-name box p-1"><%= topic_comment.public_user.nickname %></span>
+              <% end %>
+            <% elsif public_user_signed_in? %>
+              <%= link_to public_public_user_profile_path(topic_comment.public_user) do %>
+                <span class="text-white mini-artist-name box p-1"><%= topic_comment.public_user.nickname %></span>
+              <% end %>
             <% end %>
+            <!--コメントの本文を表示-->
+            <p><%= simple_format topic_comment.comment %></p>
+            <div class="d-flex justify-content-end">
+              <!--コメント投稿本人の場合に削除ボタンを表示-->
+              <% if topic_comment.public_user == current_public_user %>
+                <%= link_to "削除", public_topic_topic_comment_path(topic_comment.topic, topic_comment), method: :delete, class: "btn btn-danger btn-red btn-sm px-3 mr-3" %>
+              <% end %>
+              <!--コメントの投稿された日付を表示-->
+              <span><%= topic_comment.created_at.strftime('%Y/%m/%d') %></span>
+            </div>
           </div>
         </div>
       </div>
@@ -32,27 +45,51 @@
       <% elsif topic_comment.artist_user_id.present? && topic_comment.artist_user.is_deleted == false %>
       <div class="text-white border-bottom">
         <div class="d-flex pt-3 pl-3 pr-3">
-            <div class="ml-2">
-              <%= image_tag topic_comment.artist_user.get_profile_image, class: "comment-profile-image" %>
+          <div class="ml-2">
+            <!--プロフィール画像を表示-->
+            <%= image_tag topic_comment.artist_user.get_profile_image, class: "comment-profile-image" %>
+          </div>
+          <div class="ml-5 flex-fill">
+            <!--トピック投稿者本人の場合のコメント表示-->
+            <% if topic_comment.artist_user_id == topic.artist_user_id %>
+              <!--アーティスト名を表示させ、Artistプロフィール画面へ遷移するリンクを設置-->
               <% if artist_user_signed_in? %>
                 <%= link_to profile_artist_artist_user_path(topic_comment.artist_user) do %>
-                  <p class="text-white"><%= topic_comment.artist_user.artist_name %></p>
+                  <span class="text-white mini-artist-name box-2 p-1"><%= topic_comment.artist_user.artist_name %> <i class="fas fa-music"></i></span>
                 <% end %>
               <% elsif public_user_signed_in? %>
                 <%= link_to profile_public_artist_user_path(topic_comment.artist_user) do %>
-                  <p class="text-white"><%= topic_comment.artist_user.artist_name %></p>
+                  <span class="text-white mini-artist-name box-2 p-1"><%= topic_comment.artist_user.artist_name %> <i class="fas fa-music"></i></span>
                 <% end %>
               <% end %>
-            </div>
-            <div class="ml-5 flex-fill">
-              <p><%= simple_format topic_comment.comment %></p>
-              <p class="text-right"><%= topic_comment.created_at.strftime('%Y/%m/%d') %></p>
-              <% if topic_comment.artist_user == current_artist_user %>
-                <div class="text-right">
-                  <%= link_to "削除", artist_topic_topic_comment_path(topic_comment.topic, topic_comment), method: :delete, class: "btn btn-danger btn-red" %>
-                </div>
+              <span class="text-white-50 mini-artist-name">(投稿者)</span>
+
+            <!--トピックス投稿者本人ではない場合-->
+            <% else %>
+              <!--アーティスト名を表示させ、Artistプロフィール画面へ遷移するリンクを設置-->
+              <% if artist_user_signed_in? %>
+                <%= link_to profile_artist_artist_user_path(topic_comment.artist_user) do %>
+                  <span class="text-white mini-artist-name box p-1"><%= topic_comment.artist_user.artist_name %> <i class="fas fa-music"></i></span>
+                <% end %>
+              <% elsif public_user_signed_in? %>
+                <%= link_to profile_public_artist_user_path(topic_comment.artist_user) do %>
+                  <span class="text-white mini-artist-name box p-1"><%= topic_comment.artist_user.artist_name %> <i class="fas fa-music"></i></span>
+                <% end %>
               <% end %>
+            <% end %>
+
+            <!--コメント本文の表示-->
+            <p><%= simple_format topic_comment.comment %></p>
+
+            <div class="d-flex justify-content-end">
+              <!--コメント投稿者本人の場合に削除ボタンを表示-->
+              <% if topic_comment.artist_user == current_artist_user %>
+                <%= link_to "削除", artist_topic_topic_comment_path(topic_comment.topic, topic_comment), method: :delete, class: "btn btn-danger btn-red btn-sm px-3 mr-3" %>
+              <% end %>
+              <!--コメント投稿日時を表示-->
+              <span><%= topic_comment.created_at.strftime('%Y/%m/%d') %></span>
             </div>
+          </div>
         </div>
       </div>
       <% end %>

@@ -136,6 +136,8 @@
                           <span class="text-white mini-artist-name box-2 p-1"><%= topic_comment.artist_user.artist_name %> <i class="fas fa-music"></i></span>
                         <% end %>
                         <span class="text-white-50 mini-artist-name">(投稿者)</span>
+
+                      <!--トピックス投稿者本人ではない場合-->
                       <% else %>
                         <!--アーティスト名を表示させ、Artist会員詳細画面へ遷移するリンクを設置-->
                         <%= link_to admin_artist_user_path(topic_comment.artist_user.id) do %>
