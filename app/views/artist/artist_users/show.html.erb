@@ -14,8 +14,17 @@
           <%= render 'artist/topics/topic_create_button' %>
         </div>
       </div>
-      <!--自身の投稿と、フォローしているユーザーの投稿を表示(Time Line)-->
-      <%= render 'artist/topics/topic_list', topics: @topics %>
+      <!--自身のTopicsまたは、フォローしているArtistのTopicsが存在する場合-->
+      <% if @topics.present? %>
+        <!--自身の投稿と、フォローしているユーザーの投稿を表示(Time Line)-->
+        <%= render 'artist/topics/topic_list', topics: @topics %>
+      <!--自身のTopicsまたは、フォローしているArtistのTopicsが存在しない場合-->
+      <% else %>
+        <div class="box mt-3 text-center p-3">
+          <p class="text-white mt-2">ここには、ご自身の投稿したTopicsやフォローしているArtistの投稿したTopicsが表示されます！<br>
+          まずはお気に入りのArtistを見つけ、フォローをしてみましょう！</p>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

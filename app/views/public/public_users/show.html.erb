@@ -4,12 +4,21 @@
       <%= render 'artist/artist_users/my_page', public_user: @public_user %>
     </div>
 
-     <div class="col-lg-9">
-       <div class="flex-fill">
-         <h3 class="text-white">Time Line</h3>
-       </div>
-       <!--自身がフォローをしているアーティストユーザーのトピックス一覧を表示させる-->
-       <%= render 'artist/topics/topic_list', topics: @topics %>
-     </div>
+    <div class="col-lg-9">
+      <div class="flex-fill">
+        <h3 class="text-white">Time Line</h3>
+      </div>
+      <!--フォローしているArtistが存在し、そのArtistのTopicsが存在している場合の表示-->
+      <% if @topics.present? %>
+        <!--自身がフォローをしているArtistのトピックス一覧を表示させる-->
+        <%= render 'artist/topics/topic_list', topics: @topics %>
+      <!--フォローしているArtistが存在しない、または、フォローしているArtistのTopicsが存在していない場合の表示-->
+      <% else %>
+        <div class="box mt-3 text-center p-3">
+          <p class="text-white mt-2">ここには、フォローしているArtistの投稿したTopicsが表示されます！<br>
+          まずはお気に入りのArtistを見つけ、フォローをしてみましょう！</p>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
