@@ -22,7 +22,7 @@ class Artist::TopicsController < ApplicationController
   def index
     @artist_user = current_artist_user
     # 退会していないユーザーのトピックスを取得
-    @topics = Topic.active_topics
+    @topics = Topic.active_topics.order(created_at: :desc)
     # 退会していないユーザーのトピックスに紐づくすべてのタグを取得
     @tag_lists = Tag.active_tags
   end

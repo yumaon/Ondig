@@ -3,7 +3,7 @@ class Public::TopicsController < ApplicationController
   def index
     @public_user = current_public_user
     # 退会していないユーザーのトピックスを取得
-    @topics = Topic.active_topics
+    @topics = Topic.active_topics.order(created_at: :desc)
     # 退会していないユーザーのトピックスに紐づくすべてのタグを取得
     @tag_lists = Tag.active_tags
   end
