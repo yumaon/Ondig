@@ -1,48 +1,97 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-6">
-      <h2 class="text-white"><%= @artist_user.artist_name %> さんの情報編集</h2>
+    <div class="col-md-10 mx-auto mt-4 d-flex align-items-center">
+      <!--アーティスト会員のプロフィールイメージと、氏名を表示-->
+      <%= image_tag @artist_user.get_profile_image, class: "dedail-page-profile-image" %>
+      <span class="text-white h4 ml-3"><%= @artist_user.artist_name %>さんの会員情報編集</span>
+    </div>
+
+    <div class="col-md-10 mt-3 mx-auto box p-4">
+      <!--編集フォーム-->
+      <%= form_with model: @artist_user, url: information_artist_artist_users_path do |f| %>
+
+      <!--プロフィール画像フォーム-->
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :profile_image, "プロフィール画像", class: "col-form-label text-white" %>
+        </div>
+        <div class="col-md-9">
+          <%= f.file_field :profile_image, accept: "image/*", class: "col-6 form-control-sm text-white" %>
+        </div>
+      </div>
+
+      <!--アーティスト名のフォーム-->
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :artist_name, "アーティスト名", class: "col-form-label text-white" %>
+        </div>
+        <div class="col-md-9">
+          <%= f.text_field :artist_name, class: "form-control col-4" %>
+        </div>
+      </div>
+
+      <!--代表者氏名のフォーム-->
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :rep_name, "代表者氏名", class: "col-form-label text-white" %>
+        </div>
+        <div class="col-md-9 d-flex">
+          <%= f.text_field :rep_name, class: "mr-4 form-control col-4" %>
+        </div>
+      </div>
+
+      <!--代表者氏名 フリガナのフォーム-->
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :rep_name_kana, "フリガナ", class: "col-form-label text-white" %>
+        </div>
+        <div class="col-md-9">
+          <%= f.text_field :rep_name_kana, class: "form-control col-4" %>
+        </div>
+      </div>
+
+      <!--登録ジャンルのフォーム-->
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :genre_id, "ジャンル", class: "col-form-label text-white" %>
+        </div>
+        <div class="col-md-9">
+          <%= f.collection_select :genre_id, Genre.all, :id, :name, {prompt: true}, class: "form-control col-4" %>
+        </div>
+      </div>
+
+      <!--出身のフォーム-->
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :activity_location, "出身", class: "col-form-label text-white" %>
+        </div>
+        <div class="col-md-9">
+          <%= f.select :activity_location, ArtistUser.activity_locations_i18n.invert, {prompt: '選択してください'}, class: "form-control col-4" %>
+        </div>
+      </div>
+
+      <!--メールアドレスのフォーム-->
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :email, "メールアドレス", class: "col-form-label text-white" %>
+        </div>
+        <div class="col-md-9">
+          <%= f.email_field :email, autocomplete: "email", class: "form-control col-6" %>
+        </div>
+      </div>
+
+      <!--変更保存ボタン-->
+      <div class="form-group row">
+        <div class="col-md-3 text-center"></div>
+        <div class="col-md-9">
+          <%= f.submit "変更を保存", class: "btn btn-success btn-follow col-4" %>
+        </div>
+      </div>
+    <% end %>
+
+    <!--退会ボタンの設置-->
+    <div class="col-md-12 text-right">
+      <%= link_to "退会する", unsubscribe_artist_artist_users_path, class: "btn btn-danger btn-red px-3" %>
     </div>
   </div>
-  <div class="row">
-  <%= form_with model: @artist_user, url: information_artist_artist_users_path do |f| %>
-
-    <div class="field">
-      <%= f.label :profile_image, class: "text-white" %><br>
-      <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*"  %>
-    </div>
-
-    <div class="field">
-      <%= f.label :artist_name, class: "text-white" %><br>
-      <%= f.text_field :artist_name, autofocus: true %>
-    </div>
-
-    <div class="field">
-      <%= f.label :rep_name, class: "text-white" %><br>
-      <%= f.text_field :rep_name %>
-    </div>
-
-    <div class="field">
-      <%= f.label :rep_name_kana, class: "text-white" %><br>
-      <%= f.text_field :rep_name_kana %>
-    </div>
-
-    <div class="field">
-      <%= f.label :activity_location, class: "text-white" %><br>
-      <%= f.select :activity_location, ArtistUser.activity_locations_i18n.invert, {prompt: '選択してください'}, class: 'form-control' %>
-    </div>
-
-    <div class="field">
-      <%= f.label :email, class: "text-white" %><br />
-      <%= f.email_field :email, autocomplete: "email" %>
-    </div>
-
-    <div class="field">
-      <%= f.submit "変更を保存" %>
-    </div>
-  <% end %>
-  </div>
-
-  <%= link_to "退会する", unsubscribe_artist_artist_users_path, class: "btn btn-danger" %>
-
 </div>
