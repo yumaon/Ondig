@@ -1,28 +1,39 @@
-<div class="container-fluid container-position">
-  <h2>Log in</h2>
+<div class="container-fluid main-visual" style="background-image: url('<%= asset_path("main-visual-image.jpg") %>');">
+  <div class="row">
+    <div class="col-md-5 login-form text-white pt-5">
 
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-    </div>
-
-    <div class="field">
-      <%= f.label :password %><br />
-      <%= f.password_field :password, autocomplete: "current-password" %>
-    </div>
-
-    <% if devise_mapping.rememberable? %>
-      <div class="field">
-        <%= f.check_box :remember_me %>
-        <%= f.label :remember_me %>
+      <div class="text-center mt-5">
+        <h4>Artist会員ログイン</h4>
       </div>
-    <% end %>
 
-    <div class="actions">
-      <%= f.submit "Log in" %>
+      <!--Artist会員ログインフォーム-->
+      <div class="field-box mt-5">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <!--メールアドレス入力欄-->
+          <div class="form-group row d-flex justify-content-center">
+            <%= f.label :email, "メールアドレス", class: "col-lg-4 col-form-label text-center" %>
+            <div class="col-lg-5">
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "example@example.com", class: "form-control" %>
+            </div>
+          </div>
+          <!--パスワード入力欄-->
+          <div class="form-group row d-flex justify-content-center">
+            <%= f.label :password, "パスワード", class: "col-lg-4 col-form-label text-center" %>
+            <div class="col-lg-5">
+              <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+            </div>
+          </div>
+          <!--ログインボタン-->
+          <div class="actions text-center mt-5">
+            <%= f.submit "ログイン", class: "btn btn-primary btn-green col-4" %>
+          </div>
+        <% end %>
+      </div>
+      <div class="text-right mt-4 mb-5 mr-3">
+        <%= link_to new_artist_user_registration_path, class: "btn btn-info btn-follow btn-sm px-3" do %>
+          <span>会員登録がお済みでない方はこちら</span>
+        <% end %>
+      </div>
     </div>
-  <% end %>
-
-  <%= render "artist/shared/links" %>
+  </div>
 </div>

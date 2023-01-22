@@ -55,7 +55,7 @@ body {
 /*ログイン画面用CSS*/
 .login-form {
   /*width: 70%;*/
-  height: 470px;
+  height: fit-content;
   margin: 0 auto;
   position: relative;
   top: 100px;
