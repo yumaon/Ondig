@@ -1,36 +1,51 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-6">
-      <h3>ジャンル登録</h3>
+    <div class="col-md-10 mx-auto mt-4 d-flex align-items-center">
+      <h4 class="text-white">ジャンル登録</h4>
     </div>
   </div>
-  <%= form_with model: @genre, url: artist_genres_path, method: :post do |f| %>
-  <div class="row">
-    <div class="col-md-12 col-form-label">
-      <%= f.label :name, "ジャンル名" %>
-      <%= f.text_field :name, class: "ml-5" %>
-      <%= f.submit '新規登録', class: "ml-5 btn btn-success btn-sm px-3" %>
-    </div>
-    </div>
-  </div>
-  <% end %>
 
-   <%= form_with model: @artist_user, url: information_artist_artist_users_path do |f| %>
-     <div class="form-group row">
-       <div class="col-md-3 col-form-label">
-         <%= f.label :genre_id, "ジャンル" %>
-       </div>
-       <div class="col-md-9 col-form-label">
-         <%= f.collection_select :genre_id, Genre.all, :id, :name, include_blank: '--選択してください--' %>
-       </div>
-     </div>
-     <%= f.submit "ジャンル登録" %>
-  <% end %>
-<!--  <div class="row">-->
-<!--    % @genres.each do |genre| %>-->
-<!--    <div class="col-md-12 text-center text-white">-->
-<!--      %=  genre.name %>-->
-<!--    </div>-->
-<!--   % end %>-->
-<!--  </div>-->
-<!--</div>-->
+  <div class="col-md-10 mt-3 mx-auto box p-5">
+    <!--ジャンルセレクトフォーム-->
+    <%= form_with model: @artist_user, url: information_artist_artist_users_path do |f| %>
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :genre_id, "ジャンルを選択してください", class: "col-form-label text-white" %>
+        </div>
+        <div class="col-md-9">
+          <%= f.collection_select :genre_id, Genre.all, :id, :name, {prompt: '選択してください'}, class: "form-control col-4" %>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-9">
+          <%= f.submit "ジャンル登録", class: "btn btn-follow btn-success px-5" %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="text-center pt-3">
+      <p class="text-success border-bottom">上部のセレクト欄に希望するジャンルが無い場合は、下の入力欄にて希望するジャンル名を入力し、登録ボタンを押してください。</p>
+    </div>
+
+    <!--ジャンル新規作成フォーム-->
+    <%= form_with model: @genre, url: artist_genres_path, method: :post do |f| %>
+      <div class="form-group row pt-3">
+        <div class="col-md-3">
+          <%= f.label :name, "ジャンル名を入力してください", class: "col-form-label text-white" %>
+        </div>
+        <div class="col-md-9">
+          <%= f.text_field :name, class: "form-control col-4" %>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-9">
+          <%= f.submit 'ジャンルを作成・登録', class: "btn btn-green btn-primary px-5" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
