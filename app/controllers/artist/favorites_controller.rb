@@ -3,7 +3,7 @@ class Artist::FavoritesController < ApplicationController
   def index
     @artist_user = current_artist_user
     favorites = Favorite.where(artist_user_id: @artist_user.id).pluck(:topic_id)
-    @topics = Topic.active_topics.where(id: favorites)
+    @topics = Topic.active_topics.where(id: favorites).order(created_at: :desc)
   end
 
   # いいねアクション

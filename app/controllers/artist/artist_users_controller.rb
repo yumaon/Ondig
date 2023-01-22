@@ -34,7 +34,7 @@ class Artist::ArtistUsersController < ApplicationController
   # My pageで自身が投稿したtopic一覧を表示するためのアクション
   def my_topics
     @artist_user = current_artist_user
-    @topics = @artist_user.topics
+    @topics = @artist_user.topics.order(created_at: :desc)
   end
 
   # 登録情報編集画面
