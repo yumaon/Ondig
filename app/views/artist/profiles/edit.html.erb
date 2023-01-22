@@ -1,24 +1,85 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-6">
-      <h3>Profileの設定</h3>
+    <div class="col-md-10 mx-auto mt-4 d-flex align-items-center">
+      <h3 class="text-white">Profileの設定</h3>
     </div>
   </div>
-  <%= form_with model: @artist_user, url: profile_update_artist_artist_user_path do |f| %>
-  <div class="row">
-    <div class="col-md-12 col-form-label">
-      <%= f.label :header_image, "ヘッダー画像" %>
-      <%= f.file_field :header_image, accept: "image/*", class: "ml-5" %>
+
+  <div class="col-md-10 mt-3 mx-auto box p-5">
+    <%= form_with model: @artist_user, url: profile_update_artist_artist_user_path do |f| %>
+    <!--プロフィール画像フォーム-->
+    <div class="form-group row">
+      <div class="col-md-3">
+        <%= f.label :profile_image, "プロフィール画像", class: "col-form-label text-white" %>
+      </div>
+      <div class="col-md-9">
+        <%= f.file_field :profile_image, accept: "image/*", class: "col-6 form-control-sm text-white" %>
+      </div>
     </div>
-    <div class="col-md-12 col-form-label">
-      <%= f.label :introduction, "自己紹介文" %>
-      <%= f.text_area :introduction, class: "ml-5" %>
+
+    <!--ヘッダー画像の編集フォーム-->
+    <div class="form-group row">
+      <div class="col-md-3">
+        <%= f.label :header_image, "ヘッダー画像", class: "col-form-label text-white" %>
+      </div>
+      <div class="col-md-9">
+        <%= f.file_field :header_image, accept: "image/*", class: "col-6 form-control-sm text-white" %>
+      </div>
     </div>
-    <div class="col-md-12 col-form-label">
-      <%= f.label :youtube_url, "YoutubeのURL" %>
-      <%= f.text_field :youtube_url %>
+
+    <!--登録ジャンルのフォーム-->
+    <div class="form-group row">
+      <div class="col-md-3">
+        <%= f.label :genre_id, "ジャンル", class: "col-form-label text-white" %>
+      </div>
+      <div class="col-md-9">
+        <%= f.collection_select :genre_id, Genre.all, :id, :name, {prompt: true}, class: "form-control col-4" %>
+      </div>
     </div>
-    <%= f.submit '設定を完了する', class: "ml-5 btn btn-success btn-follow btn-lg px-3" %>
+
+    <!--活動エリアのフォーム-->
+    <div class="form-group row">
+      <div class="col-md-3">
+        <%= f.label :activity_location, "活動エリア", class: "col-form-label text-white" %>
+      </div>
+      <div class="col-md-9">
+        <%= f.select :activity_location, ArtistUser.activity_locations_i18n.invert, {prompt: '選択してください'}, class: "form-control col-4" %>
+      </div>
+    </div>
+
+    <!--自己紹介文の編集フォーム-->
+    <div class="form-group row">
+      <div class="col-md-3">
+        <%= f.label :introduction, "自己紹介文", class: "col-form-label text-white" %>
+      </div>
+      <div class="col-md-9">
+        <%= f.text_area :introduction, rows: "10", class: "form-control col-8" %>
+      </div>
+    </div>
+
+    <div class="text-center pt-3">
+      <p class="text-info border-info border-bottom">Profileページにご自身のyoutube動画一つを表示させることができます。<br>
+      表示させたいご自身の動画をお持ちでしたら、共有リンクをコピーして下の入力欄に貼り付けてください。</p>
+    </div>
+
+    <!--youtubeのURL設定フォーム-->
+    <div class="form-group row">
+      <div class="col-md-3">
+        <%= f.label :youtube_url, "YoutubeのURL", class: "col-form-label text-white" %>
+      </div>
+      <div class="col-md-9">
+        <%= f.text_field :youtube_url, placeholder: "https://youtu.be/", class: "form-control col-6" %>
+      </div>
+    </div>
+
+    <!--設定完了ボタン-->
+    <div class="form-group row">
+      <div class="col-md-3">
+      </div>
+      <div class="col-md-9">
+        <%= f.submit '設定を完了する', class: "btn btn-success btn-follow btn-lg px-5" %>
+      </div>
+    </div>
+    <% end %>
   </div>
-  <% end %>
 </div>
