@@ -1,29 +1,61 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-6 text-white">
-      <h3>Item 編集</h3>
+    <div class="col-md-10 mx-auto mt-4 d-flex align-items-center">
+      <h3 class="text-white">Item 編集</h3>
     </div>
   </div>
-  <%= form_with model: @item, url: artist_artist_user_item_path(current_artist_user.id, @item.id) do |f| %>
-  <div class="row text-white">
-    <div class="col-md-12 col-form-label">
-      <%= f.label :item_image, "Item画像" %>
-      <%= f.file_field :item_image, class: "ml-5" %>
-    </div>
-    <div class="col-md-12 col-form-label">
-      <%= f.label :name, "Item名" %>
-      <%= f.text_field :name, class: "ml-5" %>
-    </div>
-    <div class="col-md-12 col-form-label">
-      <%= f.label :introduction, "Item説明" %>
-      <%= f.text_field :introduction %>
-    </div>
-    <div class="col-md-12 col-form-label">
-      <%= f.label :price, "Item価格" %>
-      <%= f.text_field :price %>
+
+  <div class="col-md-10 mt-3 mx-auto box p-5">
+    <!--アイテム編集フォーム-->
+    <%= form_with model: @item, url: artist_artist_user_item_path(current_artist_user.id, @item.id) do |f| %>
+    <!--Item画像フォーム-->
+    <div class="form-group row">
+      <div class="col-md-2">
+        <%= f.label :item_image, "Item画像", class: "col-form-label text-white" %>
+      </div>
+      <div class="col-md-9">
+        <%= f.file_field :item_image, accept: "image/*", class: "col-6 form-control-sm text-white" %>
+      </div>
     </div>
 
-    <%= f.submit '編集内容を保存', class: "ml-5 btn btn-success btn-follow btn-lg px-3" %>
+    <!--アイテム名フォーム-->
+    <div class="form-group row">
+      <div class="col-md-2">
+        <%= f.label :name, "Item名", class: "col-form-label text-white" %>
+      </div>
+      <div class="col-md-9">
+        <%= f.text_field :name, class: "form-control col-4" %>
+      </div>
+    </div>
+
+    <!--Item説明-->
+    <div class="form-group row">
+      <div class="col-md-2">
+        <%= f.label :introduction, "Item説明", class: "col-form-label text-white" %>
+      </div>
+      <div class="col-md-9">
+        <%= f.text_area :introduction, rows: "4", class: "form-control col-4" %>
+      </div>
+    </div>
+
+    <!--Item価格フォーム-->
+    <div class="form-group row">
+      <div class="col-md-2">
+        <%= f.label :price, "Item価格", class: "col-form-label text-white" %>
+      </div>
+      <div class="col-md-9">
+        <%= f.text_field :price, class: "form-control col-4" %>
+      </div>
+    </div>
+
+    <!--登録ボタン-->
+    <div class="form-group row">
+      <div class="col-md-2">
+      </div>
+      <div class="col-md-9">
+        <%= f.submit '編集内容を保存', class: "btn btn-success btn-follow btn-lg px-5" %>
+      </div>
+    </div>
+    <% end %>
   </div>
-  <% end %>
 </div>
