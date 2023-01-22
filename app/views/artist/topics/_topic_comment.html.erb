@@ -19,13 +19,23 @@
           </div>
           <div class="ml-5 flex-fill">
             <!--ニックネームを表示させ、一般会員詳細画面へ遷移するリンクを設置-->
+            <!--ログインユーザーがArtist会員の場合-->
             <% if artist_user_signed_in? %>
               <%= link_to artist_public_user_path(topic_comment.public_user) do %>
                 <span class="text-white mini-artist-name box p-1"><%= topic_comment.public_user.nickname %></span>
               <% end %>
+            <!--ログインユーザーが一般会員の場合-->
             <% elsif public_user_signed_in? %>
-              <%= link_to public_public_user_profile_path(topic_comment.public_user) do %>
-                <span class="text-white mini-artist-name box p-1"><%= topic_comment.public_user.nickname %></span>
+              <!--コメント投稿者本人の場合Mypageへ遷移する-->
+              <% if topic_comment.public_user == current_public_user %>
+                <%= link_to my_page_public_public_users_path do %>
+                  <span class="text-white mini-artist-name box p-1"><%= topic_comment.public_user.nickname %></span>
+                <% end %>
+              <!--コメント投稿本人ではない場合は対象のプロフィールページへ-->
+              <% else %>
+                <%= link_to public_public_user_profile_path(topic_comment.public_user) do %>
+                  <span class="text-white mini-artist-name box p-1"><%= topic_comment.public_user.nickname %></span>
+                <% end %>
               <% end %>
             <% end %>
             <!--コメントの本文を表示-->

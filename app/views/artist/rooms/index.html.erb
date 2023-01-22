@@ -27,7 +27,12 @@
                     <%= Message.find_by(id: join.room.message_ids.last)&.content %>
                   <% end %>
                 </td>
-                <td class="text-white text-right align-middle"><%= Message.find_by(id: join.room.message_ids.last)&.created_at.strftime("%Y-%m-%d %H:%M") %> </td>
+                <td class="text-white text-right align-middle">
+                  <!--取得したRoom内での最後のメッセージが存在するかどうかの判断。(DMのRoomを新しく作成した後、メッセージを何も送らずにRoom一覧を開くとエラーになるため記述)-->
+                  <% if Message.find_by(id: join.room.message_ids.last).present? %>
+                    <%= Message.find_by(id: join.room.message_ids.last)&.created_at.strftime("%Y-%m-%d %H:%M") %>
+                  <% end %>
+                </td>
               </tr>
             </table>
           <!--やり取りしている相手がArtist会員で、かつ、退会していないユーザーの場合の表示-->
@@ -46,7 +51,12 @@
                     <%= Message.find_by(id: join.room.message_ids.last)&.content %>
                   <% end %>
                 </td>
-                <td class="text-white text-right align-middle"><%= Message.find_by(id: join.room.message_ids.last)&.created_at.strftime("%Y-%m-%d %H:%M") %> </td>
+                <td class="text-white text-right align-middle">
+                  <!--取得したRoom内での最後のメッセージが存在するかどうかの判断-->
+                  <% if Message.find_by(id: join.room.message_ids.last).present? %>
+                    <%= Message.find_by(id: join.room.message_ids.last)&.created_at.strftime("%Y-%m-%d %H:%M") %>
+                  <% end %>
+                </td>
               </tr>
             </table>
           <!--やり取りしているユーザーが退会していた場合の記述（Artist会員、一般会員の両方を含む)-->
@@ -62,7 +72,12 @@
                     <%= Message.find_by(id: join.room.message_ids.last)&.content %>
                   <% end %>
                 </td>
-                <td class="text-white-50 text-right align-middle"><%= Message.find_by(id: join.room.message_ids.last)&.created_at.strftime("%Y-%m-%d %H:%M") %> </td>
+                <td class="text-white-50 text-right align-middle">
+                  <!--取得したRoom内での最後のメッセージが存在するかどうかの判断-->
+                  <% if Message.find_by(id: join.room.message_ids.last).present? %>
+                    <%= Message.find_by(id: join.room.message_ids.last)&.created_at.strftime("%Y-%m-%d %H:%M") %>
+                  <% end %>
+                </td>
               </tr>
             </table>
           <% end %>

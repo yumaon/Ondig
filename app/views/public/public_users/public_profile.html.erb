@@ -1,28 +1,28 @@
+<!--一般会員のプロフィールページ-->
 <div class="container">
   <div class="row mt-3">
     <div class="col-lg-3 d-flex">
-      <div class="my-page-profile-box text-center p-4 mt-5 mx-auto">
+      <div class="my-page-profile-box text-center p-3 mt-5 mx-auto">
         <div>
+          <!--プロフィール画像-->
           <%= image_tag @public_user.get_profile_image, class: "my-page-box-image" %>
         </div>
         <div class="text-white mt-3 border-bottom">
+          <!--ニックネームを表示-->
           <h4><%= @public_user.nickname %></h4>
           <div>
+            <!--対象が自己紹介文を設定しているか判断-->
             <% if @public_user.introduction.present? %>
-              <%= @public_user.introduction %>
+              <%= simple_format @public_user.introduction %>
+            <!--未設定の場合の表示-->
             <% else %>
               自己紹介文は登録されてません。
             <% end %>
           </div>
         </div>
         <div class="mt-3">
-          <% if artist_user_signed_in? %>
-            <% if current_artist_user.public_following?(@public_user) %>
-              <%= link_to "- Unfollow", artist_public_user_relationships_path(@public_user.id), method: :delete, class: "btn btn-danger btn-red" %>
-            <% else %>
-              <%= link_to "+ Follow", artist_public_user_relationships_path(@public_user.id), method: :post, class: "btn btn-success btn-follow" %>
-            <% end %>
-          <% elsif public_user_signed_in? && current_public_user.id != @public_user.id %>
+          <!--一般会員がログインしていて、対象をフォローしているかどうかを判断-->
+          <% if public_user_signed_in? && current_public_user.id != @public_user.id %>
             <% if current_public_user.public_following?(@public_user) %>
               <%= link_to "- Unfollow", public_public_user_relationships_path(@public_user.id), method: :delete, class: "btn btn-danger btn-red" %>
             <% else %>
@@ -32,22 +32,25 @@
         </div>
 
         <div class="mt-3">
+          <!--対処の一般会員のIDとログイン中の一般会員のIDが一致しない場合に表示させる-->
           <% unless @public_user.id == current_public_user.id %>
+            <!--対象をフォローしているかどうかを判断-->
             <% if current_public_user.public_following?(@public_user) %>
-            <% if @isRoom == true %>
-              <%= link_to "Message roomへ", rooms_public_public_users_path(@roomId) %>
-            <% else %>
-              <%= form_with model: @room, url: rooms_create_public_public_users_path do |f| %>
-                <%= fields_for @join do |j| %>
-                  <%= j.hidden_field :public_user_id, value: @public_user.id %>
+              <!--対象とのDMを送り合うRoomが存在する場合は、そのページへ遷移するボタンを設置-->
+              <% if @isRoom == true %>
+                <%= link_to "Messageを送る", rooms_public_public_users_path(@roomId), class: "btn btn-green btn-primary" %>
+              <% else %>
+                <!--Roomが存在しない場合は新しく作成する-->
+                <%= form_with model: @room, url: rooms_create_public_public_users_path do |f| %>
+                  <%= fields_for @join do |j| %>
+                    <%= j.hidden_field :public_user_id, value: @public_user.id %>
+                  <% end %>
+                  <%= f.submit "Messageを送る", class: "btn btn-success btn-green" %>
                 <% end %>
-                <%= f.submit "Messageを送る", class: "btn btn-success btn-green" %>
               <% end %>
-            <% end %>
             <% end %>
           <% end %>
         </div>
-
       </div>
     </div>
   </div>
