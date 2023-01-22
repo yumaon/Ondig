@@ -1,29 +1,60 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-6 text-white">
-      <h3>Live Schedule 編集</h3>
+    <div class="col-md-10 mx-auto mt-4 d-flex align-items-cente">
+      <h3 class="text-white">Live Schedule 編集</h3>
     </div>
   </div>
-  <%= form_with model: @live_schedule, url: artist_artist_user_live_schedule_path(current_artist_user.id) do |f| %>
-  <div class="row text-white">
-    <div class="col-md-12 col-form-label">
-      <%= f.label :name, "イベント名" %>
-      <%= f.text_field :name, class: "ml-5" %>
-    </div>
-    <div class="col-md-12 col-form-label">
-      <%= f.label :location, "開催場所" %>
-      <%= f.text_field :location %>
-    </div>
-    <div class="col-md-12 col-form-label">
-      <%= f.label :schedule_date, "開催日時" %>
-      <%= f.datetime_field :schedule_date %>
-    </div>
-    <div class="col-md-12 col-form-label">
-      <%= f.label :price, "チケット価格" %>
-      <%= f.text_field :price %>
-    </div>
 
-    <%= f.submit '編集内容を保存', class: "ml-5 btn btn-success btn-follow btn-lg px-3" %>
+  <div class="col-md-10 mt-3 mx-auto box p-5">
+    <!--Live Schedule編集フォーム-->
+    <%= form_with model: @live_schedule, url: artist_artist_user_live_schedule_path(current_artist_user.id) do |f| %>
+      <!--イベント名フォーム-->
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :name, "イベント名", class: "col-form-label text-white" %>
+        </div>
+        <div class="col-md-9">
+          <%= f.text_field :name, class: "form-control col-4" %>
+        </div>
+      </div>
+
+      <!--開催場所入力フォーム-->
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :location, "開催場所", class: "col-form-label text-white" %>
+        </div>
+        <div class="col-md-9">
+          <%= f.text_field :location, class: "form-control col-4" %>
+        </div>
+      </div>
+
+      <!--開催日時フォーム-->
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :schedule_date, "開催日時", class: "col-form-label text-white" %>
+        </div>
+        <div class="col-md-9">
+          <%= f.datetime_field :schedule_date, class: "form-control col-4" %>
+        </div>
+      </div>
+
+      <!--チケット価格フォーム-->
+      <div class="form-group row">
+        <div class="col-md-3">
+          <%= f.label :price, "チケット価格", class: "col-form-label text-white" %>
+        </div>
+        <div class="col-md-9">
+          <%= f.text_field :price, class: "form-control col-4" %>
+        </div>
+      </div>
+
+      <!--スケジュール登録ボタン-->
+      <div class="form-group row pt-3">
+        <div class="col-md-3 text-center"></div>
+        <div class="col-md-9">
+          <%= f.submit "Live Scheduleを編集", class: "btn btn-success btn-follow col-4" %>
+        </div>
+      </div>
+    <% end %>
   </div>
-  <% end %>
 </div>
