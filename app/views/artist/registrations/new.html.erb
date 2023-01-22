@@ -1,54 +1,108 @@
-<h2>Sign up</h2>
+<div class="container-fluid main-visual" style="background-image: url('<%= asset_path("main-visual-image.jpg") %>');">
+  <div class="row">
+    <div class="col-md-5 login-form text-white py-5">
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "artist/shared/error_messages", resource: resource %>
+      <div class="text-center">
+        <h4>Artist 新規会員登録</h4>
+      </div>
 
-  <div class="field">
-    <%= f.label :artist_name, class: "text-white" %><br>
-    <%= f.text_field :artist_name %>
+      <div class="row mt-5">
+        <div class="col-md-10 mx-auto">
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <%= render "artist/shared/error_messages", resource: resource %>
+          <div class="form-group row">
+            <!--アーティスト名のフォーム-->
+            <div class="col-md-3">
+              <%= f.label :artist_name, "アーティスト名", class: "col-form-label text-white" %>
+            </div>
+            <div class="col-md-9">
+              <%= f.text_field :artist_name, autofocus: true, class: "form-control col-5" %>
+            </div>
+          </div>
+
+          <!--代表者氏名のフォーム-->
+          <div class="form-group row">
+            <div class="col-md-3">
+              <%= f.label :rep_name, "代表者氏名", class: "col-form-label text-white" %>
+            </div>
+            <div class="col-md-9 d-flex">
+              <%= f.text_field :rep_name, class: "mr-4 form-control col-5" %>
+            </div>
+          </div>
+
+          <!--代表者氏名 フリガナのフォーム-->
+          <div class="form-group row">
+            <div class="col-md-3">
+              <%= f.label :rep_name_kana, "フリガナ", class: "col-form-label text-white" %>
+            </div>
+            <div class="col-md-9">
+              <%= f.text_field :rep_name_kana, class: "form-control col-5" %>
+            </div>
+          </div>
+
+          <!--ジャンル設定のフォーム-->
+          <div class="form-group row">
+            <div class="col-md-3">
+              <%= f.label :genre_id, "ジャンル", class: "col-form-label text-white" %>
+            </div>
+            <div class="col-md-9">
+              <%= f.collection_select :genre_id, Genre.all, :id, :name, {prompt: '選択してください'}, class: "form-control col-5" %>
+            </div>
+          </div>
+
+          <!--活動拠点のフォーム-->
+          <div class="form-group row">
+            <div class="col-md-3">
+              <%= f.label :activity_location, "拠点エリア", class: "col-form-label text-white" %>
+            </div>
+            <div class="col-md-9">
+              <%= f.select :activity_location, ArtistUser.activity_locations_i18n.invert, {prompt: '選択してください'}, class: "form-control col-5" %>
+            </div>
+          </div>
+
+          <!--メールアドレスのフォーム-->
+          <div class="form-group row">
+            <div class="col-md-3">
+              <%= f.label :email, "メールアドレス", class: "col-form-label text-white" %>
+            </div>
+            <div class="col-md-9">
+              <%= f.email_field :email, autocomplete: "email", placeholder: "example@example.com", class: "form-control col-7" %>
+            </div>
+          </div>
+
+          <!--パスワード設定フォーム-->
+          <div class="form-group row">
+            <div class="col-md-3">
+              <%= f.label :password, "パスワード", class: "col-form-label text-white" %>
+            </div>
+            <div class="col-md-9">
+              <%= f.password_field :password, class: "form-control col-5" %>
+            </div>
+          </div>
+
+          <!--パスワード（確認用）フォーム-->
+          <div class="form-group row">
+            <div class="col-md-3">
+              <%= f.label :password_confirmation, "パスワード（確認用）", class: "col-form-label text-white" %>
+            </div>
+            <div class="col-md-9">
+              <%= f.password_field :password_confirmation, class: "form-control col-5" %>
+            </div>
+          </div>
+
+          <!--登録実行ボタン-->
+          <div class="text-center">
+            <%= f.submit "新規会員登録", class: "btn btn-info btn-green btn-lg px-5" %>
+          </div>
+
+          <% end %>
+        </div>
+      </div>
+      <div class="text-right mt-4 mr-3">
+        <%= link_to new_artist_user_session_path, class: "btn btn-info btn-follow btn-sm px-3" do %>
+          <span>会員登録がお済みの方はこちら</span>
+        <% end %>
+      </div>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :genre_id, "ジャンル", class: "text-white" %><br>
-    <%= f.collection_select :genre_id, Genre.all, :id, :name, include_blank: '--選択してください--' %>
-  </div>
-
-  <div class="field">
-    <%= f.label :rep_name, class: "text-white" %><br>
-    <%= f.text_field :rep_name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :rep_name_kana, class: "text-white" %><br>
-    <%= f.text_field :rep_name_kana %>
-  </div>
-
-  <div class="field">
-    <%= f.label :activity_location, class: "text-white" %><br>
-    <%= f.select :activity_location, ArtistUser.activity_locations_i18n.invert, {prompt: '選択してください'} %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email, class: "text-white" %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password, class: "text-white" %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation, class: "text-white" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "artist/shared/links" %>
+</div>
