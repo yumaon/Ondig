@@ -38,6 +38,10 @@
           <%= public_user.public_reverse_of_relationships.follower_count %>
         <% end %>
       </div>
+    <% else %>
+      <div class="text-white">
+        <p class="m-0">ログインしていません。</p>
+      </div>
     <% end %>
   </div>
 </div>

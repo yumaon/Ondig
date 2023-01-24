@@ -1,7 +1,7 @@
 <!--トピックス一覧の表示-->
 <% topics.each do |topic| %>
-  <div class="mini-topic-box">
-    <div class="d-flex mt-3 px-3 pt-3">
+  <div class="mini-topic-box m-3">
+    <div class="d-flex px-3 pt-3">
       <div class="ml-2">
         <!--アーティストプロフィールページへのリンク(ArtistUser用)-->
         <% if artist_user_signed_in? %>
@@ -86,7 +86,7 @@
           <% end %>
 
         <!--いいねボタンの表示(PublicUser用)-->
-        <% else %>
+        <% elsif public_user_signed_in? %>
           <% if topic.public_user_favorited_by?(current_public_user) %>
             <%= link_to public_topic_favorites_path(topic), class: "text-white", method: :delete do %>
               <i class="fas fa-heart"></i>
@@ -98,6 +98,11 @@
             <% end %>
             <p class="text-white ml-2"><%= topic.favorites.count %></p>
           <% end %>
+
+        <!--ログイン無しで、閲覧のみの場合-->
+        <% else %>
+          <span class="text-white"><i class="far fa-heart"></i></span>
+          <p class="text-white ml-2"><%= topic.favorites.count %></p>
         <% end %>
         <div class="ml-5">
           <!--トピックスに紐づいているコメントの数を表示-->

@@ -30,17 +30,24 @@
                     </div>
                     <div class="col-md-12 text-center">
                       <% if follower.artist_follower.genre.present? %>
-                        <span class="text-white">Genre: <%= follower.artist_follower.genre.name %></span>
+                        <span class="text-white">Genre: <%= follower.artist_follower.genre.name %></span><br>
                       <% else %>
-                        <span class="text-white">Genre: 未設定</span>
+                        <span class="text-white">Genre: 未設定</span><br>
                       <% end %>
+
+                      <span class="text-white"><%= follower.artist_follower.activity_location_i18n %></span>
+                      <div class="follow-detail-display">
+                        <p>Follower：<%= follower.artist_follower.artist_reverse_of_relationships.follower_count %></p>
+                      </div>
                     </div>
-                    <div class="col-md-12 text-center text-white introduction-box">
-                      <% if follower.artist_follower.introduction.present? %>
-                        <p><%= simple_format follower.artist_follower.introduction %></p>
-                      <% else %>
-                        <p class="m-3">自己紹介文は登録されてません.</p>
-                      <% end %>
+                    <div class="introduction-box">
+                      <div class="col-md-12 text-center text-white introduction-box-detail">
+                        <% if follower.artist_follower.introduction.present? %>
+                          <p><%= simple_format follower.artist_follower.introduction %></p>
+                        <% else %>
+                          <p class="m-3">自己紹介文は登録されてません.</p>
+                        <% end %>
+                      </div>
                     </div>
                     <div class="col-md-12 text-center mt-3">
                       <% if current_artist_user.artist_following?(follower.artist_follower) %>
@@ -69,15 +76,20 @@
                         <%= follower.public_follower.nickname %>
                       <% end %>
                     </div>
+                    <div class="follow-detail-display text-center">
+                      <p>Follower：<%= follower.public_follower.public_reverse_of_relationships.follower_count %></p>
+                    </div>
                     <div class="col-md-12 text-center">
                       <span class="text-white"></span></span>
                     </div>
-                    <div class="col-md-12 text-center text-white introduction-box">
-                      <% if follower.public_follower.introduction.present? %>
-                        <p><%= simple_format follower.public_follower.introduction %></p>
-                      <% else %>
-                        <p class="m-3">自己紹介文は登録されてません.</p>
-                      <% end %>
+                    <div class="introduction-box-2">
+                      <div class="col-md-12 text-center text-white introduction-box-detail">
+                        <% if follower.public_follower.introduction.present? %>
+                          <p><%= simple_format follower.public_follower.introduction %></p>
+                        <% else %>
+                          <p class="m-3">自己紹介文は登録されてません.</p>
+                        <% end %>
+                      </div>
                     </div>
                     <div class="col-md-12 text-center mt-3">
                       <% if current_artist_user.public_following?(follower.public_follower) %>

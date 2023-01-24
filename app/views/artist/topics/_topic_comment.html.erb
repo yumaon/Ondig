@@ -37,6 +37,9 @@
                   <span class="text-white mini-artist-name box p-1"><%= topic_comment.public_user.nickname %></span>
                 <% end %>
               <% end %>
+            <!--ログイン無しで、閲覧のみの場合-->
+            <% else %>
+              <span class="text-white mini-artist-name box p-1"><%= topic_comment.public_user.nickname %></span>
             <% end %>
             <!--コメントの本文を表示-->
             <p><%= simple_format topic_comment.comment %></p>
@@ -67,7 +70,7 @@
                 <%= link_to profile_artist_artist_user_path(topic_comment.artist_user) do %>
                   <span class="text-white mini-artist-name box-2 p-1"><%= topic_comment.artist_user.artist_name %> <i class="fas fa-music"></i></span>
                 <% end %>
-              <% elsif public_user_signed_in? %>
+              <% else %>
                 <%= link_to profile_public_artist_user_path(topic_comment.artist_user) do %>
                   <span class="text-white mini-artist-name box-2 p-1"><%= topic_comment.artist_user.artist_name %> <i class="fas fa-music"></i></span>
                 <% end %>
@@ -81,7 +84,7 @@
                 <%= link_to profile_artist_artist_user_path(topic_comment.artist_user) do %>
                   <span class="text-white mini-artist-name box p-1"><%= topic_comment.artist_user.artist_name %> <i class="fas fa-music"></i></span>
                 <% end %>
-              <% elsif public_user_signed_in? %>
+              <% else %>
                 <%= link_to profile_public_artist_user_path(topic_comment.artist_user) do %>
                   <span class="text-white mini-artist-name box p-1"><%= topic_comment.artist_user.artist_name %> <i class="fas fa-music"></i></span>
                 <% end %>
@@ -137,6 +140,11 @@
         <%= f.submit "送信する", class: "btn btn-success btn-follow" %>
       </div>
       <% end %>
+
+    <% else %>
+      <div class="text-center">
+        <span class="text-white">コメントは会員登録後にできるようになります。</span>
+      </div>
     <% end %>
   </div>
 </div>

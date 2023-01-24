@@ -189,7 +189,7 @@ body {
 }
 
 .mini-profile-box {
-  height: 400px;
+  height: 420px;
   background: rgba(217, 217, 217, 0.2);
   border-radius: 10px;
 }
@@ -223,6 +223,14 @@ body {
 }
 
 .introduction-box {
+  height: 90px;
+}
+
+.introduction-box-2 {
+  height: 138px;
+}
+
+.introduction-box-detail {
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;

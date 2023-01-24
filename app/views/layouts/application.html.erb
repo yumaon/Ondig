@@ -69,15 +69,22 @@
                 <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link text-white' %>
               </li>
               <% else %>
+              <li class="nav-item">
+                <%= link_to "Artists", public_artist_users_path, class: 'nav-link text-light' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "Topics", public_topics_path, class: 'nav-link text-light' %>
+              </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle btn btn-outline-success" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Log in
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <%= link_to "一般会員 Log in", new_public_user_session_path, class: 'dropdown-item' %>
-                  <%= link_to "アーティスト会員 Log in", new_artist_user_session_path, class: 'dropdown-item' %>
+                  <%= link_to "一般会員 ログイン", new_public_user_session_path, class: 'dropdown-item' %>
+                  <%= link_to "アーティスト会員 ログイン", new_artist_user_session_path, class: 'dropdown-item' %>
                 </div>
               </li>
+
               <% end %>
             </ul>
           </div>

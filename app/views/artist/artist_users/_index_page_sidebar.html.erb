@@ -38,6 +38,10 @@
           <%= public_user.public_reverse_of_relationships.follower_count %>
         <% end %>
       </div>
+    <% else %>
+      <div class="text-white">
+        <p class="m-0">ログインしていません。</p>
+      </div>
     <% end %>
   </div>
 
@@ -54,7 +58,7 @@
               <li class="nav-item text-white">
                 <%= link_to genre.name, artist_artist_users_path(name: genre.id), class: "text-white" %>
               </li>
-            <% elsif public_user_signed_in? %>
+            <% else %>
               <li class="nav-item text-white">
                 <%= link_to genre.name, public_artist_users_path(name: genre.id), class: "text-white" %>
               </li>

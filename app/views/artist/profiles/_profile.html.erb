@@ -2,9 +2,9 @@
 <div class="profile-box-header">
   <%= image_tag artist_user.get_header_image, class: "profile_box_header_image" %>
 </div>
-<div class="col-lg-3 text-center artist-detail-box">
-  <div><%= image_tag artist_user.get_profile_image, class: "profile-box-image rounded-circle"; %></div>
-  <div class="mt-3">
+<div class="col-lg-3 artist-detail-box">
+  <div class="text-center"><%= image_tag artist_user.get_profile_image, class: "profile-box-image rounded-circle"; %></div>
+  <div class="mt-3 text-center">
     <div class="col-lg-12">
       <h1 class="text-white"><%= artist_user.artist_name %></h1>
     </div>
@@ -19,6 +19,9 @@
         <!--ジャンル設定をしていない場合の表示-->
         <span class="text-white">Genre: 未設定</span>
       <% end %>
+      <div class="follow-detail-display">
+        <p>Follower：<%= artist_user.artist_reverse_of_relationships.follower_count %></p>
+      </div>
     </div>
 
     <!--取得したArtist会員のIDが、ログイン中のArtist会員のIDと一致する場合に設定ボタンを表示する(Artist会員がログインしている場合)-->
@@ -86,12 +89,13 @@
       <% end %>
     <% end %>
 
-    <div class="col-lg-12 mt-3">
-      <!--取得したArtist会員の自己紹介文を表示-->
-      <span class="text-white"><%= simple_format artist_user.introduction %></span>
-    </div>
-
   </div>
+
+  <div class="col-lg-12 mt-3">
+    <!--取得したArtist会員の自己紹介文を表示-->
+    <span class="text-white"><%= simple_format artist_user.introduction %></span>
+  </div>
+
 </div>
 <!--Artistプロフィールページのメニューバーの表示-->
 <div class="col-lg-9 p-5">
@@ -110,7 +114,7 @@
             <%= link_to "Items", artist_artist_user_items_path(artist_user), class: "nav-link text-white h5" %>
           </li>
         <!--ログインユーザーが一般会員の場合のリンク-->
-        <% elsif public_user_signed_in? %>
+        <% else %>
            <li class="nav-item">
             <%= link_to "Topics", public_artist_user_profile_topics_path(artist_user), class: "nav-link text-white h5" %>
           </li>

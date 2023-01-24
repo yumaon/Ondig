@@ -15,7 +15,7 @@
               <% end %>
 
             <!--一般会員用-->
-            <% elsif public_user_signed_in? %>
+            <% else %>
               <%= link_to profile_public_artist_user_path(topic.artist_user_id) do %>
               <h3 class="text-white"><%= topic.artist_user.artist_name %></h3>
               <% end %>
@@ -83,8 +83,22 @@
           <p class="text-white mr-5"><i class="fab fa-youtube"></i></p>
         <% end %>
 
-        <!--一般会員用いいねボタンの表示-->
-        <% if public_user_signed_in? %>
+        <!--アーティストユーザー用いいねボタンの表示-->
+        <% if artist_user_signed_in? %>
+          <% if topic.artist_user_favorited_by?(current_artist_user) %>
+            <%= link_to artist_topic_favorites_path(topic), class: "text-white", method: :delete do %>
+              <i class="fas fa-heart"></i>
+            <% end %>
+            <p class="text-white ml-2"><%= topic.favorites.count %></p>
+          <% else %>
+            <%= link_to artist_topic_favorites_path(topic), class: "text-white", method: :post do %>
+              <i class="far fa-heart"></i>
+            <% end %>
+            <p class="text-white ml-2"><%= topic.favorites.count %></p>
+          <% end %>
+
+          <!--一般会員用いいねボタンの表示-->
+        <% elsif public_user_signed_in? %>
           <% if topic.public_user_favorited_by?(current_public_user) %>
             <%= link_to public_topic_favorites_path(topic), class: "text-white", method: :delete do %>
               <i class="fas fa-heart"></i>
@@ -97,19 +111,11 @@
             <p class="text-white ml-2"><%= topic.favorites.count %></p>
           <% end %>
 
-        <!--アーティストユーザー用いいねボタンの表示-->
-        <% elsif artist_user_signed_in? %>
-          <% if topic.artist_user_favorited_by?(current_artist_user) %>
-            <%= link_to artist_topic_favorites_path(topic), class: "text-white", method: :delete do %>
-              <i class="fas fa-heart"></i>
-            <% end %>
+        <!--ログイン無しの、閲覧のみの場合-->
+        <% else %>
+            <span class="text-white"><i class="far fa-heart"></i></span>
             <p class="text-white ml-2"><%= topic.favorites.count %></p>
-          <% else %>
-            <%= link_to artist_topic_favorites_path(topic), class: "text-white", method: :post do %>
-              <i class="far fa-heart"></i>
-            <% end %>
-            <p class="text-white ml-2"><%= topic.favorites.count %></p>
-          <% end %>
+
         <% end %>
 
         <!--Topicに紐づくコメントの数を表示-->
