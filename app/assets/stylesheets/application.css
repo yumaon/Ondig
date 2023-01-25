@@ -31,6 +31,11 @@ body {
   font-family: 'Comfortaa';
 }
 
+.brand {
+  font-family: 'Comfortaa';
+  font-weight: 900;
+}
+
 .box {
   background: rgba(217, 217, 217, 0.2);
   border-radius: 10px;
@@ -39,6 +44,23 @@ body {
 .box-2 {
   background: #c85dba;
   border-radius: 10px;
+}
+
+/*Aboutページ用*/
+.about_image1 {
+  width: 300px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+}
+
+.about_image2 {
+  width: 600px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
 }
 
 /*Top画面、ログイン画面用CSS*/
