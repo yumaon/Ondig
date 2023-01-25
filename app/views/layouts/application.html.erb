@@ -30,62 +30,62 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav mr-auto">
               <% if artist_user_signed_in? %>
-              <li class="nav-item">
+              <li class="nav-item mx-2">
                 <%= link_to "Artists", artist_artist_users_path, class: 'nav-link text-light' %>
               </li>
-              <li class="nav-item">
+              <li class="nav-item mx-2">
                 <%= link_to "Topics", artist_topics_path, class: 'nav-link text-light' %>
               </li>
-              <li class="nav-item">
+              <li class="nav-item mx-2">
                 <%= link_to "My page", my_page_artist_artist_users_path, class: 'nav-link text-light' %>
               </li>
-              <li class="nav-item">
+              <li class="nav-item mx-2">
                 <%= link_to "About", about_path, class: 'nav-link text-light' %>
               </li>
-              <li class="nav-item">
+              <li class="nav-item mx-2">
                 <%= link_to "Log out", destroy_artist_user_session_path, method: :delete, class: 'nav-link text-light' %>
               </li>
               <% elsif public_user_signed_in? %>
-              <li class="nav-item">
+              <li class="nav-item mx-2">
                 <%= link_to "Artists", public_artist_users_path, class: 'nav-link text-light' %>
               </li>
-              <li class="nav-item">
+              <li class="nav-item mx-2">
                 <%= link_to "Topics", public_topics_path, class: 'nav-link text-light' %>
               </li>
-              <li class="nav-item">
+              <li class="nav-item mx-2">
                 <%= link_to "My page", my_page_public_public_users_path, class: 'nav-link text-light' %>
               </li>
-              <li class="nav-item">
+              <li class="nav-item mx-2">
                 <%= link_to "About", about_path, class: 'nav-link text-light' %>
               </li>
-              <li class="nav-item">
-                <%= link_to "Log out", destroy_public_user_session_path, method: :delete, class: 'nav-link' %>
+              <li class="nav-item mx-2">
+                <%= link_to "Log out", destroy_public_user_session_path, method: :delete, class: 'nav-link text-light' %>
               </li>
               <% elsif admin_signed_in? %>
-              <li class="nav-item">
-                <%= link_to "Topics一覧", admin_topics_path, class: 'nav-link text-white' %>
+              <li class="nav-item mx-2">
+                <%= link_to "Topics一覧", admin_topics_path, class: 'nav-link text-light' %>
               </li>
-              <li class="nav-item">
-                <%= link_to "Artist会員一覧", admin_artist_users_path, class: 'nav-link text-white' %>
+              <li class="nav-item mx-2">
+                <%= link_to "Artist会員一覧", admin_artist_users_path, class: 'nav-link text-light' %>
               </li>
-              <li class="nav-item">
-                <%= link_to "一般会員一覧", admin_public_users_path, class: 'nav-link text-white' %>
+              <li class="nav-item mx-2">
+                <%= link_to "一般会員一覧", admin_public_users_path, class: 'nav-link text-light' %>
               </li>
-              <li class="nav-item">
-                <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link text-white' %>
+              <li class="nav-item mx-2">
+                <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: 'nav-link text-light' %>
               </li>
               <% else %>
-              <li class="nav-item">
+              <li class="nav-item mx-2">
                 <%= link_to "Artists", public_artist_users_path, class: 'nav-link text-light' %>
               </li>
-              <li class="nav-item">
+              <li class="nav-item mx-2">
                 <%= link_to "Topics", public_topics_path, class: 'nav-link text-light' %>
               </li>
-              <li class="nav-item">
+              <li class="nav-item mx-2">
                 <%= link_to "About", about_path, class: 'nav-link text-light' %>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <li class="nav-item dropdown mx-2">
+                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Log in
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -136,13 +136,13 @@
               </li>
               <% elsif admin_signed_in? %>
               <li class="nav-item mx-5">
-                <%= link_to "Topics", admin_topics_path, class: 'nav-link text-white' %>
+                <%= link_to "Topics", admin_topics_path, class: 'nav-link text-light' %>
               </li>
               <li class="nav-item mx-5">
-                <%= link_to "Artists", admin_artist_users_path, class: 'nav-link text-white' %>
+                <%= link_to "Artists", admin_artist_users_path, class: 'nav-link text-light' %>
               </li>
               <li class="nav-item mx-5">
-                <%= link_to "Publics", admin_public_users_path, class: 'nav-link text-white' %>
+                <%= link_to "Publics", admin_public_users_path, class: 'nav-link text-light' %>
               </li>
               <li class="nav-item mx-5">
                 <%= link_to "About", about_path, class: 'nav-link text-light' %>
