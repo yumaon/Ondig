@@ -37,8 +37,16 @@ class Public::PublicUsersController < ApplicationController
   # 登録情報更新
   def update
     public_user = current_public_user
-    public_user.update(public_user_params)
-    redirect_to my_page_public_public_users_path
+    # ログイン中のユーザーがゲストユーザーの場合はニックネームとメールアドレス以外を更新可能にする。
+    if public_user.email == 'guest@example.com'
+      flash[:notice] = "ゲストユーザーのため、ニックネーム、メールアドレス以外を更新しました。"
+      public_user.update(params.require(:public_user).permit(:profile_image, :last_name, :first_name, :last_name_kana, :first_name_kana, :introduction))
+      redirect_to  my_page_public_public_users_path
+    else
+      flash[:notice] = "登録情報を編集しました。"
+      public_user.update(public_user_params)
+      redirect_to my_page_public_public_users_path
+    end
   end
 
   # 退会確認画面

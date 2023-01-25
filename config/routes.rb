@@ -130,6 +130,16 @@ Rails.application.routes.draw do
     end
   end
 
+  # 一般会員ゲストログイン用
+  devise_scope :public_user do
+    post 'public_users/guest_sign_in', to: 'public/sessions#guest_sign_in'
+  end
+
+  # Artist会員ゲストログイン用
+  devise_scope :artist_user do
+    post 'artist_users/guest_sign_in', to: 'artist/sessions#guest_sign_in'
+  end
+
   # 管理者用
   devise_for :admin,skip: [:registrations, :passwords], controllers: {
     sessions: "admin/sessions"

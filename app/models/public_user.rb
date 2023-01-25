@@ -26,6 +26,18 @@ class PublicUser < ApplicationRecord
   # 退会しているユーザーを取得するための記述
   scope :deleted, -> { where(is_deleted: true) }
 
+  # ゲストログイン機能のメソッド
+  def self.guest
+    find_or_create_by!(email: 'guest@example.com') do |public_user|
+      public_user.password = SecureRandom.urlsafe_base64
+      public_user.last_name = "ゲスト"
+      public_user.first_name = "ゲスト"
+      public_user.last_name_kana = "ゲスト"
+      public_user.first_name_kana = "ゲスト"
+      public_user.nickname = "ゲストユーザー"
+    end
+  end
+
   # followをしたときの処理
   def follow_an_artist(artist_user_id)
     public_relationships.create(artist_followed_id: artist_user_id)

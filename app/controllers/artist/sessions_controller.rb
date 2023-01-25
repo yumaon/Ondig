@@ -4,6 +4,13 @@ class Artist::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
   before_action :artist_user_state, only:[:create]
 
+  # Artist会員ゲストログイン
+  def guest_sign_in
+    artist_user = ArtistUser.guest
+    sign_in artist_user
+    redirect_to my_page_artist_artist_users_path, notice: 'ゲストユーザーとしてログインしました。'
+  end
+
   protected
   # 退会しているかを判断する
   def artist_user_state

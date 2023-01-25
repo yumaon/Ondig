@@ -4,6 +4,13 @@ class Public::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
   before_action :public_user_state, only:[:create]
 
+  # 一般会員ゲストログイン
+  def guest_sign_in
+    public_user = PublicUser.guest
+    sign_in public_user
+    redirect_to my_page_public_public_users_path, notice: 'ゲストユーザーとしてログインしました。'
+  end
+
   protected
   # 退会しているかを判断する
   def public_user_state

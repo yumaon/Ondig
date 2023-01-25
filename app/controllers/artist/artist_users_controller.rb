@@ -45,8 +45,16 @@ class Artist::ArtistUsersController < ApplicationController
   # 登録情報更新
   def update
     @artist_user = current_artist_user
-    @artist_user.update(artist_user_params)
-    redirect_to my_page_artist_artist_users_path
+    # ログイン中のユーザーがゲストユーザーの場合はアーティスト名、メールアドレス以外を編集可能にする。
+    if @artist_user.email == 'guest@example.com'
+      flash[:notice] = "ゲストユーザーのため、アーティスト名、メールアドレス以外を更新しました。"
+      @artist_user.update(params.require(:artist_user).permit(:profile_image, :rep_name, :rep_name_kana, :activity_location, :genre_id))
+      redirect_to my_page_artist_artist_users_path
+    else
+      flash[:notice] = "登録情報を更新しました。"
+      @artist_user.update(artist_user_params)
+      redirect_to my_page_artist_artist_users_path
+    end
   end
 
   # 退会確認画面

@@ -49,6 +49,17 @@ class ArtistUser < ApplicationRecord
   # activity_locationが存在する場合、activity_locationで検索する
   scope :activity_location_is, -> (activity_location) { where(activity_location: activity_location) if activity_location.present? }
 
+  # ゲストログイン機能のメソッド
+  def self.guest
+    find_or_create_by!(email: 'guest@example.com') do |artist_user|
+      artist_user.password = SecureRandom.urlsafe_base64
+      artist_user.rep_name = "ゲスト"
+      artist_user.rep_name_kana = "ゲスト"
+      artist_user.artist_name = "ゲストユーザー"
+      artist_user.activity_location = 0
+    end
+  end
+
   # followをしたときの処理
   def follow_an_artist(artist_user_id)
     artist_relationships.create(artist_followed_id: artist_user_id)
