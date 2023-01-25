@@ -67,6 +67,10 @@
         <!--会員情報編集ページへのボタンを設置-->
         <div class="col-md-9 col-form-label">
           <%= link_to "編集する", edit_admin_public_user_path(@public_user.id), class: "btn btn-success btn-follow col-md-3" %>
+          <!--ゲストユーザーの場合のみ削除ボタンを表示させる。-->
+          <% if @public_user.email == 'guest@example.com' %>
+            <%= link_to "ゲストユーザーを削除", delete_admin_public_user_path(@public_user.id), method: :delete, class: "btn btn-danger btn-red col-md-3 mx-5" %>
+          <% end %>
         </div>
       </div>
     </div>

@@ -50,6 +50,13 @@ class Admin::ArtistUsersController < ApplicationController
     redirect_to admin_artist_user_path
   end
 
+  # ゲストユーザーを削除
+  def guest_delete
+    artist_user = ArtistUser.find(params[:id])
+    artist_user.destroy
+    redirect_to admin_artist_users_path
+  end
+
   private
 
   def artist_user_params

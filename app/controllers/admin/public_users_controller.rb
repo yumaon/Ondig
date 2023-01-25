@@ -34,6 +34,13 @@ class Admin::PublicUsersController < ApplicationController
     redirect_to admin_public_user_path
   end
 
+  # ゲストユーザーを削除
+  def guest_delete
+    public_user = PublicUser.find(params[:id])
+    public_user.destroy
+    redirect_to admin_public_users_path
+  end
+
   private
 
   def public_user_params

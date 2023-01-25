@@ -108,11 +108,17 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/' => 'homes#top'
     resources :public_users, only:[:index, :show, :edit, :update] do
+      member do
+        delete 'delete' => 'public_users#guest_delete'
+      end
       collection do
         get 'search' => 'public_users#search'
       end
     end
     resources :artist_users, only:[:index, :show, :edit, :update] do
+      member do
+        delete 'delete' => 'artist_users#guest_delete'
+      end
       collection do
         get 'search' => 'artist_users#search'
       end
