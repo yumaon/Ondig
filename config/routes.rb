@@ -44,7 +44,7 @@ Rails.application.routes.draw do
       resource :favorites, only:[:create, :destroy]
       collection do
         get 'search' => 'topics#search'
-        delete ':id' => 'topics#from_index_destroy', as: 'from_index_destroy'
+        delete 'topic/:id' => 'topics#from_index_destroy', as: 'from_index_destroy'
       end
     end
     resources :tags, only:[] do

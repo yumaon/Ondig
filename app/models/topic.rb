@@ -10,6 +10,8 @@ class Topic < ApplicationRecord
 
   has_one_attached :topic_image
 
+  validates :body, presence: true
+
   # 退会していないユーザーだけのトピックスを表示させるための記述
   scope :active_topics, -> { where(artist_user_id: ArtistUser.active) }
   # 退会しているユーザーだけのトピックスを表示させるための記述

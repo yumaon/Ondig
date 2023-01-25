@@ -14,7 +14,7 @@ class Artist::TopicsController < ApplicationController
       topic.save_tag(tag_list)
       redirect_to artist_topic_path(topic)
     else
-     render :new
+      redirect_to new_artist_topic_path
     end
   end
 
@@ -48,6 +48,7 @@ class Artist::TopicsController < ApplicationController
       topic.save_tag(tag_list)
       redirect_to artist_topic_path(topic)
     else
+      @topic = Topic.find(params[:id])
       render :edit
     end
   end
