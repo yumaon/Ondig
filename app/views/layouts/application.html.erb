@@ -103,5 +103,74 @@
     <main>
       <%= yield %>
     </main>
+
+    <footer class="mb-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <%= link_to root_path, class: "navbar-brand mx-auto" do %>
+              <h3 class="text-white"><strong>Ondig</strong></h3>
+            <% end %>
+          </div>
+          <div class="col-md-12 mt-2 border-bottom">
+            <ul class="nav justify-content-center">
+              <% if artist_user_signed_in? %>
+              <li class="nav-item mx-5">
+                <%= link_to "Artists", artist_artist_users_path, class: 'nav-link text-light' %>
+              </li>
+              <li class="nav-item mx-5">
+                <%= link_to "Topics", artist_topics_path, class: 'nav-link text-light' %>
+              </li>
+              <li class="nav-item mx-5">
+                <%= link_to "About", about_path, class: 'nav-link text-light' %>
+              </li>
+              <% elsif public_user_signed_in? %>
+              <li class="nav-item mx-5">
+                <%= link_to "Artists", public_artist_users_path, class: 'nav-link text-light' %>
+              </li>
+              <li class="nav-item mx-5">
+                <%= link_to "Topics", public_topics_path, class: 'nav-link text-light' %>
+              </li>
+              <li class="nav-item mx-5">
+                <%= link_to "About", about_path, class: 'nav-link text-light' %>
+              </li>
+              <% elsif admin_signed_in? %>
+              <li class="nav-item mx-5">
+                <%= link_to "Topics", admin_topics_path, class: 'nav-link text-white' %>
+              </li>
+              <li class="nav-item mx-5">
+                <%= link_to "Artists", admin_artist_users_path, class: 'nav-link text-white' %>
+              </li>
+              <li class="nav-item mx-5">
+                <%= link_to "Publics", admin_public_users_path, class: 'nav-link text-white' %>
+              </li>
+              <li class="nav-item mx-5">
+                <%= link_to "About", about_path, class: 'nav-link text-light' %>
+              </li>
+              <% else %>
+              <li class="nav-item mx-5">
+                <%= link_to "Artists", public_artist_users_path, class: 'nav-link text-light' %>
+              </li>
+              <li class="nav-item mx-5">
+                <%= link_to "Topics", public_topics_path, class: 'nav-link text-light' %>
+              </li>
+              <li class="nav-item mx-5">
+                <%= link_to "About", about_path, class: 'nav-link text-light' %>
+              </li>
+              <% end %>
+            </ul>
+          </div>
+          <div class="col-md-12 mt-3 text-center">
+            <%= link_to "https://github.com/yumaon" do %>
+              <h1 class="text-white"><i class="fab fa-github"></i></h1>
+            <% end %>
+          </div>
+          <div class="col-md-12 mt-3 text-center">
+            <p class="text-white">© 2023　Ondig</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
   </body>
 </html>
