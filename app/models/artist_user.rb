@@ -26,6 +26,11 @@ class ArtistUser < ApplicationRecord
   has_one_attached :profile_image
   has_one_attached :header_image
 
+  validates :artist_name, presence: true
+  validates :rep_name, presence: true
+  validates :rep_name_kana, presence: true
+  validates :activity_location, presence: true
+
   # 退会していないユーザーを取得するための記述
   scope :active, -> { where(is_deleted: false) }
 

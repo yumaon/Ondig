@@ -20,6 +20,13 @@ class PublicUser < ApplicationRecord
 
   has_one_attached :profile_image
 
+  validates :nickname, presence: true
+  validates :last_name, presence: true
+  validates :first_name, presence: true
+  validates :last_name_kana, presence: true
+  validates :first_name_kana, presence: true
+
+
   # 退会していないユーザーを取得するための記述
   scope :active, -> { where(is_deleted: false) }
 
