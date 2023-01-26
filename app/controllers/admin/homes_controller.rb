@@ -3,6 +3,9 @@ class Admin::HomesController < ApplicationController
     # 全てのArtist会員を取得
     @artist_users = ArtistUser.all
 
+    # Artist会員 ゲストユーザーを取得
+    @guest_artist = ArtistUser.find_by(email: 'guest@example.com')
+
     # 退会しているArtist会員を取得
     @no_active_artist_users = ArtistUser.deleted
 
@@ -11,6 +14,9 @@ class Admin::HomesController < ApplicationController
 
     # 全ての一般会員を取得
     @public_users = PublicUser.all
+
+    # 一般会員 ゲストユーザーを取得
+    @guest_public = PublicUser.find_by(email: 'guest@example.com')
 
     # 退会している一般会員を取得
     @no_active_public_users = PublicUser.deleted

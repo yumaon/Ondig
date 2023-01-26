@@ -14,7 +14,18 @@
             <div class="col-md-3">
               <span class="text-white"><%= @artist_users.count %></span>
             </div>
-
+            <div class="col-md-7 mt-2">
+              <span class="text-white">ゲストアカウント</span>
+            </div>
+            <div class="col-md-3 mt-2">
+              <% if @guest_artist.present? %>
+                <%= link_to admin_artist_user_path(@guest_artist) do %>
+                  <span class="text-warning border-warning border-bottom">有</span>
+                <% end %>
+              <% else %>
+                <span class="text-white">無</span>
+              <% end %>
+            </div>
             <div class="col-md-7 mt-2">
               <span class="text-warning">退会済みアカウント</span>
             </div>
@@ -52,6 +63,18 @@
             </div>
             <div class="col-md-3">
               <span class="text-white"><%= @public_users.count %></span>
+            </div>
+            <div class="col-md-7 mt-2">
+              <span class="text-white">ゲストアカウント</span>
+            </div>
+            <div class="col-md-3 mt-2">
+              <% if @guest_public.present? %>
+                <%= link_to admin_public_user_path(@guest_public) do %>
+                  <span class="text-warning border-warning border-bottom">有</span>
+                <% end %>
+              <% else %>
+                <span class="text-white">無</span>
+              <% end %>
             </div>
             <div class="col-md-7 mt-2">
               <span class="text-warning">退会済みアカウント</span>
