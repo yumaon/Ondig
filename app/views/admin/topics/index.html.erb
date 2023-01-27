@@ -63,17 +63,19 @@
       <% @topics.each do |topic| %>
         <div class="mini-topic-box">
           <div class="d-flex mt-3 px-3 pt-3">
+            <!--プロフィール画像を表示-->
             <div class="ml-2">
-              <!--取得したアーティストの画像と名前を表示させ、アーティスト詳細画面へ遷移するリンクを設置-->
-              <%= link_to admin_artist_user_path(topic.artist_user_id) do %>
-                <%= image_tag topic.artist_user.profile_image, class: "mini-topic-profile-image" %><br>
-                <p class="text-center text-white mini-artist-name mt-2"><%= topic.artist_user.artist_name %></p>
-              <% end %>
+              <%= image_tag topic.artist_user.profile_image, class: "mini-topic-profile-image" %>
             </div>
-            <div class="ml-5 d-flex align-items-center flex-fill">
-              <!--トピックス詳細ページへのリンク-->
+            <div class="ml-4 flex-fill">
+              <!--アーティスト名を表示させ、アーティスト詳細画面へ遷移するリンクを設置-->
+              <%= link_to admin_artist_user_path(topic.artist_user_id) do %>
+                <span class="text-white mini-artist-name box px-2 py-1"><%= topic.artist_user.artist_name %></span>
+              <% end %>
+
+              <!--トピックス本文を表示させ、トピックス詳細ページへのリンク-->
               <%= link_to admin_topic_path(topic) do %>
-                <%= simple_format topic.body, class: "text-white" %>
+                <p><%= simple_format topic.body, class: "text-white" %></p>
               <% end %>
             </div>
           </div>

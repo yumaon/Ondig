@@ -228,6 +228,16 @@ footer {
 }
 
 /*アーティスト一覧ページ用CSS*/
+.login-display-artist {
+  font-size: 75%;
+  color: #f38ee4;
+}
+
+.login-display-public {
+  font-size: 75%;
+  color: #82e6c3;
+}
+
 .search-form {
   background: rgba(217, 217, 217, 0.2);
   border-radius: 10px;

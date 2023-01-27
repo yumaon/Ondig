@@ -2,32 +2,32 @@
 <% topics.each do |topic| %>
   <div class="mini-topic-box m-3">
     <div class="d-flex px-3 pt-3">
+      <!--プロフィール画像を表示-->
       <div class="ml-2">
-        <!--アーティストプロフィールページへのリンク(ArtistUser用)-->
+        <%= image_tag topic.artist_user.profile_image, class: "mini-topic-profile-image" %>
+      </div>
+      <div class="ml-4 flex-fill">
+        <!--アーティスト名を表示。アーティストプロフィールページへのリンク(ArtistUser用)-->
         <% if artist_user_signed_in? %>
           <%= link_to profile_artist_artist_user_path(topic.artist_user_id) do %>
-            <%= image_tag topic.artist_user.profile_image, class: "mini-topic-profile-image" %><br>
-            <p class="text-center text-white mini-artist-name mt-2"><%= topic.artist_user.artist_name %></p>
+            <span class="text-white mini-artist-name box px-2 py-1"><%= topic.artist_user.artist_name %></span>
           <% end %>
-
-        <!--アーティストユーザープロフィールページへのリンク(PublicUser用)-->
+        <!--アーティスト名を表示。アーティストプロフィールページへのリンク(PublicUser用)-->
         <% else %>
           <%= link_to profile_public_artist_user_path(topic.artist_user_id) do %>
-            <%= image_tag topic.artist_user.profile_image, class: "mini-topic-profile-image" %><br>
-            <p class="text-center text-white mini-artist-name mt-2"><%= topic.artist_user.artist_name %></p>
+            <span class="text-white mini-artist-name box px-2 py-1"><%= topic.artist_user.artist_name %></span>
           <% end %>
         <% end %>
-      </div>
-      <div class="ml-5 d-flex align-items-center flex-fill">
-        <!--トピックス詳細ページへのリンク(ArtistUser用)-->
+
+        <!--トピックス本文を表示。トピックス詳細ページへのリンク(ArtistUser用)-->
         <% if artist_user_signed_in? %>
           <%= link_to artist_topic_path(topic) do %>
-            <%= simple_format topic.body, class: "text-white" %>
+            <p><%= simple_format topic.body, class: "text-white" %></p>
           <% end %>
-        <!--トピックス詳細ページへのリンク(PublicUser用)-->
+        <!--トピックス本文を表示。トピックス詳細ページへのリンク(PublicUser用)-->
         <% else %>
           <%= link_to public_topic_path(topic) do %>
-            <%= simple_format topic.body, class: "text-white" %>
+            <p><%= simple_format topic.body, class: "text-white" %></p>
           <% end %>
         <% end %>
       </div>

@@ -1,5 +1,8 @@
 <div class="my-page-profile-box text-center p-4 mt-5 mx-auto">
   <% if artist_user_signed_in? %>
+    <div class="login-display-artist text-left">
+      <span>● Artist会員</span>
+    </div>
     <div>
       <%= image_tag artist_user.get_profile_image, class: "my-page-box-image" %>
     </div>
@@ -38,6 +41,9 @@
     </div>
 
   <% elsif public_user_signed_in? %>
+    <div class="login-display-public text-left">
+      <span>● 一般会員</span>
+    </div>
     <div>
       <%= image_tag public_user.get_profile_image, class: "my-page-box-image" %>
     </div>
