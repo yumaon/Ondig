@@ -105,24 +105,30 @@
         <!--ログインユーザーがArtist会員の場合のリンク-->
         <% if artist_user_signed_in? %>
           <li class="nav-item">
-            <%= link_to "Topics", artist_artist_user_profile_topics_path(artist_user), class: "nav-link text-white h5" %>
+            <%= link_to "Profile", profile_artist_artist_user_path(artist_user), class: "nav-link text-light h5" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Live Schedule", artist_artist_user_live_schedules_path(artist_user), class: "nav-link text-white h5" %>
+            <%= link_to "Topics", artist_artist_user_profile_topics_path(artist_user), class: "nav-link text-light h5" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Items", artist_artist_user_items_path(artist_user), class: "nav-link text-white h5" %>
+            <%= link_to "Live Schedule", artist_artist_user_live_schedules_path(artist_user), class: "nav-link text-light h5" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Items", artist_artist_user_items_path(artist_user), class: "nav-link text-light h5" %>
           </li>
         <!--ログインユーザーが一般会員の場合のリンク-->
         <% else %>
-           <li class="nav-item">
-            <%= link_to "Topics", public_artist_user_profile_topics_path(artist_user), class: "nav-link text-white h5" %>
+          <li class="nav-item">
+            <%= link_to "Profile", profile_public_artist_user_path(artist_user), class: "nav-link text-light h5" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Live Schedule", public_artist_user_live_schedules_path(artist_user), class: "nav-link text-white h5" %>
+            <%= link_to "Topics", public_artist_user_profile_topics_path(artist_user), class: "nav-link text-light h5" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Items", public_artist_user_items_path(artist_user), class: "nav-link text-white h5" %>
+            <%= link_to "Live Schedule", public_artist_user_live_schedules_path(artist_user), class: "nav-link text-light h5" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Items", public_artist_user_items_path(artist_user), class: "nav-link text-light h5" %>
           </li>
         <% end %>
       </ul>

@@ -337,7 +337,7 @@ footer {
 }
 
 .mini-topic-box {
-  width: 100%;
+  /*width: 100%;*/
   background: rgba(217, 217, 217, 0.2);
   border-radius: 10px;
 }

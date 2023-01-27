@@ -29,7 +29,7 @@
       </div>
     </div>
 
-    <div class="row d-flex justify-content-center mx-auto">
+    <div class="row d-flex justify-content-center mx-auto mt-2">
     <% @artist_users.each do |artist| %>
       <div class="col-md-3 m-3 mini-profile-box">
           <div class="row">
@@ -110,6 +110,8 @@
     </div>
 
     <!--トピックス一覧の表示（最新3件）-->
-    <%= render 'artist/topics/topic_list', topics: @topics %>
+    <div class="col-md-12 mt-2">
+      <%= render 'artist/topics/topic_list', topics: @topics %>
+    </div>
   </div>
 </div>
