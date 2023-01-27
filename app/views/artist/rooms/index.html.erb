@@ -10,6 +10,7 @@
         <h3 class="text-white">Messages</h3>
       </div>
 
+      <% if @another_joins.present? %>
       <!--やり取りしているDMルーム一覧の表示-->
       <div class="dm-index-box p-3 mt-3">
         <% @another_joins.each do |join| %>
@@ -84,6 +85,9 @@
           <% end %>
         <% end %>
       </div>
+      <% else %>
+        <p class="text-white mt-3">メッセージはありません。</p>
+      <% end %>
     </div>
   </div>
 </div>

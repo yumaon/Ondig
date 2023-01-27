@@ -3,51 +3,55 @@
     <h3>live Schedule</h3>
     <% if artist_user_signed_in? && artist_user.id == current_artist_user.id %>
     <div class="text-white ml-5">
-      <%= link_to "+ Scheduleを追加する", new_artist_artist_user_live_schedule_path(artist_user), class: "btn btn-green btn-primary" %>
+      <%= link_to "+ Scheduleを追加する", new_artist_artist_user_live_schedule_path(artist_user), class: "btn btn-green btn-primary px-5" %>
     </div>
     <% end %>
   </div>
-  <div class="col-md-12">
-    <table class="table table-borderless table-hover text-white">
-      <thead class="border-bottom">
-        <tr>
-          <th>日付</th>
-          <th>イベント名</th>
-          <th>場所</th>
-          <th>Open時間</th>
-          <th>チケット価格</th>
-          <% if artist_user_signed_in? && artist_user.id == current_artist_user.id %>
-          <th></th>
-          <% end %>
-        </tr>
-      </thead>
-      <tbody>
-        <% live_schedules.each do |live_schedule| %>
+  <% if live_schedules.present? %>
+    <div class="col-md-12">
+      <table class="table table-borderless table-hover text-white">
+        <thead class="border-bottom">
           <tr>
-            <td>
-              <span class="text-white"><%= live_schedule.schedule_date.strftime( "%Y年%m月%d日" ) %></span>
-            </td>
-            <td>
-              <span class="text-white"><%= live_schedule.name %></span>
-            </td>
-            <td>
-              <span class="text-white"><%= live_schedule.location %></span>
-            </td>
-            <td>
-              <span class="text-white"><%=  live_schedule.schedule_date.strftime( "%H:%M" ) %></span>
-            </td>
-            <td>
-              <span class="text-white">¥<%= live_schedule.price.to_s(:delimited) %></span>
-            </td>
+            <th>日付</th>
+            <th>イベント名</th>
+            <th>場所</th>
+            <th>Open時間</th>
+            <th>チケット価格</th>
             <% if artist_user_signed_in? && artist_user.id == current_artist_user.id %>
-            <td class="text-center">
-              <%= link_to "編集", edit_artist_artist_user_live_schedule_path(artist_user, live_schedule), class: "btn btn-sm btn-follow btn-success px-3 mr-3" %>
-              <%= link_to "削除", artist_artist_user_live_schedule_path(artist_user, live_schedule), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-sm btn-red btn-danger px-3" %>
-            </td>
+            <th></th>
             <% end %>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+        </thead>
+        <tbody>
+          <% live_schedules.each do |live_schedule| %>
+            <tr>
+              <td>
+                <span class="text-white"><%= live_schedule.schedule_date.strftime( "%Y年%m月%d日" ) %></span>
+              </td>
+              <td>
+                <span class="text-white"><%= live_schedule.name %></span>
+              </td>
+              <td>
+                <span class="text-white"><%= live_schedule.location %></span>
+              </td>
+              <td>
+                <span class="text-white"><%=  live_schedule.schedule_date.strftime( "%H:%M" ) %></span>
+              </td>
+              <td>
+                <span class="text-white">¥<%= live_schedule.price.to_s(:delimited) %></span>
+              </td>
+              <% if artist_user_signed_in? && artist_user.id == current_artist_user.id %>
+              <td class="text-center">
+                <%= link_to "編集", edit_artist_artist_user_live_schedule_path(artist_user, live_schedule), class: "btn btn-sm btn-follow btn-success px-3 mr-3" %>
+                <%= link_to "削除", artist_artist_user_live_schedule_path(artist_user, live_schedule), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-sm btn-red btn-danger px-3" %>
+              </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <p class="text-white mt-3">表示できるLive scheduleはありません。</p>
+  <% end %>
 </div>
