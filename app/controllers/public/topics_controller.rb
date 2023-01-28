@@ -11,6 +11,7 @@ class Public::TopicsController < ApplicationController
   # トピックス詳細画面
   def show
     @topic = Topic.find(params[:id])
+    @topic_comments = @topic.topic_comments.order(created_at: :desc)
     @topic_comment = TopicComment.new
   end
 

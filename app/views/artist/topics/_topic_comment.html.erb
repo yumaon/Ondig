@@ -1,14 +1,14 @@
 <!--コメント一覧詳細ページ-->
 <div class="row mt-5">
   <div class="col-md-12 text-white">
-    <h5>Comments (<%= topic.topic_comments.comments_count %>)</h5>
+    <h5>Comments (<%= topic_comments.comments_count %>)</h5>
   </div>
 </div>
 
 <!--コメントの表示-->
 <div class="row">
   <div class="col-md-12 topic-comment-box pb-3">
-    <% topic.topic_comments.each do |topic_comment| %>
+    <% topic_comments.each do |topic_comment| %>
       <!--topic_commentに紐づいているidが一般会員の場合のコメント表示(public_user)、かつ、退会していないユーザー-->
       <% if topic_comment.public_user_id.present? && topic_comment.public_user.is_deleted == false %>
       <div class="text-white border-bottom">
