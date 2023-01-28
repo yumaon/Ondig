@@ -3,7 +3,7 @@ class Public::FavoritesController < ApplicationController
   def index
     @public_user = current_public_user
     favorites = Favorite.where(public_user_id: @public_user.id).pluck(:topic_id)
-    @topics = Topic.active_topics.where(id: favorites).order(created_at: :desc)
+    @topics = Topic.active_topics.where(id: favorites).order(created_at: :desc).page(params[:page]).per(10)
   end
 
   # いいねアクション

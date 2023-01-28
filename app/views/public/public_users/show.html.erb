@@ -20,6 +20,13 @@
       <% if @topics.present? %>
         <!--自身がフォローをしているArtistのトピックス一覧を表示させる-->
         <%= render 'artist/topics/topic_list', topics: @topics %>
+
+        <div class="col-md-12 d-flex justify-content-center mt-5">
+          <div>
+            <%= paginate @topics %>
+          </div>
+        </div>
+
       <!--フォローしているArtistが存在しない、または、フォローしているArtistのTopicsが存在していない場合の表示-->
       <% else %>
         <div class="box mt-3 text-center p-3">

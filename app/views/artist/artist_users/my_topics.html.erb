@@ -12,6 +12,13 @@
       <% if @topics.present? %>
         <!--自身が投稿したトピックス一覧の表示-->
         <%= render 'artist/topics/topic_list', topics: @topics %>
+
+        <div class="col-md-12 d-flex justify-content-center mt-5">
+          <div>
+            <%= paginate @topics %>
+          </div>
+        </div>
+
       <% else %>
         <p class="text-white mt-3">あなたの投稿したTopicsはありません。</p>
       <% end %>

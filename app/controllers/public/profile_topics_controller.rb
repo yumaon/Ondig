@@ -1,7 +1,7 @@
 class Public::ProfileTopicsController < ApplicationController
   def index
     @artist_user = ArtistUser.find(params[:artist_user_id])
-    @topics = @artist_user.topics.order(created_at: :desc)
+    @topics = @artist_user.topics.order(created_at: :desc).page(params[:page]).per(10)
 
     if public_user_signed_in?
       @current_PublicUser_join = Join.where(public_user_id: current_public_user.id)

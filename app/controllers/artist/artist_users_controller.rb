@@ -8,10 +8,10 @@ class Artist::ArtistUsersController < ApplicationController
     # サイドバーのジャンル検索ボタンを押された時の処理
     if params[:name].present?
       # 指定されたジャンルに紐づいている、退会していないArtistUserを取得
-      @artist_users = Genre.find(params[:name]).artist_users.active
+      @artist_users = Genre.find(params[:name]).artist_users.active.page(params[:page]).per(9)
     else
       # 退会していないArtistUserを取得
-      @artist_users = ArtistUser.active
+      @artist_users = ArtistUser.active.page(params[:page]).per(9)
     end
   end
 
@@ -20,7 +20,7 @@ class Artist::ArtistUsersController < ApplicationController
     @artist_user = current_artist_user
     @genres = Genre.all
     @search_params = artist_user_search_params
-    @artist_users = ArtistUser.active.search(@search_params).includes(:genre)
+    @artist_users = ArtistUser.active.search(@search_params).includes(:genre).page(params[:page]).per(9)
     render "index"
   end
 
@@ -28,13 +28,13 @@ class Artist::ArtistUsersController < ApplicationController
   def show
     @artist_user = current_artist_user
     # TimeLineを表示するため、自身のtopicsとfollowしている退会していないユーザーのtopicsを取得
-    @topics = Topic.active_topics.where(artist_user_id: [current_artist_user.id, *current_artist_user.artist_following_ids]).order(created_at: :desc)
+    @topics = Topic.active_topics.where(artist_user_id: [current_artist_user.id, *current_artist_user.artist_following_ids]).order(created_at: :desc).page(params[:page]).per(10)
   end
 
   # My pageで自身が投稿したtopic一覧を表示するためのアクション
   def my_topics
     @artist_user = current_artist_user
-    @topics = @artist_user.topics.order(created_at: :desc)
+    @topics = @artist_user.topics.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   # 登録情報編集画面

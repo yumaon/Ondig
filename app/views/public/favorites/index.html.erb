@@ -13,6 +13,13 @@
       <% if @topics.present? %>
         <!--自身がいいねをしたトピックス一覧を表示-->
         <%= render 'artist/topics/topic_list', topics: @topics %>
+
+        <div class="col-md-12 d-flex justify-content-center mt-5">
+          <div>
+            <%= paginate @topics %>
+          </div>
+        </div>
+
       <% else %>
         <p class="text-white mt-3">いいねをした投稿はありません。</p>
       <% end %>

@@ -107,6 +107,13 @@
           <% end %>
           </div>
         </div>
+
+        <div class="col-md-10 d-flex justify-content-center mt-5">
+          <div>
+            <%= paginate @followers %>
+          </div>
+        </div>
+
       </div>
       <% else %>
         <p class="text-white mt-3">あなたをフォローしているユーザーはいません。</p>

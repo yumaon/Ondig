@@ -44,6 +44,12 @@
 
       <!--トピックス一覧の表示-->
       <%= render 'topic_list', topics: @topics %>
+
+      <div class="col-md-12 d-flex justify-content-center mt-5">
+        <div>
+          <%= paginate @topics %>
+        </div>
+      </div>
     </div>
   </div>
 </div>

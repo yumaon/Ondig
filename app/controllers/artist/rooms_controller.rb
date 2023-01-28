@@ -12,7 +12,7 @@ class Artist::RoomsController < ApplicationController
     @artist_user.joins.each do |join|
       my_room_id << join.room.id
     end
-    @another_joins = Join.where(room_id: my_room_id).order(created_at: :desc)
+    @another_joins = Join.where(room_id: my_room_id).order(created_at: :desc).page(params[:page])
   end
 
   def show

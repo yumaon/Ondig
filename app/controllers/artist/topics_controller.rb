@@ -22,7 +22,7 @@ class Artist::TopicsController < ApplicationController
   def index
     @artist_user = current_artist_user
     # 退会していないユーザーのトピックスを取得
-    @topics = Topic.active_topics.order(created_at: :desc)
+    @topics = Topic.active_topics.order(created_at: :desc).page(params[:page]).per(10)
     # 退会していないユーザーのトピックスに紐づくすべてのタグを取得
     @tag_lists = Tag.active_tags
   end
@@ -71,7 +71,7 @@ class Artist::TopicsController < ApplicationController
   def search
     @artist_user = current_artist_user
     @tag_lists = Tag.active_tags
-    @topics = Topic.active_topics.search(params[:keyword])
+    @topics = Topic.active_topics.search(params[:keyword]).page(params[:page]).per(10)
     @keyword = params[:keyword]
     render "index"
   end
@@ -81,7 +81,7 @@ class Artist::TopicsController < ApplicationController
     @artist_user = current_artist_user
     @tag_lists = Tag.active_tags
     @tag = Tag.find(params[:tag_id])
-    @topics = @tag.topics.active_topics
+    @topics = @tag.topics.active_topics.page(params[:page]).per(10)
     @search_display = @tag.name
     render "index"
   end

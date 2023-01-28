@@ -24,11 +24,11 @@ class Public::RelationshipsController < ApplicationController
 
   def followings
     @public_user = PublicUser.find(params[:public_user_id])
-    @followings = @public_user.public_relationships
+    @followings = @public_user.public_relationships.page(params[:page]).per(9)
   end
 
   def followers
     @public_user = PublicUser.find(params[:public_user_id])
-    @followers = @public_user.public_reverse_of_relationships
+    @followers = @public_user.public_reverse_of_relationships.page(params[:page]).per(9)
   end
 end

@@ -3,7 +3,7 @@ class Public::PublicUsersController < ApplicationController
   def show
     @public_user = current_public_user
     # TimeLineを表示するため、followしている退会していないユーザーのtopicsを取得
-    @topics = Topic.active_topics.where(artist_user_id: current_public_user.artist_following_ids).order(created_at: :desc)
+    @topics = Topic.active_topics.where(artist_user_id: current_public_user.artist_following_ids).order(created_at: :desc).page(params[:page]).per(10)
   end
 
   # 一般会員プロフィール画面
