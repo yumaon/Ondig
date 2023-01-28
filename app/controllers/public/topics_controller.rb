@@ -18,7 +18,7 @@ class Public::TopicsController < ApplicationController
   def search
     @public_user = current_public_user
     @tag_lists = Tag.active_tags
-    @topics = Topic.active_topics.search(params[:keyword]).page(params[:page]).per(10)
+    @topics = Topic.active_topics.search(params[:keyword]).order(created_at: :desc).page(params[:page]).per(10)
     @keyword = params[:keyword]
     render "index"
   end
@@ -28,7 +28,7 @@ class Public::TopicsController < ApplicationController
     @public_user = current_public_user
     @tag_lists = Tag.active_tags
     @tag = Tag.find(params[:tag_id])
-    @topics = @tag.topics.active_topics.page(params[:page]).per(10)
+    @topics = @tag.topics.active_topics.order(created_at: :desc).page(params[:page]).per(10)
     @search_display = @tag.name
     render "index"
   end
