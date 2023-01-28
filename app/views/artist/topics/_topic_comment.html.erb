@@ -1,16 +1,16 @@
 <!--コメント一覧詳細ページ-->
 <div class="row mt-5">
   <div class="col-md-12 text-white">
-    <h5>Comments (<%= topic_comments.comments_count %>)</h5>
+    <h5>Comments (<%= topic_comments_count %>)</h5>
   </div>
 </div>
 
 <!--コメントの表示-->
 <div class="row">
-  <div class="col-md-12 topic-comment-box pb-3">
+  <div class="col-md-12 topic-comment-box">
     <% topic_comments.each do |topic_comment| %>
-      <!--topic_commentに紐づいているidが一般会員の場合のコメント表示(public_user)、かつ、退会していないユーザー-->
-      <% if topic_comment.public_user_id.present? && topic_comment.public_user.is_deleted == false %>
+      <!--topic_commentに紐づいているidが一般会員の場合のコメント表示(public_user)-->
+      <% if topic_comment.public_user_id.present? %>
       <div class="text-white border-bottom">
         <div class="d-flex pt-3 pl-3 pr-3">
           <div class="ml-2">
@@ -54,8 +54,8 @@
           </div>
         </div>
       </div>
-      <!--topic_commentに紐づいているidがアーティスト会員の場合のコメント表示(artist_user)、かつ、退会していないユーザー-->
-      <% elsif topic_comment.artist_user_id.present? && topic_comment.artist_user.is_deleted == false %>
+      <!--topic_commentに紐づいているidがアーティスト会員の場合のコメント表示(artist_user)-->
+      <% elsif topic_comment.artist_user_id.present? %>
       <div class="text-white border-bottom">
         <div class="d-flex pt-3 pl-3 pr-3">
           <div class="ml-2">
@@ -113,6 +113,13 @@
         <span class="text-white">コメントは投稿されていません。</span>
       </div>
     <% end %>
+
+    <!--ページネーションの表示-->
+    <div class="col-md-12 d-flex justify-content-center mt-3">
+      <div>
+        <%= paginate topic_comments %>
+      </div>
+    </div>
   </div>
 </div>
 

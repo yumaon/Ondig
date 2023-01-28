@@ -30,8 +30,9 @@ class Artist::TopicsController < ApplicationController
   # トピックス詳細画面
   def show
     @topic = Topic.find(params[:id])
-    @topic_comments = @topic.topic_comments.order(created_at: :desc)
+    @topic_comments = @topic.topic_comments.active_comments.order(created_at: :desc).page(params[:page]).per(6)
     @topic_comment = TopicComment.new
+    @topic_comments_count = @topic_comments.total_count
   end
 
   # トピックス編集画面

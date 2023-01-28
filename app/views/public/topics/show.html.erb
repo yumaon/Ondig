@@ -9,7 +9,7 @@
       <!--トピックスの詳細を表示-->
       <%= render 'artist/topics/topic_show', topic: @topic %>
       <!--トピックスに紐づいているコメント一覧、コメント投稿フォームの表示-->
-      <%= render 'artist/topics/topic_comment', topic: @topic, topic_comments: @topic_comments, topic_comment: @topic_comment %>
+      <%= render 'artist/topics/topic_comment', topic: @topic, topic_comments_count: @topic_comments_count, topic_comments: @topic_comments, topic_comment: @topic_comment %>
     </div>
   </div>
 </div>
