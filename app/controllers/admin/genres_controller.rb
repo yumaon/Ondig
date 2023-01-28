@@ -10,13 +10,13 @@ class Admin::GenresController < ApplicationController
         true_artist_genres << artist.genre_id
       end
       # 上記ので格納したgenre_idは設定者が存在するので、それ以外(設定者無し)のGerneを検索し取得
-      @genres = Genre.where.not(id: true_artist_genres)
+      @genres = Genre.where.not(id: true_artist_genres).page(params[:page]).per(10)
       @genre_nil_artist_users = ArtistUser.where(genre_id: nil).all
 
     # 全てのGenreを表示させる場合
     else
       @genre = Genre.new
-      @genres = Genre.all
+      @genres = Genre.all.page(params[:page]).per(10)
       @genre_nil_artist_users = ArtistUser.where(genre_id: nil).all
     end
   end

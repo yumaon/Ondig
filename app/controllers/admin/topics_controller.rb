@@ -4,12 +4,12 @@ class Admin::TopicsController < ApplicationController
     # Artistを指定してindexページを表示させる場合
     if params[:artist_id].present?
       @artist_user = ArtistUser.find(params[:artist_id])
-      @topics = ArtistUser.find(params[:artist_id]).topics.order(created_at: :desc)
+      @topics = ArtistUser.find(params[:artist_id]).topics.order(created_at: :desc).page(params[:page]).per(10)
       @tag_lists = Tag.all
 
     # Artistは指定せず、indexページを表示させる場合
     else
-      @topics = Topic.all.order(created_at: :desc)
+      @topics = Topic.all.order(created_at: :desc).page(params[:page]).per(10)
       @tag_lists = Tag.all
     end
   end
@@ -29,7 +29,7 @@ class Admin::TopicsController < ApplicationController
   # キーワード検索アクション
   def search
     @tag_lists = Tag.all
-    @topics = Topic.search(params[:keyword])
+    @topics = Topic.search(params[:keyword]).page(params[:page]).per(10)
     @keyword = params[:keyword]
     render "index"
   end
@@ -38,7 +38,7 @@ class Admin::TopicsController < ApplicationController
   def tag_search
     @tag_lists = Tag.all
     @tag = Tag.find(params[:tag_id])
-    @topics = @tag.topics.all
+    @topics = @tag.topics.all.page(params[:page]).per(10)
     @search_display = @tag.name
     render "index"
   end

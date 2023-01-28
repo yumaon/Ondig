@@ -14,11 +14,11 @@ class Admin::TagsController < ApplicationController
         end
       end
       # 上記で格納したtag.idは関連Topicsが存在するので、それ以外(関連Topics無し)のTagを取得
-      @tags = Tag.where.not(id: true_topics_tags)
+      @tags = Tag.where.not(id: true_topics_tags).page(params[:page]).per(20)
     else
 
       # 全てのタグを表示させる場合
-      @tags = Tag.all
+      @tags = Tag.all.page(params[:page]).per(20)
     end
   end
 

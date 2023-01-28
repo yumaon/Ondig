@@ -4,24 +4,24 @@ class Admin::ArtistUsersController < ApplicationController
     # ジャンルを指定してindexページを表示させる
     if params[:genre_id].present?
       @genre = Genre.find(params[:genre_id])
-      @artist_users = @genre.artist_users
+      @artist_users = @genre.artist_users.page(params[:page]).per(10)
       @search_params = artist_user_search_params
 
     # ジャンル設定をしていないArtistUserを指定しindexページを表示させる
     elsif params[:genre_nil].present?
-      @artist_users = ArtistUser.where(genre_id: nil).all
+      @artist_users = ArtistUser.where(genre_id: nil).all.page(params[:page]).per(10)
       @search_display = "未設定"
       @search_params = artist_user_search_params
 
     # 退会しているArtistUserを指定し、indexページを表示させる
     elsif params[:no_active].present?
-      @artist_users = ArtistUser.deleted
+      @artist_users = ArtistUser.deleted.page(params[:page]).per(10)
       @search_display = "退会済みのアカウント"
       @search_params = artist_user_search_params
 
     # ジャンルは指定せず、indexページを表示させる(全てのArtistUser)
     else
-      @artist_users = ArtistUser.all
+      @artist_users = ArtistUser.all.page(params[:page]).per(10)
       @search_params = artist_user_search_params
     end
   end
@@ -29,7 +29,7 @@ class Admin::ArtistUsersController < ApplicationController
   # ArtistUser検索アクション
   def search
     @search_params = artist_user_search_params
-    @artist_users = ArtistUser.search(@search_params).includes(:genre)
+    @artist_users = ArtistUser.search(@search_params).includes(:genre).page(params[:page]).per(10)
     render "index"
   end
 

@@ -3,16 +3,16 @@ class Admin::PublicUsersController < ApplicationController
   def index
     # 退会済みの一般会員を指定し、indexページを表示させる
     if params[:no_active].present?
-      @public_users = PublicUser.deleted
+      @public_users = PublicUser.deleted.page(params[:page]).per(10)
       @search_display = "退会済みのアカウント"
     else
-      @public_users = PublicUser.all
+      @public_users = PublicUser.all.page(params[:page]).per(10)
     end
   end
 
   # キーワード検索アクション
   def search
-    @public_users = PublicUser.search(params[:keyword])
+    @public_users = PublicUser.search(params[:keyword]).page(params[:page]).per(10)
     @keyword = params[:keyword]
     render "index"
   end
