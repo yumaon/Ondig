@@ -25,12 +25,16 @@ class Artist::RelationshipsController < ApplicationController
   # follow一覧
   def followings
     @artist_user = ArtistUser.find(params[:artist_user_id])
-    @followings = @artist_user.artist_relationships.page(params[:page]).per(9)
+
+    # 取得したArtist会員のフォロー中の退会していないユーザーを取得
+    @followings = @artist_user.active_followings.order(created_at: :desc).page(params[:page]).per(9)
   end
 
   # follower一覧
   def followers
     @artist_user = ArtistUser.find(params[:artist_user_id])
-    @followers = @artist_user.artist_reverse_of_relationships.page(params[:page]).per(9)
+
+    # 取得したArtist会員のフォロワーの退会していないユーザーを取得
+    @followers = @artist_user.active_followers.order(created_at: :desc).page(params[:page]).per(9)
   end
 end

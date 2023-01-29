@@ -65,6 +65,36 @@ class ArtistUser < ApplicationRecord
     end
   end
 
+  # フォロー中の退会していないユーザーを取得するメソッド
+  def active_followings
+    active_box = []
+    # フォロー中のArtist会員のRelationshipsのidを取り出し、active_boxに格納
+    self.artist_relationships.active_artist_followed.each do |following|
+      active_box << following.id
+    end
+    # フォロー中の一般会員のRelationshipsのidを取り出し、active_boxに格納
+    self.artist_relationships.active_public_followed.each do |following|
+      active_box << following.id
+    end
+     # 上記で取得したRelationshipsのid（active_box）を使用し、退会していないユーザー（Artist会員、一般会員の両方）を取得する。
+    Relationship.where(id: active_box)
+  end
+
+   # フォロワーの退会していないユーザーを取得するメソッド
+  def active_followers
+    active_box = []
+    # フォロワーののArtist会員のRelationshipsのidを取り出し、active_boxに格納
+    self.artist_reverse_of_relationships.active_artist_follower.each do |follower|
+      active_box << follower.id
+    end
+    # フォロワーの一般会員のRelationshipsのidを取り出し、active_boxに格納
+    self.artist_reverse_of_relationships.active_public_follower.each do |follower|
+      active_box << follower.id
+    end
+    # 上記で取得したRelationshipsのid（active_box）を使用し、退会していないユーザー（Artist会員、一般会員の両方）を取得する。
+    Relationship.where(id: active_box)
+  end
+
   # followをしたときの処理
   def follow_an_artist(artist_user_id)
     artist_relationships.create(artist_followed_id: artist_user_id)

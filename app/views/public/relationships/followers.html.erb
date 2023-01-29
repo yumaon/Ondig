@@ -13,7 +13,7 @@
         <div class="col-md-12">
           <div class="row">
           <% @followers.each do |follower| %>
-            <% if follower.artist_follower_id.present? && follower.artist_follower.is_deleted == false %>
+            <% if follower.artist_follower_id.present? %>
 
               <div class="col-md-3 m-3 mini-profile-box">
                 <div class="row">
@@ -62,7 +62,7 @@
                 </div>
               </div>
 
-            <% elsif follower.public_follower_id.present? && follower.public_follower.is_deleted == false %>
+            <% elsif follower.public_follower_id.present? %>
 
               <div class="col-md-3 m-3 mini-profile-box">
                 <div class="row">
