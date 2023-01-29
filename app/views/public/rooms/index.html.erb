@@ -15,8 +15,7 @@
       <div class="dm-index-box p-3 mt-3">
         <% @another_joins.each do |join| %>
           <!--やり取りしている相手が一般会員で、かつ、退会していないユーザーの場合の表示-->
-          <!--|join|にはログイン中の一般会員の情報が含まれているので、それを防ぐ記述-->
-          <% if join.public_user.present? && join.public_user != @public_user && join.public_user.is_deleted == false %>
+          <% if join.public_user.present? && join.public_user.is_deleted == false %>
             <table class="table table-borderless">
               <tr>
                 <td class="col-1"><%= image_tag join.public_user.profile_image, class: "dm-box-image" %></td>
@@ -26,8 +25,14 @@
                   <% end %>
                 </td>
                 <td class="align-middle col-4">
-                  <%= link_to rooms_public_public_users_path(join.room), class: "text-white dm-index-content-box" do %>
-                    <%= Message.find_by(id: join.room.message_ids.last)&.content %>
+                  <!--メッセージが存在するか判断-->
+                  <% if Message.find_by(id: join.room.message_ids.last)&.content.present? %>
+                    <%= link_to rooms_public_public_users_path(join.room), class: "text-white dm-index-content-box" do %>
+                      <%= Message.find_by(id: join.room.message_ids.last)&.content %>
+                    <% end %>
+                  <!--存在しない場合のテキスト表示-->
+                  <% else %>
+                    <span class="text-white-50">表示できるメッセージがありません。</span>
                   <% end %>
                 </td>
                 <td class="text-white text-right align-middle">
@@ -49,8 +54,14 @@
                   <% end %>
                 </td>
                 <td class="align-middle col-4">
-                  <%= link_to rooms_public_public_users_path(join.room), class: "text-white dm-index-content-box" do %>
-                    <%= Message.find_by(id: join.room.message_ids.last)&.content %>
+                  <!--メッセージが存在するか判断-->
+                  <% if Message.find_by(id: join.room.message_ids.last)&.content.present? %>
+                    <%= link_to rooms_public_public_users_path(join.room), class: "text-white dm-index-content-box" do %>
+                      <%= Message.find_by(id: join.room.message_ids.last)&.content %>
+                    <% end %>
+                  <!--存在しない場合のテキスト表示-->
+                  <% else %>
+                    <span class="text-white-50">表示できるメッセージがありません。</span>
                   <% end %>
                 </td>
                 <td class="text-white text-right align-middle">
@@ -62,7 +73,7 @@
               </tr>
             </table>
             <!--やり取りしているユーザーが退会していた場合の記述（Artist会員、一般会員の両方を含む)-->
-          <% elsif join.public_user.present? && join.public_user != @public_user && join.public_user.is_deleted == true || join.artist_user.present? && join.artist_user.is_deleted == true %>
+          <% elsif join.public_user.present? && join.public_user.is_deleted == true || join.artist_user.present? && join.artist_user.is_deleted == true %>
             <table class="table table-borderless">
               <tr>
                 <td class="col-1"><%= image_tag 'profile_no_image.png', class: "dm-box-image" %></td>
@@ -88,6 +99,14 @@
       <% else %>
         <p class="text-white">メッセージはありません。</p>
       <% end %>
+      
+      <!--ページネーションの表示-->
+      <div class="col-md-12 d-flex justify-content-center mt-5">
+        <div>
+          <%= paginate @another_joins %>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

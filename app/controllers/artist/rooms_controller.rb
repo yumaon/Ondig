@@ -8,11 +8,27 @@ class Artist::RoomsController < ApplicationController
 
   def index
     @artist_user = ArtistUser.find(params[:artist_user_id])
+    # 取得したArtist会員の参加しているroom.idをmy_room_idに格納
     my_room_id = []
     @artist_user.joins.each do |join|
       my_room_id << join.room.id
     end
-    @another_joins = Join.where(room_id: my_room_id).order(created_at: :desc).page(params[:page])
+
+    # 自分が参加している、roomのjoinテーブルを取得
+    my_joins = Join.where(room_id: my_room_id)
+
+    # 自分のidが含まれないjoinテーブルを取り出す。
+    another_join_id_box = []
+    my_joins.each do |join|
+      if join.artist_user_id.present?
+        unless join.artist_user_id == current_artist_user.id
+          another_join_id_box << join.id
+        end
+      elsif join.public_user_id.present?
+        another_join_id_box << join.id
+      end
+    end
+    @another_joins = Join.where(id: another_join_id_box).order(created_at: :desc).page(params[:page]).per(8)
   end
 
   def show
