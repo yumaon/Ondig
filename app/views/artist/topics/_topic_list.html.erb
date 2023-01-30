@@ -19,17 +19,19 @@
           <% end %>
         <% end %>
 
-        <!--トピックス本文を表示。トピックス詳細ページへのリンク(ArtistUser用)-->
-        <% if artist_user_signed_in? %>
-          <%= link_to artist_topic_path(topic) do %>
-            <p><%= simple_format topic.body, class: "text-white" %></p>
+        <div class="topic-text">
+          <!--トピックス本文を表示。トピックス詳細ページへのリンク(ArtistUser用)-->
+          <% if artist_user_signed_in? %>
+            <%= link_to artist_topic_path(topic) do %>
+              <p><%= simple_format topic.body, class: "text-white" %></p>
+            <% end %>
+          <!--トピックス本文を表示。トピックス詳細ページへのリンク(PublicUser用)-->
+          <% else %>
+            <%= link_to public_topic_path(topic) do %>
+              <p><%= simple_format topic.body, class: "text-white" %></p>
+            <% end %>
           <% end %>
-        <!--トピックス本文を表示。トピックス詳細ページへのリンク(PublicUser用)-->
-        <% else %>
-          <%= link_to public_topic_path(topic) do %>
-            <p><%= simple_format topic.body, class: "text-white" %></p>
-          <% end %>
-        <% end %>
+        </div>
       </div>
     </div>
 

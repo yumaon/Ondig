@@ -73,10 +73,12 @@
                 <span class="text-white mini-artist-name box px-2 py-1"><%= topic.artist_user.artist_name %></span>
               <% end %>
 
-              <!--トピックス本文を表示させ、トピックス詳細ページへのリンク-->
-              <%= link_to admin_topic_path(topic) do %>
-                <p><%= simple_format topic.body, class: "text-white" %></p>
-              <% end %>
+              <div class="topic-text">
+                <!--トピックス本文を表示させ、トピックス詳細ページへのリンク-->
+                <%= link_to admin_topic_path(topic) do %>
+                  <p><%= simple_format topic.body, class: "text-white" %></p>
+                <% end %>
+              </div>
             </div>
           </div>
 
