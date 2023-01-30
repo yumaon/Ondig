@@ -17,6 +17,7 @@ class Admin::TopicsController < ApplicationController
   # トピックス詳細画面を表示
   def show
     @topic = Topic.find(params[:id])
+    @topic_comments = @topic.topic_comments.order(created_at: :desc).page(params[:page]).per(6)
   end
 
   # トピックスを削除するアクション

@@ -92,15 +92,15 @@
       <div class="row mt-5">
         <div class="col-md-12 text-white">
           <!--コメント数の表示-->
-          <h5>Comments (<%= @topic.topic_comments.count %>)</h5>
+          <h5>Comments (<%= @topic_comments.count %>)</h5>
         </div>
       </div>
 
       <!--コメントの表示-->
       <div class="row">
-        <div class="col-md-12 topic-comment-box pb-3">
-          <% if @topic.topic_comments.present? %>
-            <% @topic.topic_comments.each do |topic_comment| %>
+        <div class="col-md-12 topic-comment-box">
+          <% if @topic_comments.present? %>
+            <% @topic_comments.each do |topic_comment| %>
               <div class="text-white border-bottom">
                 <div class="d-flex pt-3 pl-3 pr-3">
                   <!--topic_commentに紐づいているidが一般会員の場合のコメント表示(public_user)-->
@@ -173,6 +173,13 @@
               <span class="text-white">コメントは投稿されていません。</span>
             </div>
           <% end %>
+
+          <!--ページネーションの表示-->
+          <div class="col-md-12 d-flex justify-content-center mt-3">
+            <div>
+              <%= paginate @topic_comments %>
+            </div>
+          </div>
         </div>
       </div>
     </div>
