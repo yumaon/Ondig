@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row d-flex justify-content-center">
   <div class="col-md-12 text-white d-flex">
     <h3>Items</h3>
     <% if artist_user_signed_in? && artist_user.id == current_artist_user.id %>
@@ -10,22 +10,28 @@
 
   <% if items.present? %>
     <% items.each do |item| %>
-    <div class="col-md-3 item-box p-3 m-3">
+    <div class="col-md-3 p-3 m-3">
       <div class="row text-white">
-        <div class="col-md-12 text-center">
-          <%= image_tag item.item_image, class: "item-image-box" %>
-        </div>
-        <div class="col-md-12 text-center mt-3">
-          <h4><%= item.name %></h4>
-        </div>
-        <div class="col-md-12 text-center">
-          <%= simple_format item.introduction %>
-        </div>
-        <div class="col-md-12 text-right">
-          ¥<%= item.price.to_s(:delimited) %>
+        <div class="item-box">
+          <div class="col-md-12 text-center">
+            <%= image_tag item.item_image, class: "item-image-box" %>
+          </div>
+          <div class="mask">
+            <div class="caption overflow-auto">
+              <div class="col-md-12 text-center mt-5">
+                <h4><%= item.name %></h4>
+              </div>
+              <div class="col-md-12 text-center">
+                <%= simple_format item.introduction %>
+              </div>
+              <div class="col-md-12 text-center">
+                ¥<%= item.price.to_s(:delimited) %>
+              </div>
+            </div>
+          </div>
         </div>
         <% if artist_user_signed_in? && artist_user.id == current_artist_user.id %>
-        <div class="col-md-12 text-right mt-4">
+        <div class="col-md-12 text-right">
           <%= link_to "編集", edit_artist_artist_user_item_path(artist_user, item), class: "btn btn-follow btn-success px-4" %>
           <%= link_to "削除", artist_artist_user_item_path(artist_user, item), method: :delete, class: "btn btn-red btn-danger px-4 ml-3" %>
         </div>

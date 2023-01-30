@@ -200,8 +200,30 @@ footer {
 /*アーティストItem一覧用CSS*/
 .item-box {
   width: 100%;
-  background: rgba(217, 217, 217, 0.2);
-  border-radius: 10px;
+  height: 100%;
+  overflow:	hidden;
+  position:	relative;
+}
+
+.item-box .caption {
+  text-align: center;
+  height: 100%;
+}
+
+.item-box .mask {
+  width: 100%;
+	height:	100%;
+	position:	absolute;
+	top: 0;
+	left:	0;
+	opacity: 0;
+	background-color:	rgba(0 0 0 / 50%);
+	-webkit-transition:	all 0.6s ease;
+	transition:		all 0.6s ease;
+}
+
+.item-box:hover .mask {
+  opacity: 1;
 }
 
 .item-image-box {
@@ -256,7 +278,7 @@ footer {
 .mini-profile-header {
   width: 100%;
   height: 115px;
-  background: #cec1c1;
+  background: #ffffff3d;
   border-radius: 10px;
   object-fit: cover;
   /*position: relative;*/
