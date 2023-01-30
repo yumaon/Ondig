@@ -71,6 +71,9 @@
               <!--アーティスト名を表示させ、アーティスト詳細画面へ遷移するリンクを設置-->
               <%= link_to admin_artist_user_path(topic.artist_user_id) do %>
                 <span class="text-white mini-artist-name box px-2 py-1"><%= topic.artist_user.artist_name %></span>
+                <% if topic.artist_user.is_deleted == true %>
+                  <span class="mini-artist-name text-warning">（退会したユーザー）</span>
+                <% end %>
               <% end %>
 
               <div class="topic-text">

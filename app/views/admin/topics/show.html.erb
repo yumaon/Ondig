@@ -16,6 +16,9 @@
                 <%= link_to admin_artist_user_path(@topic.artist_user_id) do %>
                   <h3 class="text-white"><%= @topic.artist_user.artist_name %></h3>
                 <% end %>
+                <% if @topic.artist_user.is_deleted == true %>
+                  <p class="text-warning m-0 ml-3">（退会したユーザー）</p>
+                <% end %>
               </div>
             </div>
           </div>
@@ -111,6 +114,9 @@
                       <%= link_to admin_public_user_path(topic_comment.public_user.id) do %>
                         <span class="text-white mini-artist-name box p-1"><%= topic_comment.public_user.nickname %></span>
                       <% end %>
+                      <% if topic_comment.public_user.is_deleted == true %>
+                        <span class="text-warning mini-artist-name">（退会したユーザー）</span>
+                      <% end %>
                       <!--コメントの本文を表示-->
                       <p><%= simple_format topic_comment.comment %></p>
 
@@ -143,6 +149,9 @@
                         <%= link_to admin_artist_user_path(topic_comment.artist_user.id) do %>
                           <span class="text-white mini-artist-name box p-1"><%= topic_comment.artist_user.artist_name %> <i class="fas fa-music"></i></span>
                         <% end %>
+                      <% end %>
+                      <% if topic_comment.artist_user.is_deleted == true %>
+                        <span class="text-warning mini-artist-name">（退会したユーザー）</span>
                       <% end %>
                       <!--コメント本文の表示-->
                       <p class="mt-2"><%= simple_format topic_comment.comment %></p>
