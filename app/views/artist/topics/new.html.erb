@@ -6,6 +6,16 @@
   </div>
 
   <div class="col-md-10 mt-3 mx-auto box p-5">
+
+    <!--エラーメッセージの表示-->
+    <% if @topic.errors.any? %>
+    <div class="text-warning box py-2 mb-3 px-5">
+      <% @topic.errors.full_messages.each do |message| %>
+        <span><%= message %></span><br>
+      <% end %>
+    </div>
+    <% end %>
+
     <!--トピック投稿フォーム-->
     <%= form_with model: @topic, url: artist_topics_path(current_artist_user.id) do |f| %>
     <!--トピック本文フォーム-->

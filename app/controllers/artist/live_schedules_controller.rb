@@ -28,9 +28,12 @@ class Artist::LiveSchedulesController < ApplicationController
   end
 
   def create
-    live_schedule = current_artist_user.live_schedules.new(live_schedule_params)
-    live_schedule.save
-    redirect_to artist_artist_user_live_schedules_path
+    @live_schedule = current_artist_user.live_schedules.new(live_schedule_params)
+    if @live_schedule.save
+      redirect_to artist_artist_user_live_schedules_path
+    else
+      render :new
+    end
   end
 
   def edit
@@ -38,9 +41,12 @@ class Artist::LiveSchedulesController < ApplicationController
   end
 
   def update
-    live_schedule = LiveSchedule.find(params[:id])
-    live_schedule.update(live_schedule_params)
-    redirect_to artist_artist_user_live_schedules_path
+    @live_schedule = LiveSchedule.find(params[:id])
+    if @live_schedule.update(live_schedule_params)
+      redirect_to artist_artist_user_live_schedules_path
+    else
+      render :edit
+    end
   end
 
   def destroy

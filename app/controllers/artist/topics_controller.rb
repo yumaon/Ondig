@@ -6,15 +6,15 @@ class Artist::TopicsController < ApplicationController
 
   # トピックス新規作成アクション
   def create
-    topic = current_artist_user.topics.new(topic_params)
+    @topic = current_artist_user.topics.new(topic_params)
 
     # 受け取ったタグの値をスペースで区切り配列にし保存する(半角と全角の両方を対応させる)
-    tag_list = params[:topic][:name].split(/[ |　]/)
-    if topic.save
-      topic.save_tag(tag_list)
-      redirect_to artist_topic_path(topic)
+    @tag_list = params[:topic][:name].split(/[ |　]/)
+    if @topic.save
+      @topic.save_tag(@tag_list)
+      redirect_to artist_topic_path(@topic)
     else
-      redirect_to new_artist_topic_path
+      render :new
     end
   end
 

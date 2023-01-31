@@ -6,6 +6,17 @@
   </div>
 
   <div class="col-md-10 mt-3 mx-auto box p-5">
+
+    <!--フラッシュメッセージの表示-->
+    <% if @live_schedule.errors.any? %>
+    <div class="text-white box py-2 mb-3 px-5">
+      <span class="text-warning"><%= @live_schedule.errors.count %>件の空欄が存在します。</span><br>
+      <% @live_schedule.errors.full_messages.each do |message| %>
+        <span><%= message %></span><br>
+      <% end %>
+    </div>
+    <% end %>
+
     <!--Live Schedule編集フォーム-->
     <%= form_with model: @live_schedule, url: artist_artist_user_live_schedule_path(current_artist_user.id) do |f| %>
       <!--イベント名フォーム-->

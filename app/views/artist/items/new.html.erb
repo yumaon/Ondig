@@ -6,6 +6,17 @@
   </div>
 
   <div class="col-md-10 mt-3 mx-auto box p-5">
+
+    <!--エラーメッセージの表示-->
+    <% if @item.errors.any? %>
+    <div class="text-white box py-2 mb-3 px-5">
+      <span class="text-warning"><%= @item.errors.count %>件の空欄が存在します。</span><br>
+      <% @item.errors.full_messages.each do |message| %>
+        <span><%= message %></span><br>
+      <% end %>
+    </div>
+    <% end %>
+
     <!--Item登録フォーム-->
     <%= form_with model: @item, url: artist_artist_user_items_path(current_artist_user.id) do |f| %>
     <!--Item画像フォーム-->

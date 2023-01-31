@@ -56,6 +56,11 @@ footer {
   border-radius: 10px;
 }
 
+/*エラーメッセージ用*/
+.list-group-item {
+  padding: 0.3rem 1.25rem;
+}
+
 /*Aboutページ用*/
 .about_image1 {
   width: 300px;

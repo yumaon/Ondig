@@ -29,6 +29,15 @@
       <p class="text-success border-bottom">上部のセレクト欄に希望するジャンルが無い場合は、下の入力欄にて希望するジャンル名を入力し、登録ボタンを押してください。</p>
     </div>
 
+    <!--エラーメッセージの表示-->
+    <% if @genre.errors.any? %>
+    <div class="text-warning box py-2 mb-3 px-5">
+      <% @genre.errors.full_messages.each do |message| %>
+        <span><%= message %></span><br>
+      <% end %>
+    </div>
+    <% end %>
+
     <!--ジャンル新規作成フォーム-->
     <%= form_with model: @genre, url: artist_genres_path, method: :post do |f| %>
       <div class="form-group row pt-3">

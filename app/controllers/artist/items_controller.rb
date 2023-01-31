@@ -4,9 +4,12 @@ class Artist::ItemsController < ApplicationController
   end
 
   def create
-    item = current_artist_user.items.new(item_params)
-    item.save
-    redirect_to artist_artist_user_items_path
+    @item = current_artist_user.items.new(item_params)
+    if @item.save
+      redirect_to artist_artist_user_items_path
+    else
+      render :new
+    end
   end
 
   def index
