@@ -1,4 +1,5 @@
 class Admin::PublicUsersController < ApplicationController
+  before_action :authenticate_admin!
   # 一般会員一覧
   def index
     # 退会済みの一般会員を指定し、indexページを表示させる

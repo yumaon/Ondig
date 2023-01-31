@@ -109,7 +109,7 @@
           <%= link_to "編集する", edit_admin_artist_user_path(@artist_user.id), class: "btn btn-success btn-follow col-md-3" %>
           <!--ゲストユーザーの場合のみ削除ボタンを表示させる。-->
           <% if @artist_user.email == 'guest@example.com' %>
-            <%= link_to "ゲストユーザーを削除",delete_admin_artist_user_path(@artist_user.id), method: :delete, class: "btn btn-danger btn-red col-md-3 mx-5" %>
+            <%= link_to "ゲストユーザーを削除",delete_admin_artist_user_path(@artist_user.id), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger btn-red col-md-3 mx-5" %>
           <% end %>
         </div>
       </div>

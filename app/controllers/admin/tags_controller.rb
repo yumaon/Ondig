@@ -1,4 +1,5 @@
 class Admin::TagsController < ApplicationController
+  before_action :authenticate_admin!
   def index
     # 関連トピックス無しのタグ一覧を表示させる場合
     if params[:topics_nil].present?

@@ -1,4 +1,5 @@
 class Admin::HomesController < ApplicationController
+  before_action :authenticate_admin!
   def top
     # 全てのArtist会員を取得
     @artist_users = ArtistUser.all

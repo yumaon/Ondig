@@ -1,4 +1,5 @@
 class Admin::TopicsController < ApplicationController
+  before_action :authenticate_admin!
   # Topics一覧
   def index
     # Artistを指定してトピックス一覧ページを表示させる場合

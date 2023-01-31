@@ -1,4 +1,5 @@
 class Admin::TopicCommentsController < ApplicationController
+  before_action :authenticate_admin!
   # コメント削除アクション
   def destroy
     TopicComment.find(params[:id]).destroy

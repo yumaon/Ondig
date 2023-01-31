@@ -1,4 +1,5 @@
 class Admin::ArtistUsersController < ApplicationController
+  before_action :authenticate_admin!
   # ArtistUser一覧
   def index
     # ジャンルを指定してindexページを表示させる

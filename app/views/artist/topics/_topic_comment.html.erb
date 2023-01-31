@@ -46,7 +46,7 @@
             <div class="d-flex justify-content-end">
               <!--コメント投稿本人の場合に削除ボタンを表示-->
               <% if topic_comment.public_user == current_public_user %>
-                <%= link_to "削除", public_topic_topic_comment_path(topic_comment.topic, topic_comment), method: :delete, class: "btn btn-danger btn-red btn-sm px-3 mr-3" %>
+                <%= link_to "削除", public_topic_topic_comment_path(topic_comment.topic, topic_comment), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger btn-red btn-sm px-3 mr-3" %>
               <% end %>
               <!--コメントの投稿された日付を表示-->
               <span><%= topic_comment.created_at.strftime('%Y/%m/%d') %></span>
@@ -97,7 +97,7 @@
             <div class="d-flex justify-content-end">
               <!--コメント投稿者本人の場合に削除ボタンを表示-->
               <% if topic_comment.artist_user == current_artist_user %>
-                <%= link_to "削除", artist_topic_topic_comment_path(topic_comment.topic, topic_comment), method: :delete, class: "btn btn-danger btn-red btn-sm px-3 mr-3" %>
+                <%= link_to "削除", artist_topic_topic_comment_path(topic_comment.topic, topic_comment), method: :delete, "data-confirm" => "本当に削除しますか？", class: "btn btn-danger btn-red btn-sm px-3 mr-3" %>
               <% end %>
               <!--コメント投稿日時を表示-->
               <span><%= topic_comment.created_at.strftime('%Y/%m/%d') %></span>

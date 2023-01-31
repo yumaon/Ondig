@@ -1,4 +1,5 @@
 class Admin::GenresController < ApplicationController
+  before_action :authenticate_admin!
   # ジャンル一覧・ジャンル新規作成フォーム用アクション
   def index
     # 設定者数が０のGenreを一覧表示させる場合。(フォームからgenre_artist_nilの値を受け取った場合)
