@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col-md-7 top-menu text-white p-3">
       <div class="row">
+        <!--Artist会員管理ボックス-->
         <div class="col-md-5 mx-auto mt-3 box p-3">
           <div class="text-center">
             <span class="text-white h5 border-bottom">Artist会員 管理</span>
@@ -18,7 +19,9 @@
               <span class="text-white">ゲストアカウント</span>
             </div>
             <div class="col-md-3 mt-2">
+              <!--ゲストユーザーが存在するかどうか判断-->
               <% if @guest_artist.present? %>
+                <!--ゲストユーザーの詳細画面へ遷移するリンクを設置-->
                 <%= link_to admin_artist_user_path(@guest_artist) do %>
                   <span class="text-warning border-warning border-bottom">有</span>
                 <% end %>
@@ -30,6 +33,7 @@
               <span class="text-warning">退会済みアカウント</span>
             </div>
             <div class="col-md-3 mt-2">
+              <!--退会済みアカウントのみの一覧をArtist会員一覧画面で表示させるためにform_tagでリンクを設置-->
               <%= form_tag admin_artist_users_path do %>
                 <%= link_to admin_artist_users_path(no_active: 0), class: "border-warning border-bottom" do %>
                   <span class="text-warning"><%= @no_active_artist_users.count %></span>
@@ -41,6 +45,7 @@
               <span class="text-warning">ジャンル未設定者</span>
             </div>
             <div class="col-md-3 mt-2">
+              <!--ジャンル未設定アカウント一覧をArtist会員一覧画面で表示させるためにform_tagでリンクを設置-->
               <%= form_tag admin_artist_users_path do %>
                 <%= link_to admin_artist_users_path(genre_nil: 0), class: "border-warning border-bottom" do %>
                   <span class="text-warning"><%= @genre_nil_artsit_users.count %></span>
@@ -53,6 +58,7 @@
           </div>
         </div>
 
+        <!--一般会員管理ボックス-->
         <div class="col-md-5 mx-auto mt-3 box p-3">
           <div class="text-center">
             <span class="text-white h5 border-bottom">一般会員 管理</span>
@@ -68,7 +74,9 @@
               <span class="text-white">ゲストアカウント</span>
             </div>
             <div class="col-md-3 mt-2">
+              <!--ゲストユーザーが存在するか判断-->
               <% if @guest_public.present? %>
+                <!--ゲストユーザーの詳細画面へ遷移するリンクを設置-->
                 <%= link_to admin_public_user_path(@guest_public) do %>
                   <span class="text-warning border-warning border-bottom">有</span>
                 <% end %>
@@ -80,6 +88,7 @@
               <span class="text-warning">退会済みアカウント</span>
             </div>
             <div class="col-md-3 mt-2">
+              <!--退会済みアカウントのみの一覧を一般会員一覧画面で表示させるためにform_tagでリンクを設置-->
               <%= form_tag admin_public_users_path do %>
                 <%= link_to admin_public_users_path(no_active: 0), class: "border-warning border-bottom" do %>
                   <span class="text-warning"><%= @no_active_public_users.count %></span>
@@ -92,6 +101,7 @@
           </div>
         </div>
 
+        <!--Topics・タグ管理ボックス-->
         <div class="col-md-5 mx-auto mt-5 mb-3 box p-3">
           <div class="text-center">
             <span class="text-white h5 border-bottom">Topics・Tag 管理</span>
@@ -113,6 +123,7 @@
               <span class="text-warning">関連Topics無しのタグ数</span>
             </div>
             <div class="col-md-3 mt-2">
+              <!--関連Topicsの存在しないタグ一覧をタグ一覧画面で表示させるためにform_tagでリンクを設置-->
               <%= form_tag admin_tags_path do %>
                 <%= link_to admin_tags_path(topics_nil: 0), class: "border-warning border-bottom" do %>
                   <span class="text-warning"><%= @no_topics_tags.count %></span>
@@ -126,6 +137,7 @@
           </div>
         </div>
 
+        <!--ジャンル管理ボックス-->
         <div class="col-md-5 mx-auto mt-5 mb-3 box p-3">
           <div class="text-center">
             <span class="text-white h5 border-bottom">Genres 管理</span>
@@ -141,6 +153,7 @@
               <span class="text-warning">登録Artistが 0 のGenre</span>
             </div>
             <div class="col-md-3 mt-2">
+              <!--登録Artistが存在しないジャンル一覧をジャンル一覧画面で表示させるためにform_tagでリンクを設置-->
               <%= form_tag admin_genres_path do %>
                 <%= link_to admin_genres_path(genre_artist_nil: 0), class: "border-warning border-bottom" do %>
                   <span class="text-warning"><%= @no_artist_genres.count %></span>

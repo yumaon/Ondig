@@ -5,6 +5,7 @@
         <p class="text-white h4">ジャンル管理</p>
       </div>
 
+      <!--ジャンル新規作成フォーム-->
       <div class="mt-3 pb-2">
         <%= form_with model: @genre, url: admin_genres_path, method: :post do |f| %>
         <div class="d-flex">
@@ -15,12 +16,14 @@
         <% end %>
       </div>
 
+      <!--登録Artistが存在しない場合のrenderで表示させる場合に表示されるテキスト-->
       <% if params[:genre_artist_nil].present? %>
         <div class="mt-2">
           <span class="text-info">登録Artist数が "0" のGenreを表示</span>
         </div>
       <% end %>
 
+      <!--ジャンル一覧-->
       <div class="mt-3">
         <table class="table table-borderless table-hover text-white">
           <thead class="border-bottom">
@@ -73,6 +76,7 @@
         </table>
       </div>
 
+      <!--ページネーションの表示-->
       <div class="col-md-12 d-flex justify-content-center mt-5">
         <div>
           <%= paginate @genres %>
