@@ -20,8 +20,6 @@ class ArtistUser < ApplicationRecord
   # followをしているかの確認時に
   has_many :artist_followings, through: :artist_relationships, source: :artist_followed
   has_many :public_followings, through: :artist_relationships, source: :public_followed
-  # has_many :artist_followers, through: :artist_reverse_of_relationships, source: :artist_follower
-  # has_many :public_followers, through: :artist_reverse_of_relationships, source: :public_follower
 
   has_one_attached :profile_image
   has_one_attached :header_image
@@ -122,6 +120,7 @@ class ArtistUser < ApplicationRecord
     public_followings.include?(public_user)
   end
 
+  # プロフィール画像取得するメソッド
   def get_profile_image
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/profile_no_image.png')
@@ -130,6 +129,7 @@ class ArtistUser < ApplicationRecord
     profile_image
   end
 
+  # ヘッダー画像を取得するメソッド
   def get_header_image
     unless header_image.attached?
       file_path = Rails.root.join('app/assets/images/profile_no_header_image.jpg')

@@ -16,7 +16,6 @@ class PublicUser < ApplicationRecord
   # followをしているかの確認時に使用。
   has_many :artist_followings, through: :public_relationships, source: :artist_followed
   has_many :public_followings, through: :public_relationships, source: :public_followed
-  # has_many :public_followers, through: :public_reverse_of_relationships, source: :public_follower
 
   has_one_attached :profile_image
 
@@ -107,6 +106,7 @@ class PublicUser < ApplicationRecord
     PublicUser.where(["last_name LIKE? OR first_name LIKE? OR nickname LIKE?","%#{keyword}","%#{keyword}","%#{keyword}"])
   end
 
+  # プロフィール画像取得するメソッド
   def get_profile_image
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/profile_no_image.png')
