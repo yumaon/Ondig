@@ -59,7 +59,7 @@ class Admin::ArtistUsersController < ApplicationController
   end
 
   private
-
+  # ストロングパラメータ
   def artist_user_params
     params.require(:artist_user).permit(:artist_name, :rep_name, :rep_name_kana, :genre_id, :activity_location, :email, :youtube_url, :is_deleted)
   end

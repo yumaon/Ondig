@@ -44,6 +44,7 @@ class Admin::PublicUsersController < ApplicationController
 
   private
 
+  # ストロングパラメータ
   def public_user_params
     params.require(:public_user).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :nickname, :email, :is_deleted)
   end
