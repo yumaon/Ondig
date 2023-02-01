@@ -1,5 +1,6 @@
 <div class="container">
   <div class="row mt-3">
+    <!--マイページサイドバーの表示-->
     <div class="col-lg-3 d-flex">
       <%= render 'artist/artist_users/my_page', artist_user: @artist_user %>
     </div>
@@ -9,41 +10,51 @@
         <h3 class="text-white">Followings</h3>
       </div>
 
+      <!--フォロー中のユーザーが存在するか判断-->
       <% if @followings.present? %>
+      <!--フォロー中のユーザー一覧-->
       <div class="row">
         <div class="col-md-12">
           <div class="row">
           <% @followings.each do |following| %>
+            <!--フォロー中のユーザーがArtist会員の場合の表示-->
             <% if following.artist_followed_id.present? %>
 
               <div class="col-md-3 m-3 mini-profile-box">
                 <div class="row">
+                  <!--ヘッダー画像-->
                   <div class="col-md-12 mini-profile-header-box">
                     <%= image_tag following.artist_followed.get_header_image, class: "mini-profile-header" %>
                   </div>
+                  <!--プロフィール画像-->
                   <div class="col-md-12 text-center">
                     <div class=""><%= image_tag following.artist_followed.get_profile_image, class: "mini-profile-box-image rounded-circle"; %></div>
                   </div>
                   <div class="mini-profile-detail col-md-12">
+                    <!--Artistプロフィールページへ遷移するリンクをArtist名に設置-->
                     <div class="col-md-12 text-center">
                       <%= link_to profile_artist_artist_user_path(following.artist_followed.id) , class: "text-white" do %>
                         <%= following.artist_followed.artist_name %>
                       <% end %>
                     </div>
                     <div class="col-md-12 text-center">
+                      <!--ジャンル登録がされているか判断-->
                       <% if following.artist_followed.genre.present? %>
                         <span class="text-white">Genre: <%= following.artist_followed.genre.name %></span><br>
                       <% else %>
                         <span class="text-white">Genre: 未設定</span><br>
                       <% end %>
-
+                      <!--拠点エリアの表示-->
                       <span class="text-white"><%= following.artist_followed.activity_location_i18n %></span>
+                      <!--フォロワーの表示-->
                       <div class="follow-detail-display">
                         <p>Follower：<%= following.artist_followed.artist_reverse_of_relationships.follower_count %></p>
                       </div>
                     </div>
+                    <!--紹介文の表示-->
                     <div class="introduction-box">
                       <div class="col-md-12 text-center text-white introduction-box-detail">
+                        <!--紹介文が存在するか判断-->
                         <% if following.artist_followed.introduction.present? %>
                           <p><%= simple_format following.artist_followed.introduction %></p>
                         <% else %>
@@ -51,7 +62,9 @@
                         <% end %>
                       </div>
                     </div>
+                    <!--フォローボタンの表示-->
                     <div class="col-md-12 text-center mt-3">
+                      <!--フォローをしているかの判断-->
                       <% if current_artist_user.artist_following?(following.artist_followed) %>
                         <%= link_to "- Unfollow", artist_artist_user_relationships_path(following.artist_followed.id), method: :delete, class: "btn btn-red btn-danger btn-lg" %>
                       <% else %>
@@ -62,6 +75,7 @@
                 </div>
               </div>
 
+            <!--フォロー中のユーザーが一般会員の場合の表示-->
             <% elsif following.public_followed_id.present? %>
 
               <div class="col-md-3 m-3 mini-profile-box">
@@ -69,23 +83,28 @@
                   <div class="col-md-12 mini-profile-header">
 
                   </div>
+                  <!--プロフィール画像-->
                   <div class="col-md-12 text-center">
                     <div class=""><%= image_tag following.public_followed.get_profile_image, class: "mini-profile-box-image rounded-circle"; %></div>
                   </div>
                   <div class="mini-profile-detail col-md-12">
+                    <!--一般会員詳細画面へ遷移するリンクをニックネームに設置-->
                     <div class="col-md-12 text-center">
                       <%= link_to artist_public_user_path(following.public_followed.id) , class: "text-white" do %>
                         <%= following.public_followed.nickname %>
                       <% end %>
                     </div>
+                    <!--フォロワーの表示-->
                     <div class="follow-detail-display text-center">
                       <p>Follower：<%= following.public_followed.public_reverse_of_relationships.follower_count %></p>
                     </div>
                     <div class="col-md-12 text-center">
                       <span class="text-white"></span></span>
                     </div>
+                    <!--自己紹介文の表示-->
                     <div class="introduction-box-2">
                       <div class="col-md-12 text-center text-white introduction-box-detail">
+                        <!--自己紹介文が存在するか判断-->
                         <% if following.public_followed.introduction.present? %>
                           <p><%= simple_format following.public_followed.introduction %></p>
                         <% else %>
@@ -93,7 +112,9 @@
                         <% end %>
                       </div>
                     </div>
+                     <!--フォローボタンの表示-->
                     <div class="col-md-12 text-center mt-3">
+                      <!--フォローをしているか判断-->
                       <% if current_artist_user.public_following?(following.public_followed) %>
                         <%= link_to "- Unfollow", artist_public_user_relationships_path(following.public_followed.id), method: :delete, class: "btn btn-red btn-danger btn-lg" %>
                       <% else %>
@@ -108,12 +129,15 @@
           </div>
         </div>
 
+        <!--ページネーションの表示-->
         <div class="col-md-10 d-flex justify-content-center mt-5">
           <div>
             <%= paginate @followings %>
           </div>
         </div>
       </div>
+
+      <!--フォロー中のユーザーが存在しない場合-->
       <% else %>
         <p class="text-white mt-3">フォロー中のユーザーはいません。</p>
       <% end %>

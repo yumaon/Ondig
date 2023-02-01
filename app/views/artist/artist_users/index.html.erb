@@ -1,9 +1,11 @@
 <div class="container">
   <div class="row">
+    <!--Artist一覧ページサイドバーの表示-->
     <div class="col-lg-3 mt-3">
       <%= render 'index_page_sidebar', artist_user: @artist_user, genres: @genres %>
     </div>
 
+    <!--Artist一覧の表示-->
     <div class="col-lg-9 mt-3">
       <%= render 'artists_list', artist_users: @artist_users %>
     </div>

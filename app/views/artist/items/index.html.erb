@@ -1,6 +1,9 @@
 <div class="container-fluid">
   <div class="row">
+    <!--ArtistProfileのプロフィール、ヘッダー、フォローボタン、メニューバーの表示-->
     <%= render 'artist/profiles/profile', artist_user: @artist_user %>
+
+    <!--Item一覧の表示-->
     <div class="row">
       <div class="col-lg-12 p-5">
         <%= render 'artist/items/item', {artist_user: @artist_user, items: @items} %>

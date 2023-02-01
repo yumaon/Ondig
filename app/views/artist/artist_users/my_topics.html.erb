@@ -1,5 +1,6 @@
 <div class="container">
   <div class="row mt-3">
+    <!--マイページサイドバーの表示-->
     <div class="col-lg-3 d-flex">
       <%= render 'artist/artist_users/my_page', artist_user: @artist_user %>
     </div>
@@ -9,16 +10,19 @@
         <h3 class="text-white">My Topics</h3>
       </div>
 
+      <!--投稿したTopicsが存在するか判断-->
       <% if @topics.present? %>
         <!--自身が投稿したトピックス一覧の表示-->
         <%= render 'artist/topics/topic_list', topics: @topics %>
 
+        <!--ページネーションの表示-->
         <div class="col-md-12 d-flex justify-content-center mt-5">
           <div>
             <%= paginate @topics %>
           </div>
         </div>
 
+      <!--投稿したTopicsが存在しない場合-->
       <% else %>
         <p class="text-white mt-3">あなたの投稿したTopicsはありません。</p>
       <% end %>

@@ -1,13 +1,17 @@
+<!--Live Schedule一覧-->
 <div class="row">
   <div class="col-md-12 text-white d-flex">
     <h3>live Schedule</h3>
+    <!--ログインユーザーがArtist会員で、かつ、開いているArtistプロフィールページのArtist会員である場合に追加ボタンを表示-->
     <% if artist_user_signed_in? && artist_user.id == current_artist_user.id %>
     <div class="text-white ml-5">
       <%= link_to "+ Scheduleを追加する", new_artist_artist_user_live_schedule_path(artist_user), class: "btn btn-green btn-primary px-5" %>
     </div>
     <% end %>
   </div>
+  <!--LiveScheduleが存在するか判断-->
   <% if live_schedules.present? %>
+    <!--LiveSchedule一覧をテーブルで表示-->
     <div class="col-md-12">
       <table class="table table-borderless table-hover text-white">
         <thead class="border-bottom">
@@ -40,6 +44,7 @@
               <td>
                 <span class="text-white">¥<%= live_schedule.price.to_s(:delimited) %></span>
               </td>
+              <!--ログインユーザーがArtist会員で、かつ、開いているArtistプロフィールページのArtist会員である場合に編集・削除ボタンを表示-->
               <% if artist_user_signed_in? && artist_user.id == current_artist_user.id %>
               <td class="text-center">
                 <%= link_to "編集", edit_artist_artist_user_live_schedule_path(artist_user, live_schedule), class: "btn btn-sm btn-follow btn-success px-3 mr-3" %>
@@ -51,6 +56,7 @@
         </tbody>
       </table>
     </div>
+  <!--LiveScheduleが存在しない場合-->
   <% else %>
     <p class="text-white mt-3">表示できるLive scheduleはありません。</p>
   <% end %>

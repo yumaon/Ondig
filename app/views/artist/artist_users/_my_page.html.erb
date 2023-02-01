@@ -1,37 +1,49 @@
+<!--マイページのサイドバーの表示-->
 <div class="my-page-profile-box text-center p-4 mt-5 mx-auto">
+  <!--ログインユーザーがArtist会員の場合-->
   <% if artist_user_signed_in? %>
     <div class="login-display-artist text-left">
       <span>● Artist会員</span>
     </div>
+    <!--プロフィール画像の表示-->
     <div>
       <%= image_tag artist_user.get_profile_image, class: "my-page-box-image" %>
     </div>
     <div class="text-white mt-3 pb-2 border-bottom">
+      <!--Artistネームの表示-->
       <h4><%= artist_user.artist_name %></h4>
+      <!--登録ジャンルの表示-->
       <div>
+        <!--登録ジャンルが存在するか判断-->
         <% if artist_user.genre.present? %>
           Genre: <%= artist_user.genre.name %>
         <% else %>
           Genre: 未設定
         <% end %>
       </div>
+      <!--ジャンル設定ボタン-->
       <%= link_to "ジャンル設定", artist_genres_path, class: "btn btn-success btn-follow btn-sm px-3 mt-2" %>
+      <!--登録情報編集ボタン-->
       <%= link_to "登録情報編集", information_edit_artist_artist_users_path, class: "btn btn-sm btn-follow btn-success mt-2" %>
 
+      <!--フォロー中のユーザー数の表示-->
       <div class="d-flex align-items-center justify-content-center follow-detail-display mt-2">
         <p class="mr-3">フォロー中</p>
+        <!--フォロー中のユーザー一覧画面へ遷移するリンクを設置-->
         <%= link_to artist_artist_user_followings_path(artist_user), class: "text-white" do %>
           <%= artist_user.artist_relationships.following_count %>
         <% end %>
       </div>
+      <!--フォロワーのユーザー数の表示-->
       <div class="d-flex align-items-center justify-content-center follow-detail-display">
         <p class="mr-3">フォロワー</p>
+        <!--フォロワー一覧画面へ遷移するリンクを設置-->
         <%= link_to artist_artist_user_followers_path(artist_user), class: "text-white" do %>
           <%= artist_user.artist_reverse_of_relationships.follower_count %>
         <% end %>
       </div>
-
     </div>
+    <!--メニュー-->
     <div class="mt-3 d-flex flex-column">
       <%= link_to "Artist Profile", profile_artist_artist_user_path(artist_user), class: "text-white" %>
       <%= link_to "Messages", artist_artist_user_rooms_path(artist_user), class: "text-white" %>
@@ -40,38 +52,48 @@
       <%= link_to "Time Line", my_page_artist_artist_users_path, class: "text-white" %>
     </div>
 
+  <!--ログインユーザーが一般会員の場合の表示-->
   <% elsif public_user_signed_in? %>
     <div class="login-display-public text-left">
       <span>● 一般会員</span>
     </div>
+    <!--プロフィール画像の表示-->
     <div>
       <%= image_tag public_user.get_profile_image, class: "my-page-box-image" %>
     </div>
     <div class="text-white mt-3 pb-2 border-bottom">
+      <!--ニックネームの表示-->
       <h4><%= public_user.nickname %></h4>
+      <!--自己紹介文の表示-->
       <div>
+        <!--自己紹介文が存在するか判断-->
         <% if public_user.introduction.present? %>
           <%= simple_format public_user.introduction %>
         <% else %>
           自己紹介文は登録されてません。
         <% end %>
       </div>
+      <!--登録情報編集ボタン-->
       <%= link_to "登録情報編集", information_edit_public_public_users_path, class: "btn btn-sm btn-follow btn-success mt-2" %>
 
+      <!--フォロー中のユーザー数の表示-->
       <div class="d-flex align-items-center justify-content-center follow-detail-display mt-2">
         <p class="mr-3">フォロー中</p>
+        <!--フォロー中のユーザー一覧画面へ遷移するリンクを設置-->
         <%= link_to public_public_user_followings_path(public_user), class: "text-white" do %>
           <%= public_user.public_relationships.following_count %>
         <% end %>
       </div>
+      <!--フォロワーのユーザー数の表示-->
       <div class="d-flex align-items-center justify-content-center follow-detail-display">
         <p class="mr-3">フォロワー</p>
+        <!--フォロワー一覧画面へ遷移するリンクを設置-->
         <%= link_to public_public_user_followers_path(public_user), class: "text-white" do %>
           <%= public_user.public_reverse_of_relationships.follower_count %>
         <% end %>
       </div>
-
     </div>
+    <!--メニュー-->
     <div class="mt-3 d-flex flex-column">
       <%= link_to "TimeLine", my_page_public_public_users_path, class: "text-white" %>
       <%= link_to "Favotite Topics", my_page_favorite_topics_public_public_users_path, class: "text-white mt-2" %>

@@ -1,6 +1,8 @@
+<!--ArtistプロフィールページのItems一覧画面-->
 <div class="row">
   <div class="col-md-12 text-white d-flex">
     <h3>Items</h3>
+    <!--ログインユーザーがArtist会員で、かつ、開いているArtistプロフィールページのArtist会員である場合に追加ボタンを表示-->
     <% if artist_user_signed_in? && artist_user.id == current_artist_user.id %>
     <div class="text-white ml-5">
       <%= link_to "+ Itemを追加する", new_artist_artist_user_item_path(artist_user), class: "btn btn-green btn-primary px-4" %>
@@ -8,28 +10,35 @@
     <% end %>
   </div>
 
+  <!--Itemが存在するか判断-->
   <% if items.present? %>
+    <!--Item一覧-->
     <% items.each do |item| %>
     <div class="col-md-3 p-3">
       <div class="row text-white">
         <div class="item-box">
+          <!--Item画像の表示-->
           <div class="col-md-12 text-center">
             <%= image_tag item.item_image, class: "item-image-box" %>
           </div>
           <div class="mask">
             <div class="caption overflow-auto">
+              <!--Item名-->
               <div class="col-md-12 text-center mt-5">
                 <h4><%= item.name %></h4>
               </div>
+              <!--Item説明文-->
               <div class="col-md-12 text-center">
                 <%= simple_format item.introduction %>
               </div>
+              <!--Item価格-->
               <div class="col-md-12 text-center">
                 ¥<%= item.price.to_s(:delimited) %>
               </div>
             </div>
           </div>
         </div>
+        <!--ログインユーザーがArtist会員で、かつ、開いているArtistプロフィールページのArtist会員である場合に編集・削除ボタンを表示-->
         <% if artist_user_signed_in? && artist_user.id == current_artist_user.id %>
         <div class="col-md-12 text-right">
           <%= link_to "編集", edit_artist_artist_user_item_path(artist_user, item), class: "btn btn-follow btn-success px-4" %>
@@ -39,6 +48,7 @@
       </div>
     </div>
     <% end %>
+  <!--Itemが存在しない場合-->
   <% else %>
     <p class="text-white mt-3">表示できるItemsはありません。</p>
   <% end %>

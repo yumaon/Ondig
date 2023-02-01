@@ -1,49 +1,65 @@
+<!--Artist会員一覧ページのサイドバーの表示-->
 <div class="row mt-5 d-flex justify-content-center">
   <div class="col-md-8 current-user-box text-center py-3">
+    <!--ログインユーザーがArtist会員の場合-->
     <% if artist_user_signed_in? %>
       <div class="login-display-artist text-left">
         <span>● Artist会員</span>
       </div>
+      <!--プロフィール画像の表示-->
       <div>
         <%= image_tag artist_user.get_profile_image, class: "my-page-box-image" %>
       </div>
+      <!--Artistネームの表示-->
       <div class="text-white mt-3">
         <%= artist_user.artist_name %>
       </div>
+      <!--フォロー中のユーザー数の表示-->
       <div class="d-flex align-items-center justify-content-center follow-detail-display">
         <p class="mr-3">フォロー中</p>
+        <!--フォロー中のユーザー一覧画面へ遷移するリンクを設置-->
         <%= link_to artist_artist_user_followings_path(artist_user), class: "text-white" do %>
           <%= artist_user.artist_relationships.following_count %>
         <% end %>
       </div>
+      <!--フォロワーのユーザー数の表示-->
       <div class="d-flex align-items-center justify-content-center follow-detail-display">
         <p class="mr-3">フォロワー</p>
+        <!--フォロワー一覧画面へ遷移するリンクを設置-->
         <%= link_to artist_artist_user_followers_path(artist_user), class: "text-white" do %>
           <%= artist_user.artist_reverse_of_relationships.follower_count %>
         <% end %>
       </div>
+    <!--ログインユーザーが一般会員の場合の表示-->
     <% elsif public_user_signed_in? %>
       <div class="login-display-public text-left">
         <span>● 一般会員</span>
       </div>
+      <!--プロフィール画像の表示-->
       <div>
       <%= image_tag public_user.get_profile_image, class: "my-page-box-image" %>
       </div>
+      <!--ニックネームの表示-->
       <div class="text-white mt-3">
         <%= public_user.nickname %>
       </div>
+      <!--フォロー中のユーザー数の表示-->
       <div class="d-flex align-items-center justify-content-center follow-detail-display">
         <p class="mr-3">フォロー中</p>
+        <!--フォロー中のユーザー一覧画面へ遷移するリンクを設置-->
         <%= link_to public_public_user_followings_path(public_user), class: "text-white" do %>
           <%= public_user.public_relationships.following_count %>
         <% end %>
       </div>
+      <!--フォロワーのユーザー数の表示-->
       <div class="d-flex align-items-center justify-content-center follow-detail-display">
         <p class="mr-3">フォロワー</p>
+        <!--フォロワー一覧画面へ遷移するリンクを設置-->
         <%= link_to public_public_user_followers_path(public_user), class: "text-white" do %>
           <%= public_user.public_reverse_of_relationships.follower_count %>
         <% end %>
       </div>
+    <!--非ログイン時の表示-->
     <% else %>
       <div class="text-white">
         <p class="m-0">ログインしていません。</p>
@@ -51,6 +67,7 @@
     <% end %>
   </div>
 
+  <!--ジャンル一覧（ジャンル検索）-->
   <div class="col-md-8 genre-search-box text-center m-3">
     <div class="text-white mt-3 border-bottom">
       <p>Genres</p>
@@ -60,10 +77,12 @@
       <ul class="nav flex-column">
         <%= form_tag artist_artist_users_path, method: :get do %>
           <% genres.each do |genre| %>
+            <!--ログインユーザーがArtist会員の場合-->
             <% if artist_user_signed_in? %>
               <li class="nav-item text-white">
                 <%= link_to genre.name, artist_artist_users_path(name: genre.id), class: "text-white" %>
               </li>
+            <!--ログインユーザーが一般会員の場合-->
             <% else %>
               <li class="nav-item text-white">
                 <%= link_to genre.name, public_artist_users_path(name: genre.id), class: "text-white" %>

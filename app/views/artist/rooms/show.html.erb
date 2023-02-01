@@ -1,5 +1,6 @@
 <div class="container">
   <div class="row mt-3">
+    <!--マイページサイドバーの表示-->
     <div class="col-lg-3 d-flex">
       <%= render 'artist/artist_users/my_page', artist_user: @artist_user %>
     </div>
@@ -42,6 +43,7 @@
                   <% else %>
                     <div class="align-baseline pt-1"><%= image_tag message.artist_user.get_profile_image, class: "dm-box-image" %></div>
                   <% end %>
+                  <!--メッセージの本文の表示-->
                   <div class="text-white px-3 py-1 dm-content-box m-1">
                     <p><%= simple_format message.content %></p>
                   </div>
@@ -59,6 +61,7 @@
                   <% else %>
                     <div class="align-baseline pt-1"><%= image_tag message.public_user.get_profile_image, class: "dm-box-image" %></div>
                   <% end %>
+                  <!--メッセージ本文の表示-->
                   <div class="text-white px-3 py-1 dm-content-box m-1">
                     <p><%= simple_format message.content %></p>
                   </div>
@@ -70,6 +73,7 @@
               <!--ログインしているArtist会員のDMの返信内容を表示させるための記述-->
               <% else %>
                 <div class="justify-content-end d-flex flex-fill">
+                  <!--メッセージ本文の表示-->
                   <div class="text-white px-3 py-1 dm-content-box-sender m-1">
                     <p><%= simple_format message.content %></p>
                   </div>
