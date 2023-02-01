@@ -1,19 +1,23 @@
 <div class="container-fluid">
   <div class="row">
+    <!--ArtistProfileのプロフィール、ヘッダー、フォローボタン、メニューバーの表示-->
     <%= render 'artist/profiles/profile', artist_user: @artist_user %>
       <div class="row">
         <div class="col-lg-12 p-5">
           <h3 class="text-white">Topics</h3>
+          <!--Artistの投稿したTopicsが存在するか判断-->
           <% if @topics.present? %>
             <!--取得したアーティストのトピックス一覧を表示-->
             <%= render 'artist/topics/topic_list', topics: @topics %>
 
+            <!--ページネーションの表示-->
             <div class="col-md-12 d-flex justify-content-center mt-5">
               <div>
                 <%= paginate @topics %>
               </div>
             </div>
 
+          <!--Topicsが存在しない場合-->
           <% else %>
             <div class="row">
               <p class="text-white mt-3">このArtistの表示できるTopicsはありません。</p>
