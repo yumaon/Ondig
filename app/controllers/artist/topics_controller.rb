@@ -91,7 +91,7 @@ class Artist::TopicsController < ApplicationController
   end
 
   private
-
+  # ストロングパラメータ
   def topic_params
     params.require(:topic).permit(:artist_user_id, :body, :topic_image, :youtube_url)
   end

@@ -23,7 +23,7 @@ class Artist::GenresController < ApplicationController
   end
 
   private
-
+  # ストロングパラメータ
   def genre_params
     params.require(:genre).permit(:name)
   end

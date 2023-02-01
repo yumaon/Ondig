@@ -71,7 +71,7 @@ class Artist::ArtistUsersController < ApplicationController
   end
 
   private
-
+  # ストロングパラメータ
   def artist_user_params
     params.require(:artist_user).permit(:profile_image, :artist_name, :rep_name, :rep_name_kana, :activity_location, :email, :genre_id)
   end
