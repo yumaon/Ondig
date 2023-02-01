@@ -25,7 +25,7 @@ class Public::ArtistUsersController < ApplicationController
   end
 
   private
-
+  # ストロングパラメータ
   def artist_user_search_params
     params.fetch(:search, {}).permit(:artist_name, :genre_id, :activity_location)
   end

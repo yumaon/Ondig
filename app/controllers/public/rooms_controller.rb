@@ -1,4 +1,5 @@
 class Public::RoomsController < ApplicationController
+  # ダイレクトメッセージのやり取りするRoomの作成
   def create
     @room = Room.create
     @join1 = Join.create(:room_id => @room.id, :public_user_id => current_public_user.id)
@@ -6,6 +7,7 @@ class Public::RoomsController < ApplicationController
     redirect_to rooms_public_public_users_path(@room.id)
   end
 
+  # ダイレクトメッセージのやり取りしているRoonm一覧画面
   def index
     @public_user = PublicUser.find(params[:public_user_id])
     # 取得したArtist会員の参加しているroom.idをmy_room_idに格納
@@ -29,9 +31,9 @@ class Public::RoomsController < ApplicationController
       end
     end
     @another_joins = Join.where(id: another_join_id_box).order(created_at: :desc).page(params[:page]).per(8)
-
   end
 
+  # メッセージRoomの詳細画面
   def show
     @public_user = current_public_user
     @room = Room.find(params[:id])
@@ -40,7 +42,7 @@ class Public::RoomsController < ApplicationController
       @message = Message.new
       @joins = @room.joins
     else
-      redirect_back(fallback_location: root_path)
+      redirect_to public_public_user_rooms_path(@public_user)
     end
   end
 end
