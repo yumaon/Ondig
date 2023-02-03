@@ -74,38 +74,28 @@
         <% end %>
 
         <!--いいねボタンの表示(ArtistUser用)-->
-        <% if artist_user_signed_in? %>
-          <% if topic.artist_user_favorited_by?(current_artist_user) %>
-            <%= link_to artist_topic_favorites_path(topic), class: "text-white", method: :delete do %>
-              <i class="fas fa-heart"></i>
+        <div id="topic-favorite-<%= topic.id %>">
+          <% if artist_user_signed_in? %>
+            <% if topic.artist_user_favorited_by?(current_artist_user) %>
+              <%= render 'artist/favorites/favorites_unlike_button', topic: topic %>
+            <% else %>
+              <%= render 'artist/favorites/favorites_like_button', topic: topic %>
             <% end %>
-            <p class="text-white ml-2"><%= topic.favorites.count %></p>
-          <% else %>
-            <%= link_to artist_topic_favorites_path(topic), class: "text-white", method: :post do %>
-              <i class="far fa-heart"></i>
-            <% end %>
-            <p class="text-white ml-2"><%= topic.favorites.count %></p>
-          <% end %>
 
-        <!--いいねボタンの表示(PublicUser用)-->
-        <% elsif public_user_signed_in? %>
-          <% if topic.public_user_favorited_by?(current_public_user) %>
-            <%= link_to public_topic_favorites_path(topic), class: "text-white", method: :delete do %>
-              <i class="fas fa-heart"></i>
+          <!--いいねボタンの表示(PublicUser用)-->
+          <% elsif public_user_signed_in? %>
+            <% if topic.public_user_favorited_by?(current_public_user) %>
+              <%= render 'public/favorites/favorites_unlike_button', topic: topic %>
+            <% else %>
+              <%= render 'public/favorites/favorites_like_button', topic: topic %>
             <% end %>
-            <p class="text-white ml-2"><%= topic.favorites.count %></p>
-          <% else %>
-            <%= link_to public_topic_favorites_path(topic), class: "text-white", method: :post do %>
-              <i class="far fa-heart"></i>
-            <% end %>
-            <p class="text-white ml-2"><%= topic.favorites.count %></p>
-          <% end %>
 
-        <!--ログイン無しで、閲覧のみの場合-->
-        <% else %>
-          <span class="text-white"><i class="far fa-heart"></i></span>
-          <p class="text-white ml-2"><%= topic.favorites.count %></p>
-        <% end %>
+          <!--ログイン無しで、閲覧のみの場合-->
+          <% else %>
+            <span class="text-white"><i class="far fa-heart"></i></span>
+            <span class="text-white ml-2"><%= topic.favorites.count %></span>
+          <% end %>
+        </div>
         <div class="ml-5">
           <!--トピックスに紐づいているコメントの数を表示-->
           <p class="text-white"><i class="far fa-comment-dots"></i> <%= topic.topic_comments.comments_count %></p>

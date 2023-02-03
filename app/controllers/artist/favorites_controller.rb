@@ -1,4 +1,5 @@
 class Artist::FavoritesController < ApplicationController
+  before_action :set_variables, only:[:create, :destroy]
   # いいねしたトピックス一覧
   def index
     @artist_user = current_artist_user
@@ -11,7 +12,6 @@ class Artist::FavoritesController < ApplicationController
     topic = Topic.find(params[:topic_id])
     favorite = current_artist_user.favorites.new(topic_id: topic.id)
     favorite.save
-    redirect_to request.referer
   end
 
   # いいねを取り消すアクション
@@ -19,7 +19,12 @@ class Artist::FavoritesController < ApplicationController
     topic = Topic.find(params[:topic_id])
     favorite = current_artist_user.favorites.find_by(topic_id: topic.id)
     favorite.destroy
-    redirect_to request.referer
   end
 
+  private
+
+  def set_variables
+    @topic = Topic.find(params[:topic_id])
+    @id_name = "#topic-favorite-#{@topic.id}"
+  end
 end

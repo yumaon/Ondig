@@ -1,0 +1,4 @@
+<%= link_to public_topic_favorites_path(topic), class: "text-white", method: :post, remote: true do %>
+  <i class="far fa-heart"></i>
+<% end %>
+<span class="text-white ml-2"><%= topic.favorites.count %></span>
