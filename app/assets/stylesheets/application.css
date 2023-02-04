@@ -91,6 +91,7 @@ footer {
 
 /*Top画面、ログイン画面用CSS*/
 .main-visual {
+  background-image: url("main-visual-image.jpg");
   background-size: cover;
   background-position: bottom;
   width: auto;
