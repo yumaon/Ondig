@@ -67,7 +67,7 @@ footer {
   height: 400px;
   object-fit: cover;
   border-radius: 10px;
-  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+  box-shadow: 0px 4px 4px rgba(0,0,0,0.25);
   animation: fadeIn 5s cubic-bezier(0.33, 1, 0.68, 1) 1 forwards;
 }
 
@@ -76,7 +76,7 @@ footer {
   height: 400px;
   object-fit: cover;
   border-radius: 10px;
-  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+  box-shadow: 0px 4px 4px rgba(0,0,0,0.25);
   animation: fadeIn 5s cubic-bezier(0.33, 1, 0.68, 1) 1 forwards;
 }
 
@@ -113,8 +113,8 @@ footer {
 
 /*トップ画面 一般会員登録ボタン*/
 .top-public-sign-up-button {
-  background: linear-gradient(92.73deg, #79e2ad 2.31%, rgb(42 33 97 / 82%) 100%);
-  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+  background: linear-gradient(92.73deg, #79e2ad 2.31%, rgba(42,33,97,0.82) 100%);
+  box-shadow: 0px 4px 4px rgba(0,0,0,0.25);
   border-radius: 25px;
   border: none;
   font-weight: 700;
@@ -125,8 +125,8 @@ footer {
 
 /*トップ画面 Artist会員登録ボタン*/
 .top-artist-sign-up-button {
-  background: linear-gradient(92.73deg, #9e7ddb 2.31%, rgb(42 33 97 / 82%) 100%);
-  box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
+  background: linear-gradient(92.73deg, #9e7ddb 2.31%, rgba(42,33,97,0.82) 100%);
+  box-shadow: 0px 4px 4px rgba(0,0,0,0.25);
   border-radius: 25px;
   border: none;
   font-weight: 700;
@@ -146,7 +146,7 @@ footer {
   margin: 0 auto;
   position: relative;
   top: 100px;
-  background: rgba(0 0 0 / 30%);
+  background: rgba(0,0,0,0.30);
   border-radius: 10px;
   backdrop-filter: blur(10px);
 }
@@ -223,7 +223,7 @@ footer {
 	top: 0;
 	left:	0;
 	opacity: 0;
-	background-color:	rgba(0 0 0 / 50%);
+	background-color:	rgba(0,0,0,0.50);
 	-webkit-transition:	all 0.6s ease;
 	transition:		all 0.6s ease;
 }
@@ -323,7 +323,7 @@ footer {
 /*followボタンCSS*/
 
 .btn-follow {
-  background: linear-gradient(92.73deg, #8779E2 2.31%, rgb(42 33 97 / 25%) 100%);
+  background: linear-gradient(92.73deg, #8779E2 2.31%, rgba(42,33,97,0.25) 100%);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   border: none;
@@ -339,7 +339,7 @@ footer {
 /*RED ボタンCSS*/
 
 .btn-red {
-  background: linear-gradient(92.73deg, #E279A5 2.31%, rgb(83 21 16 / 46%) 100%);
+  background: linear-gradient(92.73deg, #E279A5 2.31%, rgba(83,21,16,0.46) 100%);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   border: none;
@@ -512,7 +512,7 @@ footer {
 }
 
 .btn-green {
-  background: linear-gradient(92.73deg, #79e2ad 2.31%, rgb(42 33 97 / 25%) 100%);
+  background: linear-gradient(92.73deg, #79e2ad 2.31%, rgba(42,33,97,0.25) 100%);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   border: none;
@@ -544,7 +544,7 @@ footer {
   margin: 0 auto;
   position: relative;
   top: 100px;
-  background: rgba(0 0 0 / 30%);
+  background: rgba(0,0,0,0.30);
   border-radius: 10px;
   backdrop-filter: blur(10px);
 }
