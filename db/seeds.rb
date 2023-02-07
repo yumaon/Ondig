@@ -172,33 +172,33 @@ Favorite.create!(
   ]
 )
 
-Relationship.create!(
-  [
-    {artist_follower_id: artist_users[0].id, artist_followed_id: artist_users[1].id},
-    {artist_follower_id: artist_users[0].id, public_followed_id: public_users[0].id},
-    {artist_follower_id: artist_users[1].id, artist_followed_id: artist_users[0].id},
-    {artist_follower_id: artist_users[1].id, artist_followed_id: artist_users[2].id},
-    {artist_follower_id: artist_users[2].id, artist_followed_id: artist_users[1].id},
-    {artist_follower_id: artist_users[2].id, artist_followed_id: artist_users[0].id},
-    {public_follower_id: public_users[0].id, artist_followed_id: artist_users[0].id},
-    {public_follower_id: public_users[0].id, artist_followed_id: artist_users[1].id},
-    {public_follower_id: public_users[0].id, artist_followed_id: artist_users[2].id},
-    {public_follower_id: public_users[0].id, public_followed_id: public_users[1].id},
-    {public_follower_id: public_users[1].id, artist_followed_id: artist_users[0].id},
-    {public_follower_id: public_users[1].id, artist_followed_id: artist_users[2].id},
-    {public_follower_id: public_users[1].id, public_followed_id: public_users[2].id},
-    {public_follower_id: public_users[2].id, artist_followed_id: artist_users[0].id},
-    {public_follower_id: public_users[2].id, artist_followed_id: artist_users[1].id},
-    {artist_follower_id: artist_users[5].id, artist_followed_id: artist_users[7].id},
-    {artist_follower_id: artist_users[7].id, artist_followed_id: artist_users[5].id},
-    {artist_follower_id: artist_users[3].id, artist_followed_id: artist_users[7].id},
-    {artist_follower_id: artist_users[7].id, artist_followed_id: artist_users[3].id},
-    {artist_follower_id: artist_users[4].id, artist_followed_id: artist_users[8].id},
-    {artist_follower_id: artist_users[8].id, artist_followed_id: artist_users[4].id},
-    {artist_follower_id: artist_users[6].id, artist_followed_id: artist_users[1].id},
-    {artist_follower_id: artist_users[1].id, artist_followed_id: artist_users[6].id}
-  ]
-)
+# Relationship.create!(
+#   [
+#     {artist_follower_id: artist_users[0].id, artist_followed_id: artist_users[1].id},
+#     {artist_follower_id: artist_users[0].id, public_followed_id: public_users[0].id},
+#     {artist_follower_id: artist_users[1].id, artist_followed_id: artist_users[0].id},
+#     {artist_follower_id: artist_users[1].id, artist_followed_id: artist_users[2].id},
+#     {artist_follower_id: artist_users[2].id, artist_followed_id: artist_users[1].id},
+#     {artist_follower_id: artist_users[2].id, artist_followed_id: artist_users[0].id},
+#     {public_follower_id: public_users[0].id, artist_followed_id: artist_users[0].id},
+#     {public_follower_id: public_users[0].id, artist_followed_id: artist_users[1].id},
+#     {public_follower_id: public_users[0].id, artist_followed_id: artist_users[2].id},
+#     {public_follower_id: public_users[0].id, public_followed_id: public_users[1].id},
+#     {public_follower_id: public_users[1].id, artist_followed_id: artist_users[0].id},
+#     {public_follower_id: public_users[1].id, artist_followed_id: artist_users[2].id},
+#     {public_follower_id: public_users[1].id, public_followed_id: public_users[2].id},
+#     {public_follower_id: public_users[2].id, artist_followed_id: artist_users[0].id},
+#     {public_follower_id: public_users[2].id, artist_followed_id: artist_users[1].id},
+#     {artist_follower_id: artist_users[5].id, artist_followed_id: artist_users[7].id},
+#     {artist_follower_id: artist_users[7].id, artist_followed_id: artist_users[5].id},
+#     {artist_follower_id: artist_users[3].id, artist_followed_id: artist_users[7].id},
+#     {artist_follower_id: artist_users[7].id, artist_followed_id: artist_users[3].id},
+#     {artist_follower_id: artist_users[4].id, artist_followed_id: artist_users[8].id},
+#     {artist_follower_id: artist_users[8].id, artist_followed_id: artist_users[4].id},
+#     {artist_follower_id: artist_users[6].id, artist_followed_id: artist_users[1].id},
+#     {artist_follower_id: artist_users[1].id, artist_followed_id: artist_users[6].id}
+#   ]
+# )
 
 rooms = Room.create!(
   [
