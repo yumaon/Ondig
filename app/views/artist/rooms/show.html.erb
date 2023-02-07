@@ -39,7 +39,7 @@
                 <div class="justify-content-start d-flex flex-fill">
                   <% if message.artist_user.is_deleted == true %>
                     <!--DMの送り主のArtist会員が退会していた場合のプロフィール画像の表示-->
-                    <div class="align-baseline pt-1"><%= image_tag 'assets/images/profile_no_image', class: "dm-box-image" %></div>
+                    <div class="align-baseline pt-1"><%= image_tag 'profile_no_image.png', class: "dm-box-image" %></div>
                   <% else %>
                     <div class="align-baseline pt-1"><%= image_tag message.artist_user.get_profile_image, class: "dm-box-image" %></div>
                   <% end %>
@@ -57,7 +57,7 @@
                 <div class="justify-content-start d-flex flex-fill">
                   <% if message.public_user.is_deleted == true %>
                     <!--DMの送り主のPublic会員が退会していた場合のプロフィール画像の表示-->
-                    <div class="align-baseline pt-1"><%= image_tag 'assets/images/profile_no_image', class: "dm-box-image" %></div>
+                    <div class="align-baseline pt-1"><%= image_tag 'profile_no_image.png', class: "dm-box-image" %></div>
                   <% else %>
                     <div class="align-baseline pt-1"><%= image_tag message.public_user.get_profile_image, class: "dm-box-image" %></div>
                   <% end %>
