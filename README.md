@@ -20,6 +20,10 @@
 ## 実装機能リスト
 https://docs.google.com/spreadsheets/d/14_oH0J4JTG9exNqohmmHTVQzUNxpaWPRG-0qOI8bdng/edit?usp=sharing
 
+## Ondig image
+![ondig_top_image](https://user-images.githubusercontent.com/110388364/217407762-a1fb87fe-1158-4e74-adff-5b1e76e3c8ae.png)
+![ondig_about_image](https://user-images.githubusercontent.com/110388364/217408063-b04efc52-7d1b-46fc-92a7-d285238c9a88.png)
+
 ## 設計書
 ### ER図
 https://app.diagrams.net/#G1bYUbngNEx358IJVPPf9iya4RiwjQzvUo
