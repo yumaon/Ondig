@@ -21,7 +21,19 @@
 https://docs.google.com/spreadsheets/d/14_oH0J4JTG9exNqohmmHTVQzUNxpaWPRG-0qOI8bdng/edit?usp=sharing
 
 ## 設計書
-<...>
+### ER図
+https://app.diagrams.net/#G1bYUbngNEx358IJVPPf9iya4RiwjQzvUo
+### テーブル定義書
+https://docs.google.com/spreadsheets/d/18vLVgTOW25q6B1KqNCxNHuCbPDSb6B2di3pVywPq908/edit#gid=1105383735
+### アプリケーション詳細設計
+https://docs.google.com/spreadsheets/d/1TyPOPNg1Z_v5awVBtQUDeJU1jH5hTG88HCdYeZpgm8s/edit?usp=sharing
+### UI flows
+https://www.figma.com/file/ji3ZblH8c0IXn7sVJSoDLV/Ondig_uiflows_public?node-id=0%3A1&t=HzTpyuQbBnUWI5AB-1
+https://www.figma.com/file/OeIBYcdWNzuAlv4Q3XZ1yS/Ondig_uiflows_artist?node-id=0%3A1&t=78FEUctrE0CTGsdd-1
+https://www.figma.com/file/D7uVnDThZ4ZgQLPpoFeDaR/Ondig_uiflows_admin?node-id=0%3A1&t=izQgHv3ClhzIuDKC-1
+### Wire frame
+https://www.figma.com/file/DsTT4m1D0VFo88vVOfSd1x/Ondig-Wireframe()?node-id=248%3A623&t=h2IbbktiivSIt82C-1
+
 
 ## 開発環境
 - OS：Linux(CentOS)
@@ -31,5 +43,5 @@ https://docs.google.com/spreadsheets/d/14_oH0J4JTG9exNqohmmHTVQzUNxpaWPRG-0qOI8b
 - IDE：Cloud9
 
 ## 使用素材
-- 外部サービスの画像素材・音声素材を使用した場合は、必ずサービス名とURLを明記してください。
-- 使用しない場合は、使用素材の項目をREADMEから削除してください。
+- フリー画像
+- https://unsplash.com/ja
