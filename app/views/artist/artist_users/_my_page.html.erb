@@ -31,7 +31,9 @@
         <p class="mr-3">フォロー中</p>
         <!--フォロー中のユーザー一覧画面へ遷移するリンクを設置-->
         <%= link_to artist_artist_user_followings_path(artist_user), class: "text-white" do %>
-          <%= artist_user.artist_relationships.following_count %>
+          <div id="my-following-<%= current_artist_user.id %>">
+            <%= artist_user.artist_relationships.following_count %>
+          </div>
         <% end %>
       </div>
       <!--フォロワーのユーザー数の表示-->
@@ -81,7 +83,9 @@
         <p class="mr-3">フォロー中</p>
         <!--フォロー中のユーザー一覧画面へ遷移するリンクを設置-->
         <%= link_to public_public_user_followings_path(public_user), class: "text-white" do %>
-          <%= public_user.public_relationships.following_count %>
+          <div id="my-following-<%= current_public_user.id %>">
+            <%= public_user.public_relationships.following_count %>
+          </div>
         <% end %>
       </div>
       <!--フォロワーのユーザー数の表示-->

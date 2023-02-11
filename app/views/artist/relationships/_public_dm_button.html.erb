@@ -1,0 +1,15 @@
+<!--対処をフォローしているかどうかを判断-->
+<% if current_artist_user.public_following?(public_user) %>
+  <!--対象とのDMを送り合うRoomが存在する場合は、そのページへ遷移するボタンを設置-->
+  <% if isRoom == true %>
+    <%= link_to "Messageを送る", rooms_artist_artist_users_path(roomId), class: "btn btn-green btn-primary" %>
+  <% else %>
+    <!--Roomが存在しない場合は新しく作成する-->
+    <%= form_with model: room, url: rooms_create_artist_artist_users_path do |f| %>
+      <%= fields_for Join.new do |j| %>
+        <%= j.hidden_field :public_user_id, value: public_user.id %>
+      <% end %>
+      <%= f.submit "Messageを送る", class: "btn btn-green btn-primary" %>
+    <% end %>
+  <% end %>
+<% end %>

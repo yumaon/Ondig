@@ -1,0 +1,4 @@
+$("<%= @id_name %>").html('<%= escape_javascript(render("public/relationships/public_follow_button", public_user: @public )) %>');
+$("#follower-count-p-<%= @public.id %>").html('<p>Follower：<%= @public.public_reverse_of_relationships.follower_count %></p>');
+$("#my-following-<%= current_public_user.id %>").html('<%= current_public_user.public_relationships.following_count %>');
+$("#dm-button").html('<%= escape_javascript(render("public/relationships/public_dm_button", public_user: @public_user, isRoom: @isRoom, roomId: @roomId, room: @room, join: @join)) %>');

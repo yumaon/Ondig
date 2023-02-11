@@ -20,31 +20,17 @@
             <% end %>
           </div>
         </div>
-        <div class="mt-3">
+        <div class="mt-4" id="follow-ajax-p-<%= @public_user.id %>">
           <!--Artist会員がログインしていて、対象をフォローしているかどうかを判断-->
           <% if artist_user_signed_in? && current_artist_user.public_following?(@public_user) %>
-            <%= link_to "- Unfollow", artist_public_user_relationships_path(@public_user.id), method: :delete, class: "btn btn-danger btn-red" %>
+            <%= render 'artist/relationships/public_unfollow_button', public_user: @public_user %>
           <% else %>
-            <%= link_to "+ Follow", artist_public_user_relationships_path(@public_user.id), method: :post, class: "btn btn-success btn-follow" %>
+            <%= render 'artist/relationships/public_follow_button', public_user: @public_user %>
           <% end %>
         </div>
 
-        <div class="mt-3">
-          <!--対処をフォローしているかどうかを判断-->
-          <% if current_artist_user.public_following?(@public_user) %>
-            <!--対象とのDMを送り合うRoomが存在する場合は、そのページへ遷移するボタンを設置-->
-            <% if @isRoom == true %>
-              <%= link_to "Messageを送る", rooms_artist_artist_users_path(@roomId), class: "btn btn-green btn-primary" %>
-            <% else %>
-              <!--Roomが存在しない場合は新しく作成する-->
-              <%= form_with model: @room, url: rooms_create_artist_artist_users_path do |f| %>
-                <%= fields_for @join do |j| %>
-                  <%= j.hidden_field :public_user_id, value: @public_user.id %>
-                <% end %>
-                <%= f.submit "Messageを送る", class: "btn btn-green btn-primary" %>
-              <% end %>
-            <% end %>
-          <% end %>
+        <div class="mt-3" id="dm-button">
+          <%= render 'artist/relationships/public_dm_button', public_user: @public_user, isRoom: @isRoom, roomId: @roomId, room: @room, join: @join %>
         </div>
       </div>
     </div>

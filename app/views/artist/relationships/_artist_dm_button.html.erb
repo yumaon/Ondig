@@ -1,0 +1,35 @@
+<!--取得したArtist会員のIDが、ログイン中のArtist会員のIDと一致しない場合-->
+<% if artist_user_signed_in? && artist_user.id != current_artist_user.id %>
+  <!--対象をフォローしているかどうかを判断-->
+  <% if current_artist_user.artist_following?(artist_user) %>
+    <!--取得したArtistとのDMのやり取りをするRoomが存在する場合は、そのページへ遷移するボタンを設置-->
+    <% if isRoom == true %>
+      <%= link_to "Messageを送る", rooms_artist_artist_users_path(roomId), class: "btn btn-green btn-primary mt-3" %>
+    <% else %>
+      <!--Roomが存在しない場合は、新しくRoomを作成する-->
+      <%= form_with model: room, url: rooms_create_artist_artist_users_path do |f| %>
+        <%= fields_for join do |j| %>
+          <%= j.hidden_field :artist_user_id, value: artist_user.id %>
+        <% end %>
+        <%= f.submit "Messageを送る", class: "btn btn-primary btn-green mt-3" %>
+      <% end %>
+    <% end %>
+  <% end %>
+<!--ログインしているユーザーが一般会員の場合の表示-->
+<% elsif public_user_signed_in? %>
+  <!--対象をフォローしているかどうかを判断-->
+  <% if current_public_user.artist_following?(artist_user) %>
+    <!--取得したArtistとのDMのやり取りをするRoomが存在する場合は、そのページへ遷移するボタンを設置-->
+    <% if isRoom == true %>
+      <%= link_to "Messageを送る", rooms_public_public_users_path(roomId), class: "btn btn-green btn-primary mt-3" %>
+    <% else %>
+      <!--Roomが存在しない場合は、新しくRoomを作成する-->
+      <%= form_with model: room, url: rooms_create_public_public_users_path do |f| %>
+        <%= fields_for Join.new do |j| %>
+          <%= j.hidden_field :artist_user_id, value: artist_user.id %>
+        <% end %>
+        <%= f.submit "Messageを送る", class: "btn btn-green btn-primary mt-3" %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

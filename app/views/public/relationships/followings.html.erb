@@ -45,7 +45,7 @@
                       <!--拠点エリアの表示-->
                       <span class="text-white"><%= following.artist_followed.activity_location_i18n %></span>
                       <!--フォロワーの表示-->
-                      <div class="follow-detail-display">
+                      <div class="follow-detail-display" id="follower-count-a-<%= following.artist_followed.id %>">
                         <p>Follower：<%= following.artist_followed.artist_reverse_of_relationships.follower_count %></p>
                       </div>
                     </div>
@@ -61,12 +61,12 @@
                       </div>
                     </div>
                     <!--フォローボタンの表示-->
-                    <div class="col-md-12 text-center mt-3">
+                    <div class="col-md-12 text-center mt-3" id="follow-ajax-a-<%= following.artist_followed.id %>">
                       <!--フォローをしているかの判断-->
                       <% if current_public_user.artist_following?(following.artist_followed) %>
-                        <%= link_to "- Unfollow", public_artist_user_relationships_path(following.artist_followed.id), method: :delete, class: "btn btn-red btn-danger btn-lg" %>
+                        <%= render 'public/relationships/artist_unfollow_button', artist: following.artist_followed %>
                       <% else %>
-                        <%= link_to "+ Follow", public_artist_user_relationships_path(following.artist_followed.id), method: :post, class: "btn btn-follow btn-success btn-lg" %>
+                        <%= render 'public/relationships/artist_follow_button', artist: following.artist_followed %>
                       <% end %>
                     </div>
                   </div>
@@ -92,7 +92,7 @@
                       <% end %>
                     </div>
                     <!--フォロワーの表示-->
-                    <div class="follow-detail-display text-center">
+                    <div class="follow-detail-display text-center" id="follower-count-p-<%= following.public_followed.id %>">
                       <p>Follower：<%= following.public_followed.public_reverse_of_relationships.follower_count %></p>
                     </div>
                     <div class="col-md-12 text-center">
@@ -110,12 +110,12 @@
                       </div>
                     </div>
                     <!--フォローボタンの表示-->
-                    <div class="col-md-12 text-center mt-3">
+                    <div class="col-md-12 text-center mt-3" id="follow-ajax-p-<%= following.public_followed.id %>">
                       <!--フォローをしているか判断-->
                       <% if current_public_user.public_following?(following.public_followed) %>
-                        <%= link_to "- Unfollow", public_public_user_relationships_path(following.public_followed.id), method: :delete, class: "btn btn-red btn-danger btn-lg" %>
+                        <%= render 'public/relationships/public_unfollow_button', public_user: following.public_followed %>
                       <% else %>
-                        <%= link_to "+ Follow", public_public_user_relationships_path(following.public_followed.id), method: :post, class: "btn btn-follow btn-success btn-lg" %>
+                        <%= render 'public/relationships/public_follow_button', public_user: following.public_followed %>
                       <% end %>
                     </div>
                   </div>

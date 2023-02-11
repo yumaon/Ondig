@@ -1,0 +1,4 @@
+$("<%= @id_name %>").html('<%= escape_javascript(render("artist/relationships/artist_follow_button", artist: @artist  )) %>');
+$("#follower-count-a-<%= @artist.id %>").html('<p>Follower：<%= @artist.artist_reverse_of_relationships.follower_count %></p>');
+$("#my-following-<%= current_artist_user.id %>").html('<%= current_artist_user.artist_relationships.following_count %>');
+$("#dm-button").html('<%= escape_javascript(render("artist/relationships/artist_dm_button", artist_user: @artist_user, isRoom: @isRoom, roomId: @roomId, room: @room, join: @join)) %>');
