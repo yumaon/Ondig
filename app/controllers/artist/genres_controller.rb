@@ -1,4 +1,5 @@
 class Artist::GenresController < ApplicationController
+  before_action :authenticate_artist_user!
   # ジャンル一覧・新規作成画面
   def index
     @artist_user = current_artist_user

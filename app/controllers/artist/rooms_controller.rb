@@ -1,4 +1,5 @@
 class Artist::RoomsController < ApplicationController
+  before_action :authenticate_artist_user!
   # ダイレクトメッセージのやり取りするRoomの作成
   def create
     @room = Room.create

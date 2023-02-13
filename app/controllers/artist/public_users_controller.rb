@@ -1,4 +1,5 @@
 class Artist::PublicUsersController < ApplicationController
+  before_action :authenticate_artist_user!
   # Artist会員から見る一般会員詳細画面
   def show
     @public_user = PublicUser.find(params[:id])

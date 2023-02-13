@@ -1,4 +1,5 @@
 class Artist::ItemsController < ApplicationController
+  before_action :authenticate_artist_user!
   # Item新規登録画面
   def new
     @item = Item.new

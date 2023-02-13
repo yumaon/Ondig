@@ -1,4 +1,5 @@
 class Artist::TopicCommentsController < ApplicationController
+  before_action :authenticate_artist_user!
   # トピックスコメント作成
   def create
     topic = Topic.find(params[:topic_id])

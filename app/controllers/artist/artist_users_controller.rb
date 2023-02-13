@@ -1,4 +1,5 @@
 class Artist::ArtistUsersController < ApplicationController
+  before_action :authenticate_artist_user!
   # Artist一覧画面
   def index
     @genres = Genre.all

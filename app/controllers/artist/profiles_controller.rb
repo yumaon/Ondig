@@ -1,4 +1,5 @@
 class Artist::ProfilesController < ApplicationController
+  before_action :authenticate_artist_user!
   # アーティストプロフィール詳細画面
   def show
     @artist_user = ArtistUser.find(params[:id])

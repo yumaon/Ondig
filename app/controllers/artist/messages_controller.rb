@@ -1,4 +1,5 @@
 class Artist::MessagesController < ApplicationController
+  before_action :authenticate_artist_user!
   # ダイレクトメッセージ送信
   def create
     if Join.where(artist_user_id: current_artist_user.id, room_id: params[:message][:room_id]).present?

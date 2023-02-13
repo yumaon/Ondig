@@ -1,4 +1,5 @@
 class Artist::TopicsController < ApplicationController
+  before_action :authenticate_artist_user!
   # トピックス新規投稿画面
   def new
     @topic =Topic.new

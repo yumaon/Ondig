@@ -1,4 +1,5 @@
 class Artist::LiveSchedulesController < ApplicationController
+  before_action :authenticate_artist_user!
   # Live Schedule一覧画面
   def index
     @artist_user = ArtistUser.find(params[:artist_user_id])
