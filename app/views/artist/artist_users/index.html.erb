@@ -5,9 +5,23 @@
       <%= render 'index_page_sidebar', artist_user: @artist_user, genres: @genres %>
     </div>
 
-    <!--Artist一覧の表示-->
     <div class="col-lg-9 mt-3">
+      <div class="mt-3">
+        <h3 class="text-white">Artists <span class="h5">(<%= @artist_users.active.total_count %> 件)</span></h3>
+      </div>
+
+      <!--検索フォームの設置-->
+      <%= render 'artist_search_form' %>
+
+      <!--Artist一覧の表示-->
       <%= render 'artists_list', artist_users: @artist_users %>
+
+      <!--ページネーションの表示-->
+      <div class="col-md-10 d-flex justify-content-center mt-5">
+        <div>
+          <%= paginate @artist_users %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
