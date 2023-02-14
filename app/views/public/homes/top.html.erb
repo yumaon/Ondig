@@ -55,21 +55,31 @@
 
   <div class="row mt-5">
     <div class="col-md-6 text-center mx-auto">
+      <h4 class="text-white border-bottom">Popular Topics</h4>
+    </div>
+
+    <!--いいね数の多いトピックス一覧の表示（3件）-->
+    <div class="col-md-12 mt-2">
+      <%= render 'artist/topics/topic_list', topics: @popular_topics %>
+    </div>
+
+    <div class="col-md-6 text-center mx-auto mt-3">
       <h4 class="text-white border-bottom">New Topics</h4>
-      <div class="text-right">
-        <!--ログイン中のユーザーがArtist会員の場合-->
-        <% if artist_user_signed_in? %>
-          <%= link_to "Topics一覧へ", artist_topics_path, class: "text-white border-bottom" %>
-        <!--ログイン中のユーザーが一般会員、または非ログイン時の場合-->
-        <% else %>
-          <%= link_to "Topics一覧へ", public_topics_path, class: "text-white border-bottom" %>
-        <% end %>
-      </div>
     </div>
 
     <!--トピックス一覧の表示（最新3件）-->
     <div class="col-md-12 mt-2">
       <%= render 'artist/topics/topic_list', topics: @topics %>
+    </div>
+
+    <div class="col-md-12 text-center mt-3">
+      <!--ログインユーザーがArtist会員の場合-->
+      <% if artist_user_signed_in? %>
+        <%= link_to "Topics一覧ページへ", artist_topics_path, class: "btn btn-green btn-info px-5" %>
+      <!--ログインユーザーが一般会員、または、非ログイン時の場合-->
+      <% else %>
+        <%= link_to "Topics一覧ページへ", public_topics_path, class: "btn btn-green btn-info px-5" %>
+      <% end %>
     </div>
   </div>
 </div>
