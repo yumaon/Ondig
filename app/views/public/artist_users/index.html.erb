@@ -14,7 +14,13 @@
       <%= render 'artist/artist_users/artist_search_form' %>
 
       <!--Artist一覧の表示-->
-      <%= render 'artist/artist_users/artists_list', artist_users: @artist_users, keyword: @keyword %>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <%= render 'artist/artist_users/artists_list', artist_users: @artist_users, keyword: @keyword %>
+          </div>
+        </div>
+      </div>
 
       <!--ページネーションの表示-->
       <div class="col-md-10 d-flex justify-content-center mt-5">

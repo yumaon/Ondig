@@ -21,103 +21,39 @@
 
   <div class="row">
     <div class="col-md-6 text-center mx-auto">
-      <h4 class="text-white border-bottom text-center">New Artists</h4>
-      <div class="text-right">
-        <!--ログインユーザーがArtist会員の場合-->
-        <% if artist_user_signed_in? %>
-          <%= link_to "Artist一覧へ", artist_artist_users_path, class: "text-white border-bottom" %>
-        <!--ログインユーザーが一般会員、または、非ログイン時の場合-->
-        <% else %>
-          <%= link_to "Artist一覧へ", public_artist_users_path, class: "text-white border-bottom" %>
-        <% end %>
+      <h4 class="text-white border-bottom text-center">Popular Artists</h4>
+    </div>
+
+    <div class="col-md-12">
+      <!--取得したfollowerの多いArtistを表示（３件）-->
+      <div class="row d-flex justify-content-center mt-2">
+        <%= render 'artist/artist_users/artists_list', artist_users: @popular_artist_users %>
       </div>
+    </div>
+
+    <div class="col-md-6 text-center mx-auto mt-3">
+      <h4 class="text-white border-bottom text-center">New Artists</h4>
     </div>
 
     <div class="col-md-12">
       <!--取得したArtistを表示（最新３件）-->
       <div class="row d-flex justify-content-center mt-2">
-        <% @artist_users.each do |artist| %>
-          <div class="col-md-3 m-3 mini-profile-box">
-              <div class="row">
-                <!--ヘッダー画像-->
-                <div class="col-md-12 mini-profile-header-box">
-                  <%= image_tag artist.get_header_image, class: "mini-profile-header" %>
-                </div>
-                <!--プロフィール画像-->
-                <div class="col-md-12 text-center">
-                  <div class=""><%= image_tag artist.get_profile_image, class: "mini-profile-box-image rounded-circle"; %></div>
-                </div>
-                <!--Artistプロフィール画面へ遷移するリンクをArtist名に設置-->
-                <div class="mini-profile-detail col-md-12">
-                  <!--ログインユーザーがArtist会員の場合-->
-                  <% if artist_user_signed_in? %>
-                    <div class="col-md-12 text-center">
-                      <%= link_to profile_artist_artist_user_path(artist.id) , class: "text-white" do %>
-                        <%= artist.artist_name %>
-                      <% end %>
-                    </div>
-                  <!--ログインユーザーが一般会員、または、非ログイン時の場合-->
-                  <% else %>
-                    <div class="col-md-12 text-center">
-                      <%= link_to profile_public_artist_user_path(artist.id) , class: "text-white" do %>
-                        <%= artist.artist_name %>
-                      <% end %>
-                    </div>
-                  <% end %>
-                  <div class="col-md-12 text-center">
-                    <!--登録ジャンルが存在するかの判断-->
-                    <% if artist.genre.present? %>
-                      <span class="text-white">Genre: <%= artist.genre.name %></span><br>
-                    <% else %>
-                      <span class="text-white">Genre: 未設定</span><br>
-                    <% end %>
-                    <!--活動エリアの表示-->
-                    <span class="text-white"><%= artist.activity_location_i18n %></span>
-                    <!--フォロワーの表示-->
-                    <div class="follow-detail-display" id="follower-count-a-<%= artist.id %>">
-                      <p>Follower：<%= artist.artist_reverse_of_relationships.follower_count %></p>
-                    </div>
-                  </div>
-                  <!--自己紹介文の表示-->
-                  <div class="introduction-box">
-                    <div class="col-md-12 text-white introduction-box-detail">
-                      <!--自己紹介文が存在するかの判断-->
-                      <% if artist.introduction.present? %>
-                        <p><%= simple_format artist.introduction %></p>
-                      <% else %>
-                        <p class="m-3 text-center">自己紹介文は登録されてません.</p>
-                      <% end %>
-                    </div>
-                  </div>
-                  <!--ログイン中のユーザーがArtist会員で、かつ、表示されているArtist本人ではない場合にフォローボタンを表示する。-->
-                  <% if artist_user_signed_in? && current_artist_user.id != artist.id %>
-                    <div class="col-md-12 text-center mt-3" id="follow-ajax-a-<%= artist.id %>">
-                      <!--フォローをしているかの判断-->
-                      <% if current_artist_user.artist_following?(artist) %>
-                        <%= render 'artist/relationships/artist_unfollow_button', artist: artist %>
-                      <% else %>
-                        <%= render 'artist/relationships/artist_follow_button', artist: artist %>
-                      <% end %>
-                    </div>
-                  <!--ログインユーザーが一般会員の場合のフォローボタンの表示-->
-                  <% elsif public_user_signed_in? %>
-                    <div class="col-md-12 text-center mt-3" id="follow-ajax-a-<%= artist.id %>">
-                      <% if current_public_user.artist_following?(artist) %>
-                        <%= render 'public/relationships/artist_unfollow_button', artist: artist %>
-                      <% else %>
-                        <%= render 'public/relationships/artist_follow_button', artist: artist %>
-                      <% end %>
-                    </div>
-                  <% end %>
-                </div>
-              </div>
-           </div>
-        <% end %>
+        <%= render 'artist/artist_users/artists_list', artist_users: @artist_users %>
       </div>
+    </div>
+
+    <div class="col-md-12 text-center mt-3">
+      <!--ログインユーザーがArtist会員の場合-->
+      <% if artist_user_signed_in? %>
+        <%= link_to "Artist一覧ページへ", artist_artist_users_path, class: "btn btn-green btn-info px-5" %>
+      <!--ログインユーザーが一般会員、または、非ログイン時の場合-->
+      <% else %>
+        <%= link_to "Artist一覧ページへ", public_artist_users_path, class: "btn btn-green btn-info px-5" %>
+      <% end %>
     </div>
   </div>
 
-  <div class="row mt-3">
+  <div class="row mt-5">
     <div class="col-md-6 text-center mx-auto">
       <h4 class="text-white border-bottom">New Topics</h4>
       <div class="text-right">
