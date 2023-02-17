@@ -42,6 +42,10 @@ class Artist::TopicsController < ApplicationController
   def edit
     @topic = Topic.find(params[:id])
     @tag_list = @topic.tags.pluck(:name).join('　')
+    # 他人の投稿したトピックスの編集画面に遷移させない
+    if @topic.artist_user_id != current_artist_user.id
+      redirect_to artist_topics_path
+    end
   end
 
   # トピックス情報更新
