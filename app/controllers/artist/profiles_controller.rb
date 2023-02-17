@@ -33,6 +33,10 @@ class Artist::ProfilesController < ApplicationController
   # Artistプロフィール（Artist情報）編集画面
   def edit
     @artist_user = ArtistUser.find(params[:id])
+    # URLにid直打ちで他者のプロフィール編集画面に遷移させないよう記述
+    if @artist_user != current_artist_user
+      redirect_to profile_edit_artist_artist_user_path(current_artist_user.id)
+    end
   end
 
   # Artistプロフィール情報（Artist情報）更新
