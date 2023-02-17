@@ -48,6 +48,11 @@ class Artist::LiveSchedulesController < ApplicationController
   # Live Schedule情報編集
   def edit
     @live_schedule = LiveSchedule.find(params[:id])
+
+    # 他者のLiveSchedule編集画面へ遷移させない
+    if @live_schedule.artist_user != current_artist_user
+      redirect_to artist_artist_user_live_schedules_path(current_artist_user)
+    end
   end
 
   # Live Schedule情報更新
