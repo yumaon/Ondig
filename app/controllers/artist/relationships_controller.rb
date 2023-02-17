@@ -75,6 +75,11 @@ class Artist::RelationshipsController < ApplicationController
 
     # 取得したArtist会員のフォロー中の退会していないユーザーを取得
     @followings = @artist_user.active_followings.order(created_at: :desc).page(params[:page]).per(9)
+
+    # URLにid直打ちで他人のフォロー中一覧画面に遷移させないよう記述
+    if @artist_user != current_artist_user
+      redirect_to artist_artist_user_followings_path(current_artist_user)
+    end
   end
 
   # follower一覧
@@ -83,6 +88,11 @@ class Artist::RelationshipsController < ApplicationController
 
     # 取得したArtist会員のフォロワーの退会していないユーザーを取得
     @followers = @artist_user.active_followers.order(created_at: :desc).page(params[:page]).per(9)
+
+    # URLにid直打ちで他人のフォロワー一覧画面へ遷移させないよう記述
+    if @artist_user != current_artist_user
+      redirect_to artist_artist_user_followers_path(current_artist_user)
+    end
   end
 
   private
