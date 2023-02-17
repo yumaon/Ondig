@@ -48,6 +48,11 @@ class Artist::ItemsController < ApplicationController
   # Item編集画面
   def edit
     @item = Item.find(params[:id])
+
+    # 他者のItem編集画面へ遷移させない
+    if @item.artist_user != current_artist_user
+      redirect_to artist_artist_user_items_path(current_artist_user)
+    end
   end
 
   # Item情報更新
