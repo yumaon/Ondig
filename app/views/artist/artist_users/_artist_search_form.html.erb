@@ -14,6 +14,12 @@
       <div class="field">
         <%= f.label :activity_location, "エリアを選択", class: "text-white col-2" %>
         <%= f.select :activity_location, ArtistUser.activity_locations_i18n.invert, selected: @search_params[:activity_location], include_blank: t('helpers.select.全て') %>
+      </div>
+      <div class="field">
+        <%= f.label :display_select, "表示順を選択", class: "text-white col-2" %>
+        <%= select_tag 'display_select', options_for_select([["最新順", "1"],["登録日順", "2"],["フォロワーが多い順", "3"], ["フォロワーが少ない順", "4"]], :selected => params[:display_select]) %>
+      </div>
+      <div class="field">
         <div class="text-center">
           <%= f.submit "検索", class: "btn btn-success btn-green col-5" %>
         </div>
@@ -33,6 +39,12 @@
       <div class="field">
         <%= f.label :activity_location, "エリアを選択", class: "text-white col-2" %>
         <%= f.select :activity_location, ArtistUser.activity_locations_i18n.invert, selected: @search_params[:activity_location], include_blank: t('helpers.select.全て') %>
+      </div>
+      <div class="field">
+        <%= f.label :display_select, "表示順を選択", class: "text-white col-2" %>
+        <%= select_tag 'display_select', options_for_select([["最新順", "1"],["登録日順", "2"],["フォロワーが多い順", "3"], ["フォロワーが少ない順", "4"]], :selected => params[:display_select]) %>
+      </div>
+      <div class="field">
         <div class="text-center">
           <%= f.submit "検索", class: "btn btn-success btn-green col-5" %>
         </div>
