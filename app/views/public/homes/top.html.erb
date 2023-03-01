@@ -3,18 +3,18 @@
     <div class="col-md-12 main-visual-text-box text-center">
       <h1 class="text-white"><strong>お気に入りのArtistを探そう。</strong></h1>
       <h1 class="text-white"><strong>Artist活動を発信しよう。</strong></h1>
+      <!--Artist会員、一般会員、管理者がログインしていない場合に表示-->
+      <% unless artist_user_signed_in? || public_user_signed_in? || admin_signed_in? %>
+        <div class="col-md-12 button-field text-center mt-5">
+          <%= link_to "一般会員登録はこちら",new_public_user_registration_path, class: "btn btn-info top-public-sign-up-button button-font-big px-5 mx-5" %>
+          <%= link_to "Artist会員登録はこちら",new_artist_user_registration_path, class: "btn btn-info top-artist-sign-up-button button-font-big px-5 mx-5" %>
+        </div>
+        <div class="col-md-12 button-field text-center mt-3">
+          <%= link_to "一般 ゲストログイン",public_users_guest_sign_in_path, method: :post, class: "btn btn-sm btn-info top-public-sign-up-button px-5 mx-5" %>
+          <%= link_to "Artist ゲストログイン",artist_users_guest_sign_in_path, method: :post, class: "btn btn-sm btn-info top-artist-sign-up-button px-5 mx-5" %>
+        </div>
+      <% end %>
     </div>
-    <!--Artist会員、一般会員、管理者がログインしていない場合に表示-->
-    <% unless artist_user_signed_in? || public_user_signed_in? || admin_signed_in? %>
-      <div class="col-md-12 button-field text-center">
-        <%= link_to "一般会員登録はこちら",new_public_user_registration_path, class: "btn btn-info top-public-sign-up-button button-font-big px-5 mx-5" %>
-        <%= link_to "Artist会員登録はこちら",new_artist_user_registration_path, class: "btn btn-info top-artist-sign-up-button button-font-big px-5 mx-5" %>
-      </div>
-      <div class="col-md-12 button-field text-center mt-5">
-        <%= link_to "一般 ゲストログイン",public_users_guest_sign_in_path, method: :post, class: "btn btn-sm btn-info top-public-sign-up-button px-5 mx-5" %>
-        <%= link_to "Artist ゲストログイン",artist_users_guest_sign_in_path, method: :post, class: "btn btn-sm btn-info top-artist-sign-up-button px-5 mx-5" %>
-      </div>
-    <% end %>
   </div>
 </div>
 <div class="container">
